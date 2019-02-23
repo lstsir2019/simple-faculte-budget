@@ -6,6 +6,7 @@
 package com.faculte.budgetapi.domain.model.service;
 
 import com.faculte.budgetapi.domain.bean.BudgetCompteBudgitaire;
+import com.faculte.budgetapi.domain.bean.BudgetEntiteAdministratif;
 import java.util.List;
 
 /**
@@ -23,4 +24,5 @@ public interface BudgetCompteBudgitaireService {
     
     public void deleteBudgetEntiteAdministratif (String referenceEntiteAdministratif ,String referenceSousProjet , int annee);
     public void deleteBudgetCompteBudgitaire (BudgetCompteBudgitaire budgetCompteBudgitaire);
+    public int createBudgetCompteBudgitaire (BudgetEntiteAdministratif budgetEntiteAdministratif ,List<BudgetCompteBudgitaire> budgetCompteBudgitaires );
 }

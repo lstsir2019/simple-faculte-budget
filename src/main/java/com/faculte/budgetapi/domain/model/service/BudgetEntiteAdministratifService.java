@@ -6,6 +6,8 @@
 package com.faculte.budgetapi.domain.model.service;
 
 import com.faculte.budgetapi.domain.bean.BudgetEntiteAdministratif;
+import com.faculte.budgetapi.domain.bean.BudgetFaculte;
+import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
 import java.util.List;
 
 /**
@@ -22,4 +24,5 @@ public interface BudgetEntiteAdministratifService {
     public void updateReliquatBea (BudgetEntiteAdministratif budgetEntiteAdministratif);
     public void deleteBudgetSousProjet (String referenceSousProjet , int annee);
     public void deleteBudgetEntiteAdministratif (BudgetEntiteAdministratif budgetEntiteAdministratif);
+    public  int createBudgetEntiteAdministratif ( BudgetSousProjet budgetSousProjet,List<BudgetEntiteAdministratif>  budgetEntiteAdministratifs );
 }

@@ -5,7 +5,6 @@
  */
 package com.faculte.budgetapi.domain.bean;
 
-
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -24,18 +23,34 @@ import javax.persistence.OneToOne;
 @Entity
 public class BudgetCompteBudgitaire implements Serializable {
 
-    
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String codeBcb;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
     @ManyToOne(cascade = {CascadeType.ALL})
     private BudgetEntiteAdministratif budgetEntiteAdministratif;
     @OneToOne(cascade = {CascadeType.ALL})
     private CompteBudgitaire compteBudgitaire;
+
+    public String generateCode() {
+        String gerenerateCode = "";
+        String referenceEA = this.budgetEntiteAdministratif.getReferenceEntiteAdministratif();
+        String referenceSP = this.budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet();
+        String annee = (this.budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee()) + "";
+        gerenerateCode +=annee + referenceSP.substring(0, 3)+referenceEA.substring(0, 3) ;
+        return gerenerateCode;
+    }
+
+    public String getCodeBcb() {
+        return codeBcb;
+    }
+
+    public void setCodeBcb(String codeBcb) {
+        this.codeBcb = codeBcb;
+    }
 
     public CompteBudgitaire getCompteBudgitaire() {
         return compteBudgitaire;
@@ -44,8 +59,7 @@ public class BudgetCompteBudgitaire implements Serializable {
     public void setCompteBudgitaire(CompteBudgitaire compteBudgitaire) {
         this.compteBudgitaire = compteBudgitaire;
     }
-            
-     
+
     public Long getId() {
         return id;
     }
@@ -54,8 +68,6 @@ public class BudgetCompteBudgitaire implements Serializable {
         this.id = id;
     }
 
- 
- 
     public DetaillesBudget getDetaillesBudget() {
         return detaillesBudget;
     }
@@ -96,5 +108,5 @@ public class BudgetCompteBudgitaire implements Serializable {
     public String toString() {
         return "com.faculte.budget.bean.BudgeCompteBudgitaire[ id=" + id + " ]";
     }
-    
+
 }

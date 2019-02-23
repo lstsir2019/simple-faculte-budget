@@ -7,6 +7,7 @@ package com.faculte.budgetapi.domain.model.service.impl;
 
 
 import com.faculte.budgetapi.domain.bean.BudgetFaculte;
+import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
 import com.faculte.budgetapi.domain.model.dao.BudgetFaculteDao;
 import com.faculte.budgetapi.domain.model.service.BudgetFaculteService;
 import com.faculte.budgetapi.domain.model.service.BudgetSousProjetService;
@@ -49,10 +50,10 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
-        BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
-        if (bf != null) {
-            return -1;
-        } else {
+           BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
+            if (bf != null){
+                return -1;
+            }else{
             bf = new BudgetFaculte();
             bf.setDetaillesBudget(budgetFaculte.getDetaillesBudget());
             bf.setAnnee(budgetFaculte.getAnnee());
@@ -62,9 +63,10 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
             bf.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
             bf.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
             bf.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
-            budgetFaculteDao.save(bf);
+           // budgetFaculteDao.save(bf);
+            budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
             return 1;
-        }
+            }
     }
 
     @Override

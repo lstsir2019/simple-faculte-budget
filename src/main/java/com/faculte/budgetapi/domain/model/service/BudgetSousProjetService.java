@@ -5,6 +5,7 @@
  */
 package com.faculte.budgetapi.domain.model.service;
 
+import com.faculte.budgetapi.domain.bean.BudgetFaculte;
 import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface BudgetSousProjetService {
     public void updateReliquatBsp (BudgetSousProjet budgetSousProjet);
     public void deleteBudgetFaculte (int annee);
     public void deleteBudgetSousProjet (BudgetSousProjet budgetSousProjet);
+    public int createBudgetSousProjet (BudgetFaculte budgetFacultet , List<BudgetSousProjet> BudgetSousProjets );
 }

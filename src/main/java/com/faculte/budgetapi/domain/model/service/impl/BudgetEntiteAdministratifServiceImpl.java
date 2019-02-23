@@ -75,16 +75,16 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
 //        int res = 0;
 //        List<BudgetSousProjet> budgetSousProjets = budgetSousProjetService.findByBudgetFaculteAnnee(budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
 //       // List<BudgetEntiteAdministratif> administratifs = findByBudgetSousProjetReferenceSousProjet(budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet());
-//        for (BudgetSousProjet bsp : budgetSousProjets) {
-//            if (bsp.getReferenceSousProjet().equals(budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet())) {
-//                for (BudgetEntiteAdministratif bea : bsp.getBudgetEntiteAdmins()) {
+//        for (BudgetSousProjet bea : budgetSousProjets) {
+//            if (bea.getReferenceSousProjet().equals(budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet())) {
+//                for (BudgetEntiteAdministratif bea : bea.getBudgetEntiteAdmins()) {
 //                    if (bea.getReferenceEntiteAdministratif().equals(budgetEntiteAdministratif.getReferenceEntiteAdministratif())) {
 //                        return -2;
 //                    }
 //                }
-//                bsp.setDetaillesBudget(bsp.getDetaillesBudget());
-//                double restEstimatif = bsp.getDetaillesBudget().getReliquatEstimatif() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif();
-//                double restReel = bsp.getDetaillesBudget().getReliquatReel() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertReel();
+//                bea.setDetaillesBudget(bea.getDetaillesBudget());
+//                double restEstimatif = bea.getDetaillesBudget().getReliquatEstimatif() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif();
+//                double restReel = bea.getDetaillesBudget().getReliquatReel() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertReel();
 //                 if (restEstimatif < 0) {
 //                    res = -4;
 //                } else if (restReel < 0) {
@@ -99,10 +99,10 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
 //                    bea.getDetaillesBudget().setCreditOuvertReel(budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
 //                    bea.getDetaillesBudget().setEngagePaye(budgetEntiteAdministratif.getDetaillesBudget().getEngagePaye());
 //                    bea.getDetaillesBudget().setEngageNonPaye(budgetEntiteAdministratif.getDetaillesBudget().getEngageNonPaye());
-//                    bea.setBudgetSousProjet(bsp);
-//                    bsp.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
-//                    bsp.getDetaillesBudget().setReliquatReel(restReel);
-//                    budgetSousProjetService.updateReliquatBsp(bsp);
+//                    bea.setBudgetSousProjet(bea);
+//                    bea.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
+//                    bea.getDetaillesBudget().setReliquatReel(restReel);
+//                    budgetSousProjetService.updateReliquatBsp(bea);
 //                    budgetEntiteAdministratifDao.save(bea);
 //                    res = 1;
 //                }
@@ -139,14 +139,14 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
         BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
         if (bf == null) {
             return -1;
-        } else if (bsp == null) {
+        } else if (bea == null) {
             return -2;
         } else if (bea != null) {
             return -3;
         }else {
-                     bsp.setDetaillesBudget(bsp.getDetaillesBudget());
-                double restEstimatif = bsp.getDetaillesBudget().getReliquatEstimatif() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif();
-                double restReel = bsp.getDetaillesBudget().getReliquatReel() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertReel();
+                     bea.setDetaillesBudget(bea.getDetaillesBudget());
+                double restEstimatif = bea.getDetaillesBudget().getReliquatEstimatif() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif();
+                double restReel = bea.getDetaillesBudget().getReliquatReel() - budgetEntiteAdministratif.getDetaillesBudget().getCreditOuvertReel();
                  if (restEstimatif < 0) {
                     return -4;
                 } else if (restReel < 0) {
@@ -162,8 +162,8 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
                     bea.getDetaillesBudget().setEngagePaye(budgetEntiteAdministratif.getDetaillesBudget().getEngagePaye());
                     bea.getDetaillesBudget().setEngageNonPaye(budgetEntiteAdministratif.getDetaillesBudget().getEngageNonPaye());
                     bea.setBudgetSousProjet(bsp);
-                    bsp.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
-                    bsp.getDetaillesBudget().setReliquatReel(restReel);
+                    bea.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
+                    bea.getDetaillesBudget().setReliquatReel(restReel);
                     budgetSousProjetService.updateReliquatBsp(bsp);
                     budgetEntiteAdministratifDao.save(bea);
                      return 1;
@@ -171,4 +171,42 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
             }
         }
 
+    @Override
+    public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetEntiteAdministratif> budgetEntiteAdministratifs) {
+      int res = 0;
+     
+        for (int j = 0; j < budgetSousProjet.getBudgetEntiteAdmins().size(); j++) {
+            BudgetEntiteAdministratif bea =budgetSousProjet.getBudgetEntiteAdmins().get(j);
+           if (budgetEntiteAdministratifs == null || budgetEntiteAdministratifs.isEmpty()) {
+                  break;
+                } else {
+                  budgetSousProjet.setDetaillesBudget(budgetSousProjet.getDetaillesBudget());
+                  double restEstimatif = budgetSousProjet.getDetaillesBudget().getReliquatEstimatif() - bea.getDetaillesBudget().getCreditOuvertEstimatif();
+                  double restReel = budgetSousProjet.getDetaillesBudget().getReliquatReel() - bea.getDetaillesBudget().getCreditOuvertReel();
+                  if (restEstimatif < 0 || restReel <0) {
+                      break;
+            } else {
+                bea.setDetaillesBudget(bea.getDetaillesBudget());
+                bea.setReferenceEntiteAdministratif(bea.getReferenceEntiteAdministratif());
+                bea.getDetaillesBudget().setReliquatEstimatif(bea.getDetaillesBudget().getCreditOuvertEstimatif());
+                bea.getDetaillesBudget().setCreditOuvertEstimatif(bea.getDetaillesBudget().getCreditOuvertEstimatif());
+                bea.getDetaillesBudget().setReliquatReel(bea.getDetaillesBudget().getCreditOuvertReel());
+                bea.getDetaillesBudget().setCreditOuvertReel(bea.getDetaillesBudget().getCreditOuvertReel());
+                bea.getDetaillesBudget().setEngagePaye(bea.getDetaillesBudget().getEngagePaye());
+                bea.getDetaillesBudget().setEngageNonPaye(bea.getDetaillesBudget().getEngageNonPaye());
+                bea.setBudgetSousProjet(budgetSousProjet);
+                budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
+                budgetSousProjet.getDetaillesBudget().setReliquatReel(restReel);
+                budgetSousProjetService.updateReliquatBsp(budgetSousProjet);
+                budgetEntiteAdministratifDao.save(bea);
+                budgetCompteBudgitaireService.createBudgetCompteBudgitaire(bea, bea.getBudgeCompteBudgitaires());
+                
+                res = 2;
+            }
+        }
+        }
+
+        
+        return res;
+    }
     }

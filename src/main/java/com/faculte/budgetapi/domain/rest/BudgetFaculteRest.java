@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ *@CrossOrigin(origins = "http://localhost:4200")
+
  * @author AMINE
  */
 @RequestMapping("/budget_api/budget_api_facultes")

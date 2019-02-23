@@ -46,16 +46,16 @@ public class DetaillesBudgetConverter extends AbstractConverter<DetaillesBudget,
         } else {
             DetaillesBudgetVo vo = new DetaillesBudgetVo();
             vo.setId(item.getId());
-            vo.setAntecedent(Double.toString(item.getAntecedent()));
-            vo.setCreditOuvertEstimatif(Double.toString(item.getCreditOuvertEstimatif()));
-            vo.setCreditOuvertReel(Double.toString(item.getCreditOuvertReel()));
-            vo.setEngageNonPaye(Double.toString(item.getEngageNonPaye()));
-            vo.setReliquatEstimatif(Double.toString(item.getReliquatEstimatif()));
-            vo.setReliquatNonPayReel(Double.toString(item.getReliquatNonPayReel()));
-            vo.setReliquatNonPayeEstimatif(Double.toString(item.getReliquatNonPayeEstimatif()));
-            vo.setReliquatPayeEstimatif(Double.toString(item.getReliquatPayeEstimatif()));
-            vo.setReliquatPayereel(Double.toString(item.getReliquatPayereel()));
-            vo.setReliquatReel(Double.toString(item.getReliquatReel()));
+            vo.setAntecedent(NumberUtil.toString(item.getAntecedent()));
+            vo.setCreditOuvertEstimatif(NumberUtil.toString(item.getCreditOuvertEstimatif()));
+            vo.setCreditOuvertReel(NumberUtil.toString(item.getCreditOuvertReel()));
+            vo.setEngageNonPaye(NumberUtil.toString(item.getEngageNonPaye()));
+            vo.setReliquatEstimatif(NumberUtil.toString(item.getReliquatEstimatif()));
+            vo.setReliquatNonPayReel(NumberUtil.toString(item.getReliquatNonPayReel()));
+            vo.setReliquatNonPayeEstimatif(NumberUtil.toString(item.getReliquatNonPayeEstimatif()));
+            vo.setReliquatPayeEstimatif(NumberUtil.toString(item.getReliquatPayeEstimatif()));
+            vo.setReliquatPayereel(NumberUtil.toString(item.getReliquatPayereel()));
+            vo.setReliquatReel(NumberUtil.toString(item.getReliquatReel()));
             return vo;
         }
 

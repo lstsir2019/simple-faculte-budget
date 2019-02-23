@@ -5,12 +5,9 @@
  */
 package com.faculte.budgetapi.domain.rest.vo;
 
-import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
-import com.faculte.budgetapi.domain.bean.DetaillesBudget;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+
 
 /**
  *

@@ -5,16 +5,8 @@
  */
 package com.faculte.budgetapi.domain.rest.vo;
 
-import com.faculte.budgetapi.domain.bean.BudgetCompteBudgitaire;
-import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
-import com.faculte.budgetapi.domain.bean.DetaillesBudget;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
 
 /**
  *

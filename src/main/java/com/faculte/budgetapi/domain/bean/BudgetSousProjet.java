@@ -24,7 +24,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class BudgetSousProjet implements Serializable {
 
-    @OneToMany(mappedBy = "budgetSousProjet")
+    @OneToMany(mappedBy = "budgetSousProjet" , cascade = {CascadeType.ALL})
     private List<BudgetEntiteAdministratif> budgetEntiteAdmins;
 
     private static final long serialVersionUID = 1L;
