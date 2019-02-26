@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 public class BudgetSousProjetRest {
+
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
 
@@ -40,28 +41,27 @@ public class BudgetSousProjetRest {
         this.budgetSousProjetService = budgetSousProjetService;
     }
 
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee (@PathVariable String referenceSousProjet , @PathVariable int annee) {
-        return budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee (referenceSousProjet ,  annee);
+    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(@PathVariable String referenceSousProjet, @PathVariable int annee) {
+        return budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
     }
-     @GetMapping("/annee/{annee}")
+
+    @GetMapping("/annee/{annee}")
     public List<BudgetSousProjet> findByBudgetFaculteAnnee(@PathVariable int annee) {
         return budgetSousProjetService.findByBudgetFaculteAnnee(annee);
     }
+
     @PostMapping("/")
-    public int creerBudgetSousProjet( @RequestBody BudgetSousProjetVo budgeSousProjetVo) {
+    public int creerBudgetSousProjet(@RequestBody BudgetSousProjetVo budgeSousProjetVo) {
         BudgetSousProjetConverter budgetSousProjetConverter = new BudgetSousProjetConverter();
         BudgetSousProjet budgetSousProjet = budgetSousProjetConverter.toItem(budgeSousProjetVo);
         budgetSousProjetConverter.toVo(budgetSousProjet);
         return budgetSousProjetService.creerBudgetSousProjet(budgetSousProjet);
     }
+
     @DeleteMapping("/annee/{annee}")
 
     public void deleteBudgetFaculte(@PathVariable int annee) {
         budgetSousProjetService.deleteBudgetFaculte(annee);
     }
- 
-    
-    
-    
-    
+
 }

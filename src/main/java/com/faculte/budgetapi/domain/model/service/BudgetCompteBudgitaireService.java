@@ -15,14 +15,19 @@ import java.util.List;
  */
 public interface BudgetCompteBudgitaireService {
 
-    public List<BudgetCompteBudgitaire>  findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee (String referenceEntiteAdministratif ,String referenceSousProjet , int annee);
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
     public BudgetCompteBudgitaire findByCompteBudgitaireCode(String code);
 
     public int creerBudgetCompteBudgitaire(BudgetCompteBudgitaire budgetCompteBudgitaire);
 
-    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String code, String referenceEntiteAdministratif ,String referenceSousProjet , int annee );
-    
-    public void deleteBudgetEntiteAdministratif (String referenceEntiteAdministratif ,String referenceSousProjet , int annee);
-    public void deleteBudgetCompteBudgitaire (BudgetCompteBudgitaire budgetCompteBudgitaire);
-    public int createBudgetCompteBudgitaire (BudgetEntiteAdministratif budgetEntiteAdministratif ,List<BudgetCompteBudgitaire> budgetCompteBudgitaires );
+    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
+    public void deleteBudgetEntiteAdministratif(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
+    public void deleteBudgetCompteBudgitaire(BudgetCompteBudgitaire budgetCompteBudgitaire);
+
+    public int createBudgetCompteBudgitaire(BudgetEntiteAdministratif budgetEntiteAdministratif, List<BudgetCompteBudgitaire> budgetCompteBudgitaires);
+
+    public int payerBCB(String code);
 }

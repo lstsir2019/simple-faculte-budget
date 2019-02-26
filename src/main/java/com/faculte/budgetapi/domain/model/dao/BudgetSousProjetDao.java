@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
  * @author AMINE
  */
 @Repository
-public interface BudgetSousProjetDao extends JpaRepository<BudgetSousProjet, Long>{
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee (String referenceSousProjet , int annee);
+public interface BudgetSousProjetDao extends JpaRepository<BudgetSousProjet, Long> {
+
+    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee);
+
     public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee);
 }

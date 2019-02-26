@@ -148,6 +148,35 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
 //    }
 
     @Override
+    public int payerBCB(String code) {
+        BudgetCompteBudgitaire bcb = findByCompteBudgitaireCode(code);
+        if (bcb == null) {
+            return -1;
+        } else if (bcb.getDetaillesBudget().getEngageNonPaye() == 0) {
+            return -2;
+        } else {
+            double nvpaye = bcb.getDetaillesBudget().getEngageNonPaye();
+            double nvnonpaye = bcb.getDetaillesBudget().getEngagePaye();
+
+            double nvRelPayEst = bcb.getDetaillesBudget().getCreditOuvertEstimatif() - nvpaye;
+            double nvRelPayRel = bcb.getDetaillesBudget().getCreditOuvertReel() - nvpaye;
+            double nvRelNPyEst = bcb.getDetaillesBudget().getCreditOuvertEstimatif() - nvnonpaye;
+            double nvRelNPyRel = bcb.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
+
+            bcb.getDetaillesBudget().setEngagePaye(nvpaye);
+            bcb.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
+            bcb.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
+            bcb.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
+            bcb.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
+            bcb.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
+
+            budgetCompteBudgitaireDao.save(bcb);
+            budgetEntiteAdministratifService.payerBudgetEA(bcb.getBudgetEntiteAdministratif(), nvpaye);
+            return 1;
+        }
+    }
+
+    @Override
     public int creerBudgetCompteBudgitaire(BudgetCompteBudgitaire budgetCompteBudgitaire) {
         BudgetFaculte bf = budgetFaculteService.findByAnnee(budgetCompteBudgitaire.getBudgetEntiteAdministratif().getBudgetSousProjet().getBudgetFaculte().getAnnee());
         BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(budgetCompteBudgitaire.getBudgetEntiteAdministratif().getBudgetSousProjet().getReferenceSousProjet(), budgetCompteBudgitaire.getBudgetEntiteAdministratif().getBudgetSousProjet().getBudgetFaculte().getAnnee());

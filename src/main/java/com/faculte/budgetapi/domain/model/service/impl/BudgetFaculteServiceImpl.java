@@ -5,7 +5,6 @@
  */
 package com.faculte.budgetapi.domain.model.service.impl;
 
-
 import com.faculte.budgetapi.domain.bean.BudgetFaculte;
 import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
 import com.faculte.budgetapi.domain.model.dao.BudgetFaculteDao;
@@ -47,13 +46,39 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         return budgetFaculteDao.findByAnnee(annee);
     }
 
+    @Override
+    public int payerBudgetFaculte(int annee, double prix) {
+        BudgetFaculte bf = findByAnnee(annee);
+        if (bf == null) {
+            return -1;
+        } else {
+            double nvnonpaye = bf.getDetaillesBudget().getEngageNonPaye() - prix;
+            double nvpaye = bf.getDetaillesBudget().getEngagePaye() + prix;
+
+            double nvRelPayEst = bf.getDetaillesBudget().getCreditOuvertEstimatif() - nvpaye;
+            double nvRelPayRel = bf.getDetaillesBudget().getCreditOuvertReel() - nvpaye;
+            double nvRelNPyEst = bf.getDetaillesBudget().getCreditOuvertEstimatif() - nvnonpaye;
+            double nvRelNPyRel = bf.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
+
+            bf.getDetaillesBudget().setEngagePaye(nvpaye);
+            bf.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
+            bf.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
+            bf.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
+            bf.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
+            bf.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
+
+            budgetFaculteDao.save(bf);
+
+            return 1;
+        }
+    }
 
     @Override
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
-           BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
-            if (bf != null){
-                return -1;
-            }else{
+        BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
+        if (bf != null) {
+            return -1;
+        } else {
             bf = new BudgetFaculte();
             bf.setDetaillesBudget(budgetFaculte.getDetaillesBudget());
             bf.setAnnee(budgetFaculte.getAnnee());
@@ -63,10 +88,10 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
             bf.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
             bf.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
             bf.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
-           // budgetFaculteDao.save(bf);
+            // budgetFaculteDao.save(bf);
             budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
             return 1;
-            }
+        }
     }
 
     @Override

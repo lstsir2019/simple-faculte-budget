@@ -7,15 +7,21 @@ package com.faculte.budgetapi.domain.model.service;
 
 import com.faculte.budgetapi.domain.bean.BudgetFaculte;
 
-
 /**
  *
  * @author AMINE
  */
 public interface BudgetFaculteService {
-        public BudgetFaculte findByAnnee(int annee);
-        public int  creerBudgetFaculte (BudgetFaculte budgetFaculte);
-        public void updateReliquatBf (BudgetFaculte budgetFaculte);
-        public BudgetFaculte findById(Long id);
-      public void deleteBudgetFaculte(BudgetFaculte budgetFaculte);
+
+    public BudgetFaculte findByAnnee(int annee);
+
+    public int creerBudgetFaculte(BudgetFaculte budgetFaculte);
+
+    public void updateReliquatBf(BudgetFaculte budgetFaculte);
+
+    public BudgetFaculte findById(Long id);
+
+    public void deleteBudgetFaculte(BudgetFaculte budgetFaculte);
+
+    public int payerBudgetFaculte(int annee, double prix);
 }

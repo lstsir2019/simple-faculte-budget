@@ -15,14 +15,19 @@ import java.util.List;
  */
 public interface BudgetSousProjetService {
 
- 
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee (String referenceSousProjet , int annee);
+    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
     public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee);
 
     public int creerBudgetSousProjet(BudgetSousProjet budgetSousProjet);
-    public void updateReliquatBsp (BudgetSousProjet budgetSousProjet);
-    public void deleteBudgetFaculte (int annee);
-    public void deleteBudgetSousProjet (BudgetSousProjet budgetSousProjet);
-    public int createBudgetSousProjet (BudgetFaculte budgetFacultet , List<BudgetSousProjet> BudgetSousProjets );
+
+    public void updateReliquatBsp(BudgetSousProjet budgetSousProjet);
+
+    public void deleteBudgetFaculte(int annee);
+
+    public void deleteBudgetSousProjet(BudgetSousProjet budgetSousProjet);
+
+    public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> BudgetSousProjets);
+
+    public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix);
 }

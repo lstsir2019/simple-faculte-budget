@@ -5,7 +5,6 @@
  */
 package com.faculte.budgetapi.domain.model.service.impl;
 
-
 import com.faculte.budgetapi.domain.bean.BudgetCompteBudgitaire;
 import com.faculte.budgetapi.domain.bean.CompteBudgitaire;
 import com.faculte.budgetapi.domain.model.dao.CompteBudgitaireDao;
@@ -26,7 +25,7 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
     @Autowired
     private CompteBudgitaireDao compteBudgitaireDao;
     @Autowired
-    BudgetCompteBudgitaireService budgetCompteBudgitaireService ;
+    BudgetCompteBudgitaireService budgetCompteBudgitaireService;
 
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
         return budgetCompteBudgitaireService;
@@ -35,7 +34,7 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
     public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
         this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
     }
-    
+
     public void setCompteBudgitaireService(CompteBudgitaireService compteBudgitaireService) {
         this.compteBudgitaireService = compteBudgitaireService;
     }
@@ -59,9 +58,20 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
     @Override
     public void deleteBudgetCompteBudgitaire(String code) {
         CompteBudgitaire compteBudgitaire = findByCode(code);
-         BudgetCompteBudgitaire budgetCompteBudgitaire = budgetCompteBudgitaireService.findByCompteBudgitaireCode(code);
-         budgetCompteBudgitaireService.deleteBudgetCompteBudgitaire(budgetCompteBudgitaire);
-         compteBudgitaireDao.delete(compteBudgitaire);
+        BudgetCompteBudgitaire budgetCompteBudgitaire = budgetCompteBudgitaireService.findByCompteBudgitaireCode(code);
+        budgetCompteBudgitaireService.deleteBudgetCompteBudgitaire(budgetCompteBudgitaire);
+        compteBudgitaireDao.delete(compteBudgitaire);
+    }
+
+    @Override
+    public int payerCB(String code) {
+        CompteBudgitaire cb = findByCode(code);
+        if (cb == null) {
+            return -1;
+        } else {
+            budgetCompteBudgitaireService.payerBCB(code);
+            return 1;
+        }
     }
 
 }

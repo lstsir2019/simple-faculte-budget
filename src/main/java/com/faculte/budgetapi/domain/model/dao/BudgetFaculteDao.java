@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author AMINE
  */
 @Repository
-public interface BudgetFaculteDao extends JpaRepository<BudgetFaculte, Long>{
+public interface BudgetFaculteDao extends JpaRepository<BudgetFaculte, Long> {
+
     public BudgetFaculte findByAnnee(int annee);
-    
+
 }
