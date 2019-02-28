@@ -7,7 +7,6 @@ package com.faculte.budgetapi.domain.rest.vo;
 
 import java.util.List;
 
-
 /**
  *
  * @author AMINE
@@ -60,5 +59,4 @@ public class BudgetEntiteAdministratifVo {
         this.budgetCompteBudgitaireVo = budgetCompteBudgitaireVo;
     }
 
-    
 }

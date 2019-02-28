@@ -38,12 +38,10 @@ public class BudgetEntiteAdministratifConverter extends AbstractConverter<Budget
             return null;
         } else {
             BudgetEntiteAdministratifVo vo = new BudgetEntiteAdministratifVo();
-            vo.setId(vo.getId());
-            vo.setReferenceEntiteAdministratif(vo.getReferenceEntiteAdministratif());
-            vo.setBudgetCompteBudgitaireVo(new BudgetCompteBudgitaireConverter().toVo(item.getBudgeCompteBudgitaires()));
+            vo.setId(item.getId());
+            vo.setReferenceEntiteAdministratif(item.getReferenceEntiteAdministratif());
             vo.setDetaillesBudgetVo(new DetaillesBudgetConverter().toVo(item.getDetaillesBudget()));
             vo.setBudgetSousProjetVo(new BudgetSousProjetConverter().toVo(item.getBudgetSousProjet()));
-
             return vo;
         }
     }

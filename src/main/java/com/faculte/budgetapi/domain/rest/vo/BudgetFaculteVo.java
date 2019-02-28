@@ -7,13 +7,12 @@ package com.faculte.budgetapi.domain.rest.vo;
 
 import java.util.List;
 
-
-
 /**
  *
  * @author AMINE
  */
 public class BudgetFaculteVo {
+
     private Long id;
     private List<BudgetSousProjetVo> budgetSousProjetVo;
     private String annee;
@@ -43,7 +42,6 @@ public class BudgetFaculteVo {
         this.annee = annee;
     }
 
-
     public DetaillesBudgetVo getDetaillesBudgetVo() {
         return detaillesBudgetVo;
     }
@@ -51,5 +49,5 @@ public class BudgetFaculteVo {
     public void setDetaillesBudgetVo(DetaillesBudgetVo detaillesBudgetVo) {
         this.detaillesBudgetVo = detaillesBudgetVo;
     }
-    
+
 }

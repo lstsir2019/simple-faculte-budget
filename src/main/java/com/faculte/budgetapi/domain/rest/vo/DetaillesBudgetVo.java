@@ -10,7 +10,8 @@ package com.faculte.budgetapi.domain.rest.vo;
  * @author AMINE
  */
 public class DetaillesBudgetVo {
-     private Long id;
+
+    private Long id;
     private String antecedent;
     private String creditOuvertEstimatif;
     private String creditOuvertReel;
@@ -118,6 +119,5 @@ public class DetaillesBudgetVo {
     public void setReliquatNonPayReel(String reliquatNonPayReel) {
         this.reliquatNonPayReel = reliquatNonPayReel;
     }
-    
-    
+
 }

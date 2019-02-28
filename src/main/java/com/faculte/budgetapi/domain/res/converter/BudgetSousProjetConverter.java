@@ -27,7 +27,7 @@ public class BudgetSousProjetConverter extends AbstractConverter<BudgetSousProje
             item.setReferenceSousProjet(vo.getReferenceSousProjet());
             item.setBudgetEntiteAdmins(new BudgetEntiteAdministratifConverter().toItem(vo.getBudgetEntiteAdministratifVo()));
             item.setDetaillesBudget(new DetaillesBudgetConverter().toItem(vo.getDetaillesBudgetVo()));
-         item.setBudgetFaculte(new BudgetFaculteConverter().toItem(vo.getBudgetFaculteVo()));
+            item.setBudgetFaculte(new BudgetFaculteConverter().toItem(vo.getBudgetFaculteVo()));
             return item;
         }
     }
@@ -40,11 +40,8 @@ public class BudgetSousProjetConverter extends AbstractConverter<BudgetSousProje
             BudgetSousProjetVo vo = new BudgetSousProjetVo();
             vo.setId(item.getId());
             vo.setReferenceSousProjet(item.getReferenceSousProjet());
-            vo.setBudgetEntiteAdministratifVo(new BudgetEntiteAdministratifConverter().toVo(item.getBudgetEntiteAdmins()));
             vo.setDetaillesBudgetVo(new DetaillesBudgetConverter().toVo(item.getDetaillesBudget()));
             vo.setBudgetFaculteVo(new BudgetFaculteConverter().toVo(item.getBudgetFaculte()));
-
-
             return vo;
         }
     }

@@ -7,10 +7,12 @@ package com.faculte.budgetapi.domain.rest;
 
 import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
 import com.faculte.budgetapi.domain.model.service.BudgetSousProjetService;
+import com.faculte.budgetapi.domain.res.converter.AbstractConverter;
 import com.faculte.budgetapi.domain.res.converter.BudgetSousProjetConverter;
 import com.faculte.budgetapi.domain.rest.vo.BudgetSousProjetVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,10 @@ public class BudgetSousProjetRest {
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
 
+    @Autowired
+    @Qualifier("budgetSousProjetConverter")
+    private AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> budgetSousProjetConverter;
+
     public BudgetSousProjetService getBudgetSousProjetService() {
         return budgetSousProjetService;
     }
@@ -41,19 +47,28 @@ public class BudgetSousProjetRest {
         this.budgetSousProjetService = budgetSousProjetService;
     }
 
+    public AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> getBudgetSousProjetConverter() {
+        return budgetSousProjetConverter;
+    }
+
+    public void setBudgetSousProjetConverter(AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> budgetSousProjetConverter) {
+        this.budgetSousProjetConverter = budgetSousProjetConverter;
+    }
+
     @GetMapping("/reference/{reference}/annee/{annee}")
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
-        return budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+    public BudgetSousProjetVo findByReferenceSousProjetAndBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
+        BudgetSousProjet myBsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+        return budgetSousProjetConverter.toVo(myBsp);
     }
 
     @GetMapping("/annee/{annee}")
-    public List<BudgetSousProjet> findByBudgetFaculteAnnee(@PathVariable int annee) {
-        return budgetSousProjetService.findByBudgetFaculteAnnee(annee);
+    public List<BudgetSousProjetVo> findByBudgetFaculteAnnee(@PathVariable int annee) {
+        List<BudgetSousProjet> bsps = budgetSousProjetService.findByBudgetFaculteAnnee(annee);
+        return budgetSousProjetConverter.toVo(bsps);
     }
 
     @PostMapping("/")
     public int creerBudgetSousProjet(@RequestBody BudgetSousProjetVo budgeSousProjetVo) {
-        BudgetSousProjetConverter budgetSousProjetConverter = new BudgetSousProjetConverter();
         BudgetSousProjet budgetSousProjet = budgetSousProjetConverter.toItem(budgeSousProjetVo);
         budgetSousProjetConverter.toVo(budgetSousProjet);
         return budgetSousProjetService.creerBudgetSousProjet(budgetSousProjet);

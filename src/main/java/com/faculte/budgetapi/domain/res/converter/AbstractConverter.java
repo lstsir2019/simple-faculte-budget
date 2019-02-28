@@ -12,12 +12,14 @@ import java.util.List;
  *
  * @author AMINE
  */
-public abstract class  AbstractConverter <T,VO> {
+public abstract class AbstractConverter<T, VO> {
+
     public abstract T toItem(VO vo);
-    public abstract VO toVo (T item);
-    
-    public List<T> toItem (List<VO> vos){
-            if (vos == null || vos.isEmpty()) {
+
+    public abstract VO toVo(T item);
+
+    public List<T> toItem(List<VO> vos) {
+        if (vos == null || vos.isEmpty()) {
             return null;
         } else {
             List<T> items = new ArrayList();
@@ -25,11 +27,12 @@ public abstract class  AbstractConverter <T,VO> {
                 items.add(toItem(vo));
             }
             return items;
-        
+
+        }
     }
-    }
-      public List<VO> toVo(List<T> items){
-            if (items == null || items.isEmpty()) {
+
+    public List<VO> toVo(List<T> items) {
+        if (items == null || items.isEmpty()) {
             return null;
         } else {
             List<VO> vos = new ArrayList();
@@ -39,8 +42,5 @@ public abstract class  AbstractConverter <T,VO> {
             return vos;
         }
     }
-          
-    
-}
-    
 
+}

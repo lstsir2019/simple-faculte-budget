@@ -29,6 +29,7 @@ public class DetaillesBudgetConverter extends AbstractConverter<DetaillesBudget,
             item.setCreditOuvertEstimatif(NumberUtil.toDouble(vo.getCreditOuvertEstimatif()));
             item.setCreditOuvertReel(NumberUtil.toDouble(vo.getCreditOuvertReel()));
             item.setEngageNonPaye(NumberUtil.toDouble(vo.getEngageNonPaye()));
+            item.setEngagePaye(NumberUtil.toDouble(vo.getEngagePaye()));
             item.setReliquatEstimatif(NumberUtil.toDouble(vo.getReliquatEstimatif()));
             item.setReliquatNonPayReel(NumberUtil.toDouble(vo.getReliquatNonPayReel()));
             item.setReliquatNonPayeEstimatif(NumberUtil.toDouble(vo.getReliquatNonPayeEstimatif()));
@@ -50,6 +51,7 @@ public class DetaillesBudgetConverter extends AbstractConverter<DetaillesBudget,
             vo.setCreditOuvertEstimatif(NumberUtil.toString(item.getCreditOuvertEstimatif()));
             vo.setCreditOuvertReel(NumberUtil.toString(item.getCreditOuvertReel()));
             vo.setEngageNonPaye(NumberUtil.toString(item.getEngageNonPaye()));
+            vo.setEngagePaye(NumberUtil.toString(item.getEngagePaye()));
             vo.setReliquatEstimatif(NumberUtil.toString(item.getReliquatEstimatif()));
             vo.setReliquatNonPayReel(NumberUtil.toString(item.getReliquatNonPayReel()));
             vo.setReliquatNonPayeEstimatif(NumberUtil.toString(item.getReliquatNonPayeEstimatif()));

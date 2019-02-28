@@ -40,7 +40,6 @@ public class BudgetCompteBudgitaireConverter extends AbstractConverter<BudgetCom
             vo.setCompteBudgitaireVo(new CompteBudgitaireConverter().toVo(item.getCompteBudgitaire()));
             vo.setDetaillesBudgetVo(new DetaillesBudgetConverter().toVo(item.getDetaillesBudget()));
             vo.setBudgetEntiteAdministratifVo(new BudgetEntiteAdministratifConverter().toVo(item.getBudgetEntiteAdministratif()));
-
             return vo;
         }
     }

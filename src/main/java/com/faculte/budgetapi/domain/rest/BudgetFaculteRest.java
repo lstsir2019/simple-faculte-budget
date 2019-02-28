@@ -41,8 +41,9 @@ public class BudgetFaculteRest {
     }
 
     @GetMapping("/annee/{annee}")
-    public BudgetFaculte findByAnnee(@PathVariable int annee) {
-        return budgetFaculteService.findByAnnee(annee);
+    public BudgetFaculteVo findByAnnee(@PathVariable int annee) {
+        BudgetFaculte myBf=budgetFaculteService.findByAnnee(annee);
+        return new BudgetFaculteConverter().toVo(myBf);
     }
 
     @PostMapping("/")

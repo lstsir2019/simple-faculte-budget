@@ -7,8 +7,6 @@ package com.faculte.budgetapi.domain.rest.vo;
 
 import java.util.List;
 
-
-
 /**
  *
  * @author AMINE
@@ -60,5 +58,5 @@ public class BudgetSousProjetVo {
     public void setReferenceSousProjet(String referenceSousProjet) {
         this.referenceSousProjet = referenceSousProjet;
     }
-    
+
 }

@@ -5,14 +5,13 @@
  */
 package com.faculte.budgetapi.domain.rest.vo;
 
-
-
 /**
  *
  * @author AMINE
  */
 public class BudgetCompteBudgitaireVo {
-     private Long id;
+
+    private Long id;
     private DetaillesBudgetVo detaillesBudgetVo;
     private BudgetEntiteAdministratifVo budgetEntiteAdministratifVo;
     private CompteBudgitaireVo compteBudgitaireVo;
@@ -48,6 +47,5 @@ public class BudgetCompteBudgitaireVo {
     public void setCompteBudgitaireVo(CompteBudgitaireVo compteBudgitaireVo) {
         this.compteBudgitaireVo = compteBudgitaireVo;
     }
-    
-    
+
 }

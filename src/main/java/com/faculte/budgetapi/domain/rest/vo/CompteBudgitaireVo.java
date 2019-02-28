@@ -10,7 +10,8 @@ package com.faculte.budgetapi.domain.rest.vo;
  * @author AMINE
  */
 public class CompteBudgitaireVo {
-     private Long id;
+
+    private Long id;
     private String code;
     private String libelle;
 
@@ -37,5 +38,5 @@ public class CompteBudgitaireVo {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
-    
+
 }

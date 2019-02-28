@@ -7,10 +7,12 @@ package com.faculte.budgetapi.domain.rest;
 
 import com.faculte.budgetapi.domain.bean.BudgetCompteBudgitaire;
 import com.faculte.budgetapi.domain.model.service.BudgetCompteBudgitaireService;
+import com.faculte.budgetapi.domain.res.converter.AbstractConverter;
 import com.faculte.budgetapi.domain.res.converter.BudgetCompteBudgitaireConverter;
 import com.faculte.budgetapi.domain.rest.vo.BudgetCompteBudgitaireVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,14 +34,18 @@ public class BudgetCompteBudgitaireRest {
     @Autowired
     private BudgetCompteBudgitaireService budgetCompteBudgitaireService;
 
+    @Autowired
+    @Qualifier("budgetCompteBudgitaireConverter")
+    private AbstractConverter<BudgetCompteBudgitaire, BudgetCompteBudgitaireVo> budgetCompteBudgitaireConverter;
+
     @GetMapping("/refEntite/{referenceEntiteAdministratif}/refsousProjet/{referenceSousProjet}/annee/{annee}")
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
-        return budgetCompteBudgitaireService.findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+    public List<BudgetCompteBudgitaireVo> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
+        List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+        return budgetCompteBudgitaireConverter.toVo(bcbs);
     }
 
     @PostMapping("/")
     public int creerBudgetCompteBudgitaire(@RequestBody BudgetCompteBudgitaireVo budgetCompteBudgitaireVo) {
-        BudgetCompteBudgitaireConverter budgetCompteBudgitaireConverter = new BudgetCompteBudgitaireConverter();
         BudgetCompteBudgitaire budgetCompteBudgitaire = budgetCompteBudgitaireConverter.toItem(budgetCompteBudgitaireVo);
         budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaire);
         return budgetCompteBudgitaireService.creerBudgetCompteBudgitaire(budgetCompteBudgitaire);
@@ -59,13 +65,15 @@ public class BudgetCompteBudgitaireRest {
     }
 
     @GetMapping("/annee/{annee}")
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
-        return budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(annee);
+    public List<BudgetCompteBudgitaireVo> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
+        List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(annee);
+        return budgetCompteBudgitaireConverter.toVo(bcbs);
     }
 
     @GetMapping("/reference/{reference}/annee/{annee}")
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
-        return budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+    public List<BudgetCompteBudgitaireVo> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
+        List<BudgetCompteBudgitaire> myBcbs = budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+        return budgetCompteBudgitaireConverter.toVo(myBcbs);
     }
 
 }
