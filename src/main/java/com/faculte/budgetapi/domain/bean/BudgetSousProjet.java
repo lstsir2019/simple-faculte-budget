@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,22 +25,17 @@ import javax.persistence.OneToMany;
 @Entity
 public class BudgetSousProjet implements Serializable {
 
-    @OneToMany(mappedBy = "budgetSousProjet" , cascade = {CascadeType.ALL})
-    private List<BudgetEntiteAdministratif> budgetEntiteAdmins;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+    private String referenceSousProjet;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
     @ManyToOne(cascade = {CascadeType.ALL})
     private BudgetFaculte budgetFaculte;
-
- 
-    private String referenceSousProjet;
-
+    @OneToMany(mappedBy = "budgetSousProjet", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<BudgetEntiteAdministratif> budgetEntiteAdmins;
 
     @JsonIgnore
     public List<BudgetEntiteAdministratif> getBudgetEntiteAdmins() {

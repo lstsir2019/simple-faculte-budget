@@ -6,7 +6,6 @@
 package com.faculte.budgetapi.domain.model.service;
 
 import com.faculte.budgetapi.domain.bean.BudgetEntiteAdministratif;
-import com.faculte.budgetapi.domain.bean.BudgetFaculte;
 import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
 import java.util.List;
 
@@ -32,4 +31,6 @@ public interface BudgetEntiteAdministratifService {
     public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetEntiteAdministratif> budgetEntiteAdministratifs);
 
     public int payerBudgetEA(BudgetEntiteAdministratif budgetEntiteAdministratif, double montant);
+
+    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
 }

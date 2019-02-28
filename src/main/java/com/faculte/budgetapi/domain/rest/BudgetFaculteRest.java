@@ -5,7 +5,6 @@
  */
 package com.faculte.budgetapi.domain.rest;
 
-
 import com.faculte.budgetapi.domain.bean.BudgetFaculte;
 import com.faculte.budgetapi.domain.model.service.BudgetFaculteService;
 import com.faculte.budgetapi.domain.res.converter.BudgetFaculteConverter;
@@ -21,15 +20,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *@CrossOrigin(origins = "http://localhost:4200")
-
+ * @CrossOrigin(origins = "http://localhost:4200")
+ *
  * @author AMINE
  */
 @RequestMapping("/budget_api/budget_api_facultes")
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController()
 public class BudgetFaculteRest {
-    @Autowired 
+
+    @Autowired
     private BudgetFaculteService budgetFaculteService;
 
     public BudgetFaculteService getBudgetFaculteService() {
@@ -39,19 +39,22 @@ public class BudgetFaculteRest {
     public void setBudgetFaculteService(BudgetFaculteService budgetFaculteService) {
         this.budgetFaculteService = budgetFaculteService;
     }
+
     @GetMapping("/annee/{annee}")
     public BudgetFaculte findByAnnee(@PathVariable int annee) {
         return budgetFaculteService.findByAnnee(annee);
     }
+
     @PostMapping("/")
     public int creerBudgetFaculte(@RequestBody BudgetFaculteVo budgetFaculteVo) {
         BudgetFaculteConverter budgetFaculteConverter = new BudgetFaculteConverter();
         BudgetFaculte myBudgetFaculte = budgetFaculteConverter.toItem(budgetFaculteVo);
         BudgetFaculteVo budgetFaculte = budgetFaculteConverter.toVo(myBudgetFaculte);
         return budgetFaculteService.creerBudgetFaculte(myBudgetFaculte);
-
     }
-   
-    
-    
+
+    public void deleteBudgetFaculte(BudgetFaculte budgetFaculte) {
+        budgetFaculteService.deleteBudgetFaculte(budgetFaculte);
+    }
+
 }

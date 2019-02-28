@@ -41,7 +41,8 @@ public class BudgetSousProjetRest {
         this.budgetSousProjetService = budgetSousProjetService;
     }
 
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(@PathVariable String referenceSousProjet, @PathVariable int annee) {
+    @GetMapping("/reference/{reference}/annee/{annee}")
+    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
         return budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
     }
 
@@ -59,7 +60,6 @@ public class BudgetSousProjetRest {
     }
 
     @DeleteMapping("/annee/{annee}")
-
     public void deleteBudgetFaculte(@PathVariable int annee) {
         budgetSousProjetService.deleteBudgetFaculte(annee);
     }

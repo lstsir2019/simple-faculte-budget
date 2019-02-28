@@ -40,54 +40,6 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
 
-    public BudgetSousProjetService getBudgetSousProjetService() {
-        return budgetSousProjetService;
-    }
-
-    public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
-        this.budgetSousProjetService = budgetSousProjetService;
-    }
-
-    public BudgetFaculteService getBudgetFaculteService() {
-        return budgetFaculteService;
-    }
-
-    public void setBudgetFaculteService(BudgetFaculteService budgetFaculteService) {
-        this.budgetFaculteService = budgetFaculteService;
-    }
-
-    public BudgetEntiteAdministratifService getBudgetEntiteAdministratifService() {
-        return budgetEntiteAdministratifService;
-    }
-
-    public void setBudgetEntiteAdministratifService(BudgetEntiteAdministratifService budgetEntiteAdministratifService) {
-        this.budgetEntiteAdministratifService = budgetEntiteAdministratifService;
-    }
-
-    public CompteBudgitaireService getCompteBudgitaireService() {
-        return compteBudgitaireService;
-    }
-
-    public void setCompteBudgitaireService(CompteBudgitaireService compteBudgitaireService) {
-        this.compteBudgitaireService = compteBudgitaireService;
-    }
-
-    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
-        return budgetCompteBudgitaireService;
-    }
-
-    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
-        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
-    }
-
-    public BudgetCompteBudgitaireDao getBudgetCompteBudgitaireDao() {
-        return budgetCompteBudgitaireDao;
-    }
-
-    public void setBudgetCompteBudgitaireDao(BudgetCompteBudgitaireDao budgetCompteBudgitaireDao) {
-        this.budgetCompteBudgitaireDao = budgetCompteBudgitaireDao;
-    }
-
     @Override
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
         return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
@@ -292,5 +244,63 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
             }
         }
         return res;
+    }
+
+    @Override
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(int annee) {
+        return budgetCompteBudgitaireDao.findDistinctByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(annee);
+    }
+
+    @Override
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
+        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+    }
+
+    public BudgetSousProjetService getBudgetSousProjetService() {
+        return budgetSousProjetService;
+    }
+
+    public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
+        this.budgetSousProjetService = budgetSousProjetService;
+    }
+
+    public BudgetFaculteService getBudgetFaculteService() {
+        return budgetFaculteService;
+    }
+
+    public void setBudgetFaculteService(BudgetFaculteService budgetFaculteService) {
+        this.budgetFaculteService = budgetFaculteService;
+    }
+
+    public BudgetEntiteAdministratifService getBudgetEntiteAdministratifService() {
+        return budgetEntiteAdministratifService;
+    }
+
+    public void setBudgetEntiteAdministratifService(BudgetEntiteAdministratifService budgetEntiteAdministratifService) {
+        this.budgetEntiteAdministratifService = budgetEntiteAdministratifService;
+    }
+
+    public CompteBudgitaireService getCompteBudgitaireService() {
+        return compteBudgitaireService;
+    }
+
+    public void setCompteBudgitaireService(CompteBudgitaireService compteBudgitaireService) {
+        this.compteBudgitaireService = compteBudgitaireService;
+    }
+
+    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
+        return budgetCompteBudgitaireService;
+    }
+
+    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
+        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
+    }
+
+    public BudgetCompteBudgitaireDao getBudgetCompteBudgitaireDao() {
+        return budgetCompteBudgitaireDao;
+    }
+
+    public void setBudgetCompteBudgitaireDao(BudgetCompteBudgitaireDao budgetCompteBudgitaireDao) {
+        this.budgetCompteBudgitaireDao = budgetCompteBudgitaireDao;
     }
 }

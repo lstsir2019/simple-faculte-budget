@@ -19,5 +19,5 @@ public interface BudgetEntiteAdministratifDao extends JpaRepository<BudgetEntite
     public BudgetEntiteAdministratif findByReferenceEntiteAdministratif (String referenceEntiteAdministratif);
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet , int annee);
     public BudgetEntiteAdministratif findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif ,String referenceSousProjet , int annee);
-
+    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
 }

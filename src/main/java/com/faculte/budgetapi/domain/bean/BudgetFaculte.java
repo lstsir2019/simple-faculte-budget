@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,14 +29,11 @@ public class BudgetFaculte implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @OneToMany(cascade = {CascadeType.ALL})
-    private List<BudgetSousProjet> budgetSousProjets;
-
-
     private int annee;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
+    @OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+    private List<BudgetSousProjet> budgetSousProjets;
 
     @JsonIgnore
     public List<BudgetSousProjet> getBudgetSousProjets() {

@@ -15,11 +15,15 @@ import org.springframework.stereotype.Repository;
  * @author AMINE
  */
 @Repository
-public interface BudgetCompteBudgitaireDao extends JpaRepository<BudgetCompteBudgitaire, Long>{
-    
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee (String referenceEntiteAdministratif ,String referenceSousProjet , int annee);
-    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String code, String referenceEntiteAdministratif ,String referenceSousProjet , int annee );
+public interface BudgetCompteBudgitaireDao extends JpaRepository<BudgetCompteBudgitaire, Long> {
+
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
+    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
     public BudgetCompteBudgitaire findByCompteBudgitaireCode(String code);
-            
-    
+
+    public List<BudgetCompteBudgitaire> findDistinctByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(int annee);
+
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 }

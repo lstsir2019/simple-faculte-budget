@@ -6,7 +6,6 @@
 package com.faculte.budgetapi.domain.model.service.impl;
 
 import com.faculte.budgetapi.domain.bean.BudgetFaculte;
-import com.faculte.budgetapi.domain.bean.BudgetSousProjet;
 import com.faculte.budgetapi.domain.model.dao.BudgetFaculteDao;
 import com.faculte.budgetapi.domain.model.service.BudgetFaculteService;
 import com.faculte.budgetapi.domain.model.service.BudgetSousProjetService;
@@ -24,7 +23,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     private BudgetFaculteDao budgetFaculteDao;
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
-
+    
     public BudgetFaculteDao getBudgetFaculteDao() {
         return budgetFaculteDao;
     }

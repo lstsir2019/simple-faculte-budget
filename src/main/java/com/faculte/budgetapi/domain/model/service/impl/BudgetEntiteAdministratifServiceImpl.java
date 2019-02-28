@@ -111,9 +111,13 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
 //
 //    }
     @Override
-    public void updateReliquatBea(BudgetEntiteAdministratif budgetEntiteAdministratif
-    ) {
+    public void updateReliquatBea(BudgetEntiteAdministratif budgetEntiteAdministratif) {
         budgetEntiteAdministratifDao.save(budgetEntiteAdministratif);
+    }
+
+    @Override
+    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee) {
+        return budgetEntiteAdministratifDao.findByBudgetSousProjetBudgetFaculteAnnee(annee);
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,23 +25,24 @@ import javax.persistence.OneToMany;
 @Entity
 public class BudgetEntiteAdministratif implements Serializable {
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    private List<BudgetCompteBudgitaire> budgeCompteBudgitaires;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String referenceEntiteAdministratif ;
+    private String referenceEntiteAdministratif;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
     @ManyToOne(cascade = {CascadeType.ALL})
-    private BudgetSousProjet budgetSousProjet ;
+    private BudgetSousProjet budgetSousProjet;
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<BudgetCompteBudgitaire> budgeCompteBudgitaires;
+
     @JsonIgnore
     public List<BudgetCompteBudgitaire> getBudgeCompteBudgitaires() {
         return budgeCompteBudgitaires;
     }
-     @JsonSetter
+
+    @JsonSetter
     public void setBudgeCompteBudgitaires(List<BudgetCompteBudgitaire> budgeCompteBudgitaires) {
         this.budgeCompteBudgitaires = budgeCompteBudgitaires;
     }
@@ -68,8 +70,7 @@ public class BudgetEntiteAdministratif implements Serializable {
     public void setBudgetSousProjet(BudgetSousProjet budgetSousProjet) {
         this.budgetSousProjet = budgetSousProjet;
     }
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -102,5 +103,5 @@ public class BudgetEntiteAdministratif implements Serializable {
     public String toString() {
         return "com.faculte.budget.bean.BudgetEntiteAdmin[ id=" + id + " ]";
     }
-    
+
 }
