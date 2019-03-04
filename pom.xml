@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.faculte</groupId>
-	<artifactId>budget-api</artifactId>
+	<artifactId>simple-faculte-budget</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>budget-api</name>
 	<description>Demo project for Spring Boot</description>
@@ -32,7 +32,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
