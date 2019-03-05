@@ -58,9 +58,9 @@ public class BudgetFaculteRest {
         return budgetFaculteService.creerBudgetFaculte(myBudgetFaculte);
     }
 
-    @DeleteMapping("/suppression/id/{id}")
-    public void deleteBudgetFaculte(@PathVariable("id") Long id) {
-        budgetFaculteService.deleteBudgetFaculte(id);
+    @DeleteMapping("/suppression/annee/{annee}")
+    public void deleteBudgetFaculte(@PathVariable("annee") int annee) {
+        budgetFaculteService.deleteBudgetFaculte(annee);
     }
 
 }

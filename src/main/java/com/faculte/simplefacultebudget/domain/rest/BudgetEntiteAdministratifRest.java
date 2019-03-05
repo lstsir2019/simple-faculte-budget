@@ -57,9 +57,9 @@ public class BudgetEntiteAdministratifRest {
         return budgetEntiteAdministratifService.creerBudgetEntiteAdministratif(budgetEntiteAdministratif);
     }
 
-    @DeleteMapping("/refSousProjet/{budgetSousProjet}/annee/{annee}")
-    public void deleteBudgetSousProjet(@PathVariable String referenceSousProjet, @PathVariable int annee) {
-        budgetEntiteAdministratifService.deleteBudgetSousProjet(referenceSousProjet, annee);
+    @DeleteMapping("/suppression/refSousProjet/{refSousProjet}/annee/{annee}")
+    public void deleteBudgetEntiteAdmin(@PathVariable("refSousProjet") String referenceSousProjet, @PathVariable("annee") int annee) {
+        budgetEntiteAdministratifService.deleteBudgetEntiteAdmin(referenceSousProjet, annee);
     }
 
     @GetMapping("/annee/{annee}")

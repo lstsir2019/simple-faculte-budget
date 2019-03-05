@@ -24,7 +24,7 @@ public interface BudgetEntiteAdministratifService {
 
     public void updateReliquatBea(BudgetEntiteAdministratif budgetEntiteAdministratif);
 
-    public void deleteBudgetSousProjet(String referenceSousProjet, int annee);
+    public void deleteBudgetEntiteAdmin(String referenceSousProjet, int annee);
 
     public void deleteBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif);
 

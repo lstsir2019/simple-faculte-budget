@@ -21,55 +21,55 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
-
+    
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
-
+    
     @Autowired
     private BudgetSousProjetDao budgetSousProjetDao;
-
+    
     @Autowired
     private BudgetFaculteService budgetFaculteService;
     @Autowired
     private BudgetEntiteAdministratifService budgetEntiteAdministratifService;
-
+    
     public BudgetEntiteAdministratifService getBudgetEntiteAdministratifService() {
         return budgetEntiteAdministratifService;
     }
-
+    
     public void setBudgetEntiteAdministratifService(BudgetEntiteAdministratifService budgetEntiteAdministratifService) {
         this.budgetEntiteAdministratifService = budgetEntiteAdministratifService;
     }
-
+    
     public BudgetFaculteService getBudgetFaculteService() {
         return budgetFaculteService;
     }
-
+    
     public void setBudgetFaculteService(BudgetFaculteService budgetFaculteService) {
         this.budgetFaculteService = budgetFaculteService;
     }
-
+    
     public BudgetSousProjetService getBudgetSousProjetService() {
         return budgetSousProjetService;
     }
-
+    
     public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
         this.budgetSousProjetService = budgetSousProjetService;
     }
-
+    
     public BudgetSousProjetDao getBudgetSousProjetDao() {
         return budgetSousProjetDao;
     }
-
+    
     public void setBudgetSousProjetDao(BudgetSousProjetDao budgetSousProjetDao) {
         this.budgetSousProjetDao = budgetSousProjetDao;
     }
-
+    
     @Override
     public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee) {
         return budgetSousProjetDao.findByBudgetFaculteAnnee(annee);
     }
-
+    
     @Override
     public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix) {
         BudgetSousProjet bsp = budgetSousProjetDao.getOne(budgetSousProjet.getId());
@@ -78,26 +78,26 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         } else {
             double nvnonpaye = bsp.getDetaillesBudget().getEngageNonPaye() - prix;
             double nvpaye = bsp.getDetaillesBudget().getEngagePaye() + prix;
-
+            
             double nvRelPayEst = bsp.getDetaillesBudget().getCreditOuvertEstimatif() - nvpaye;
             double nvRelPayRel = bsp.getDetaillesBudget().getCreditOuvertReel() - nvpaye;
             double nvRelNPyEst = bsp.getDetaillesBudget().getCreditOuvertEstimatif() - nvnonpaye;
             double nvRelNPyRel = bsp.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
-
+            
             bsp.getDetaillesBudget().setEngagePaye(nvpaye);
             bsp.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
             bsp.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
             bsp.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
             bsp.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
             bsp.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
-
+            
             budgetSousProjetDao.save(bsp);
             budgetFaculteService.payerBudgetFaculte(bsp.getBudgetFaculte().getAnnee(), prix);
-
+            
             return 1;
         }
     }
-
+    
     @Override
     public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> budgetSousProjets) {
         int res = 0;
@@ -132,7 +132,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         }
         return res;
     }
-
+    
     @Override
     public int creerBudgetSousProjet(BudgetSousProjet budgetSousProjet) {
         BudgetFaculte bf = budgetFaculteService.findByAnnee(budgetSousProjet.getBudgetFaculte().getAnnee());
@@ -168,30 +168,24 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
             }
         }
     }
-
+    
     @Override
     public void updateReliquatBsp(BudgetSousProjet budgetSousProjet) {
         budgetSousProjetDao.save(budgetSousProjet);
     }
-
-    @Override
-    public void deleteBudgetFaculte(int annee) {
-        List<BudgetSousProjet> budgetSousProjets = findByBudgetFaculteAnnee(annee);
-        for (BudgetSousProjet budgetSousProjet : budgetSousProjets) {
-            budgetEntiteAdministratifService.deleteBudgetSousProjet(budgetSousProjet.getReferenceSousProjet(), annee);
-        }
-        BudgetFaculte budgetFaculte = budgetFaculteService.findByAnnee(annee);
-        budgetFaculteService.deleteBudgetFaculte(budgetFaculte.getId());
-    }
-
-    @Override
-    public void deleteBudgetSousProjet(BudgetSousProjet budgetSousProjet) {
-        budgetSousProjetDao.delete(budgetSousProjet);
-    }
-
+    
     @Override
     public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee) {
         return budgetSousProjetDao.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
     }
-
+    
+    @Override
+    public void deleteBudgetSousProjets(int annee) {
+        List<BudgetSousProjet> budgetSousProjets = findByBudgetFaculteAnnee(annee);
+        for (BudgetSousProjet budgetSousProjet : budgetSousProjets) {
+            budgetEntiteAdministratifService.deleteBudgetEntiteAdmin(budgetSousProjet.getReferenceSousProjet(), annee);
+            budgetSousProjetDao.delete(budgetSousProjet);
+        }
+    }
+    
 }

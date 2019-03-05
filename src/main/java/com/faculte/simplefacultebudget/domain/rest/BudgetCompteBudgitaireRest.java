@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,8 +50,8 @@ public class BudgetCompteBudgitaireRest {
     }
 
     @DeleteMapping("/suppression/referenceEntiteAdministratif/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
-    public void deleteBudgetEntiteAdministratif(@PathVariable("referenceEntiteAdministratif") String referenceEntiteAdministratif, @PathVariable("referenceSousProjet") String referenceSousProjet, @PathVariable("annee") int annee) {
-        budgetCompteBudgitaireService.deleteBudgetEntiteAdministratif(referenceEntiteAdministratif, referenceSousProjet, annee);
+    public void deleteBudgetCompteBudgitaire(@PathVariable("referenceEntiteAdministratif") String referenceEntiteAdministratif, @PathVariable("referenceSousProjet") String referenceSousProjet, @PathVariable("annee") int annee) {
+        budgetCompteBudgitaireService.deleteBudgetCompteBudgitaire(referenceEntiteAdministratif, referenceSousProjet, annee);
     }
 
     @GetMapping("/annee/{annee}")

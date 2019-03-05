@@ -104,8 +104,10 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
-    public void deleteBudgetFaculte(Long id) {
-        budgetFaculteDao.deleteById(id);
+    public void deleteBudgetFaculte(int annee) {
+        BudgetFaculte bf=findByAnnee(annee);
+        budgetSousProjetService.deleteBudgetSousProjets(annee);
+        budgetFaculteDao.delete(bf);
     }
 
 }

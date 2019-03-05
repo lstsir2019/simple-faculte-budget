@@ -21,7 +21,7 @@ public interface BudgetCompteBudgitaireService {
 
     public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 
-    public void deleteBudgetEntiteAdministratif(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+    public void deleteBudgetCompteBudgitaire(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 
     public void deleteBudgetCompteBudgitaire(BudgetCompteBudgitaire budgetCompteBudgitaire);
 

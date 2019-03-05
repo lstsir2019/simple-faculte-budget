@@ -85,14 +85,12 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
-    public void deleteBudgetEntiteAdministratif(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
+    public void deleteBudgetCompteBudgitaire(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
         List<BudgetCompteBudgitaire> budgetCompteBudgitaires = findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
         for (BudgetCompteBudgitaire budgetCompteBudgitaire : budgetCompteBudgitaires) {
             compteBudgitaireService.deleteBudgetCompteBudgitaire(budgetCompteBudgitaire.getCompteBudgitaire().getCode());
-
+            budgetCompteBudgitaireDao.delete(budgetCompteBudgitaire);
         }
-        BudgetEntiteAdministratif budgetEntiteAdministratif = budgetEntiteAdministratifService.findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
-        budgetEntiteAdministratifService.deleteBudgetEntiteAdministratif(budgetEntiteAdministratif);
     }
 
     @Override

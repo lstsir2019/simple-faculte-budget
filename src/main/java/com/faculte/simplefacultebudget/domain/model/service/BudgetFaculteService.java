@@ -21,7 +21,7 @@ public interface BudgetFaculteService {
 
     public BudgetFaculte findById(Long id);
 
-    public void deleteBudgetFaculte(Long id);
+    public void deleteBudgetFaculte(int annee);
 
     public int payerBudgetFaculte(int annee, double prix);
 }

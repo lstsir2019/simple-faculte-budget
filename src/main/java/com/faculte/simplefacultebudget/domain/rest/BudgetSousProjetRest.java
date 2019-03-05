@@ -73,9 +73,9 @@ public class BudgetSousProjetRest {
         return budgetSousProjetService.creerBudgetSousProjet(budgetSousProjet);
     }
 
-    @DeleteMapping("/annee/{annee}")
-    public void deleteBudgetFaculte(@PathVariable int annee) {
-        budgetSousProjetService.deleteBudgetFaculte(annee);
+    @DeleteMapping("/suppression/annee/{annee}")
+    public void deleteBudgetSousProjets(@PathVariable("annee") int annee) {
+        budgetSousProjetService.deleteBudgetSousProjets(annee);
     }
 
 }

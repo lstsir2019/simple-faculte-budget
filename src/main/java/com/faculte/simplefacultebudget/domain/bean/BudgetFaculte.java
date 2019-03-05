@@ -32,7 +32,7 @@ public class BudgetFaculte implements Serializable {
     private int annee;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
-    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "budgetFaculte",fetch=FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "budgetFaculte",fetch=FetchType.LAZY)
     private List<BudgetSousProjet> budgetSousProjets;
 
     @JsonIgnore
