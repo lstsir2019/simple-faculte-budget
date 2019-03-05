@@ -19,18 +19,18 @@ public interface BudgetEntiteAdministratifService {
 
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    // public BudgetEntiteAdministratif findByByReferenceEntiteAdministratifBudgetSousProjetReferenceSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif ,String referenceSousProjet , int annee);
     public int creerBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif);
 
     public void updateReliquatBea(BudgetEntiteAdministratif budgetEntiteAdministratif);
 
     public void deleteBudgetSousProjet(String referenceSousProjet, int annee);
 
-    public void deleteBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif);
 
     public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetEntiteAdministratif> budgetEntiteAdministratifs);
 
     public int payerBudgetEA(BudgetEntiteAdministratif budgetEntiteAdministratif, double montant);
 
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
+    
+    public void removeBea (String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 }

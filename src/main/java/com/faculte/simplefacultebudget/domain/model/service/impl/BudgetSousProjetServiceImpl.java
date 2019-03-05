@@ -175,23 +175,14 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
     }
 
     @Override
-    public void deleteBudgetFaculte(int annee) {
-        List<BudgetSousProjet> budgetSousProjets = findByBudgetFaculteAnnee(annee);
-        for (BudgetSousProjet budgetSousProjet : budgetSousProjets) {
-            budgetEntiteAdministratifService.deleteBudgetSousProjet(budgetSousProjet.getReferenceSousProjet(), annee);
-        }
-        BudgetFaculte budgetFaculte = budgetFaculteService.findByAnnee(annee);
-        budgetFaculteService.deleteBudgetFaculte(budgetFaculte.getId());
-    }
-
-    @Override
-    public void deleteBudgetSousProjet(BudgetSousProjet budgetSousProjet) {
-        budgetSousProjetDao.delete(budgetSousProjet);
-    }
-
-    @Override
     public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee) {
         return budgetSousProjetDao.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+    }
+
+    @Override
+    public void removeBsp(int annee, String referenceSousProjet) {
+        BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+        budgetSousProjetDao.delete(bsp);
     }
 
 }

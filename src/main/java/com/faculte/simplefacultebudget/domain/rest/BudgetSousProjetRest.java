@@ -72,10 +72,11 @@ public class BudgetSousProjetRest {
         budgetSousProjetConverter.toVo(budgetSousProjet);
         return budgetSousProjetService.creerBudgetSousProjet(budgetSousProjet);
     }
-
-    @DeleteMapping("/annee/{annee}")
-    public void deleteBudgetFaculte(@PathVariable int annee) {
-        budgetSousProjetService.deleteBudgetFaculte(annee);
+     @DeleteMapping("/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
+    public void removeBsp(@PathVariable int annee, @PathVariable String referenceSousProjet) {
+        budgetSousProjetService.removeBsp(annee, referenceSousProjet);
     }
+
+    
 
 }

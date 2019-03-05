@@ -103,9 +103,12 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         return budgetFaculteDao.getOne(id);
     }
 
+   
+
     @Override
-    public void deleteBudgetFaculte(Long id) {
-        budgetFaculteDao.deleteById(id);
+    public void removeBf(int annee) {
+        BudgetFaculte bf = budgetFaculteDao.findByAnnee(annee);
+        budgetFaculteDao.delete(bf);
     }
 
 }

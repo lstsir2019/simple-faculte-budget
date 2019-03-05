@@ -55,13 +55,7 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
 
     }
 
-    @Override
-    public void deleteBudgetCompteBudgitaire(String code) {
-        CompteBudgitaire compteBudgitaire = findByCode(code);
-        BudgetCompteBudgitaire budgetCompteBudgitaire = budgetCompteBudgitaireService.findByCompteBudgitaireCode(code);
-        budgetCompteBudgitaireService.deleteBudgetCompteBudgitaire(budgetCompteBudgitaire);
-        compteBudgitaireDao.delete(compteBudgitaire);
-    }
+  
 
     @Override
     public int payerCB(String code) {
@@ -72,6 +66,11 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
             budgetCompteBudgitaireService.payerBCB(code);
             return 1;
         }
+    }
+
+    @Override
+    public void deleteBudgetCompteBudgitaire(String code) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

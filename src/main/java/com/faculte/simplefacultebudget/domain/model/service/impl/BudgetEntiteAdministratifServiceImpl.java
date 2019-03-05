@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdministratifService {
 
-
     @Autowired
     private BudgetEntiteAdministratifDao budgetEntiteAdministratifDao;
 
@@ -73,21 +72,7 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
         return budgetEntiteAdministratifDao.findByBudgetSousProjetBudgetFaculteAnnee(annee);
     }
 
-    @Override
-    public void deleteBudgetSousProjet(String referenceSousProjet, int annee) {
-        List<BudgetEntiteAdministratif> budgetEntiteAdministratifs = findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
-        for (BudgetEntiteAdministratif budgetEntiteAdministratif : budgetEntiteAdministratifs) {
-            budgetCompteBudgitaireService.deleteBudgetEntiteAdministratif(budgetEntiteAdministratif.getReferenceEntiteAdministratif(), referenceSousProjet, annee);
-        }
-        BudgetSousProjet budgetSousProjet = budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
-        budgetSousProjetService.deleteBudgetSousProjet(budgetSousProjet);
-    }
-
-    @Override
-    public void deleteBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif) {
-        budgetEntiteAdministratifDao.delete(budgetEntiteAdministratif);
-    }
-
+  
     @Override
     public int payerBudgetEA(BudgetEntiteAdministratif budgetEntiteAdministratif, double montant) {
         BudgetEntiteAdministratif bea = budgetEntiteAdministratifDao.getOne(budgetEntiteAdministratif.getId());
@@ -191,5 +176,16 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
         }
 
         return res;
+    }
+
+    @Override
+    public void removeBea(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
+        BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+        budgetEntiteAdministratifDao.delete(bea);
+    }
+
+    @Override
+    public void deleteBudgetSousProjet(String referenceSousProjet, int annee) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

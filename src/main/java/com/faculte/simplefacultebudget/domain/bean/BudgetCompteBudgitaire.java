@@ -28,7 +28,7 @@ public class BudgetCompteBudgitaire implements Serializable {
     private String codeBcb;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private BudgetEntiteAdministratif budgetEntiteAdministratif;
     @OneToOne(cascade = {CascadeType.ALL})
     private CompteBudgitaire compteBudgitaire;

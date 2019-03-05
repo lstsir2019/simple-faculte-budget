@@ -23,11 +23,9 @@ public interface BudgetSousProjetService {
 
     public void updateReliquatBsp(BudgetSousProjet budgetSousProjet);
 
-    public void deleteBudgetFaculte(int annee);
-
-    public void deleteBudgetSousProjet(BudgetSousProjet budgetSousProjet);
-
     public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> BudgetSousProjets);
 
     public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix);
+
+    public void removeBsp(int annee, String referenceSousProjet);
 }

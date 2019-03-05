@@ -32,7 +32,7 @@ public class BudgetEntiteAdministratif implements Serializable {
     private String referenceEntiteAdministratif;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private BudgetSousProjet budgetSousProjet;
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "budgetEntiteAdministratif", fetch = FetchType.LAZY)
     private List<BudgetCompteBudgitaire> budgeCompteBudgitaires;

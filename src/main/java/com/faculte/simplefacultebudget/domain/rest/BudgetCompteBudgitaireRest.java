@@ -51,10 +51,6 @@ public class BudgetCompteBudgitaireRest {
         this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
     }
 
-    @DeleteMapping("/suppression/referenceEntiteAdministratif/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
-    public void deleteBudgetEntiteAdministratif(@PathVariable("referenceEntiteAdministratif") String referenceEntiteAdministratif, @PathVariable("referenceSousProjet") String referenceSousProjet, @PathVariable("annee") int annee) {
-        budgetCompteBudgitaireService.deleteBudgetEntiteAdministratif(referenceEntiteAdministratif, referenceSousProjet, annee);
-    }
 
     @GetMapping("/annee/{annee}")
     public List<BudgetCompteBudgitaireVo> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
