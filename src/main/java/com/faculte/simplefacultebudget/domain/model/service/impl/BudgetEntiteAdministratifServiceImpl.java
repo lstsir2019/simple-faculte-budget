@@ -23,60 +23,56 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdministratifService {
-    
+
     @Autowired
     private BudgetEntiteAdministratifDao budgetEntiteAdministratifDao;
-    
+
     @Autowired
     private BudgetCompteBudgitaireService budgetCompteBudgitaireService;
-    
+
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
-    
+
     @Autowired
     private BudgetFaculteService budgetFaculteService;
-    
+
     public BudgetSousProjetService getBudgetSousProjetService() {
         return budgetSousProjetService;
     }
-    
+
     public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
         this.budgetSousProjetService = budgetSousProjetService;
     }
-    
+
     public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
         this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
     }
-    
+
     public void setBudgetEntiteAdministratifDao(BudgetEntiteAdministratifDao budgetEntiteAdministratifDao) {
         this.budgetEntiteAdministratifDao = budgetEntiteAdministratifDao;
     }
-    
+
     @Override
     public BudgetEntiteAdministratif findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
         return budgetEntiteAdministratifDao.findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
     }
-    
+
     @Override
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
         return budgetEntiteAdministratifDao.findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
     }
-    
+
     @Override
     public void updateReliquatBea(BudgetEntiteAdministratif budgetEntiteAdministratif) {
-        budgetEntiteAdministratifDao.save(budgetEntiteAdministratif);
+        BudgetEntiteAdministratif bcb = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
+        budgetEntiteAdministratifDao.save(bcb);
     }
-    
+
     @Override
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee) {
         return budgetEntiteAdministratifDao.findByBudgetSousProjetBudgetFaculteAnnee(annee);
     }
-    
-    @Override
-    public void deleteBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif) {
-        budgetEntiteAdministratifDao.delete(budgetEntiteAdministratif);
-    }
-    
+
     @Override
     public int payerBudgetEA(BudgetEntiteAdministratif budgetEntiteAdministratif, double montant) {
         BudgetEntiteAdministratif bea = budgetEntiteAdministratifDao.getOne(budgetEntiteAdministratif.getId());
@@ -85,26 +81,26 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
         } else {
             double nvnonpaye = bea.getDetaillesBudget().getEngageNonPaye() - montant;
             double nvpaye = bea.getDetaillesBudget().getEngagePaye() + montant;
-            
+
             double nvRelPayEst = bea.getDetaillesBudget().getCreditOuvertEstimatif() - nvpaye;
             double nvRelPayRel = bea.getDetaillesBudget().getCreditOuvertReel() - nvpaye;
             double nvRelNPyEst = bea.getDetaillesBudget().getCreditOuvertEstimatif() - nvnonpaye;
             double nvRelNPyRel = bea.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
-            
+
             bea.getDetaillesBudget().setEngagePaye(nvpaye);
             bea.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
             bea.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
             bea.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
             bea.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
             bea.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
-            
+
             budgetEntiteAdministratifDao.save(bea);
             budgetSousProjetService.payerSousProjet(bea.getBudgetSousProjet(), montant);
-            
+
             return 1;
         }
     }
-    
+
     @Override
     public int creerBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif) {
         BudgetFaculte bf = budgetFaculteService.findByAnnee(budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
@@ -143,50 +139,52 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
             }
         }
     }
-    
+
     @Override
     public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetEntiteAdministratif> budgetEntiteAdministratifs) {
-        int res = 0;
-        
-        for (int j = 0; j < budgetSousProjet.getBudgetEntiteAdmins().size(); j++) {
-            BudgetEntiteAdministratif bea = budgetSousProjet.getBudgetEntiteAdmins().get(j);
-            if (budgetEntiteAdministratifs == null || budgetEntiteAdministratifs.isEmpty()) {
-                break;
-            } else {
+        if (budgetEntiteAdministratifs == null || budgetEntiteAdministratifs.isEmpty()) {
+            return -1;
+        } else {
+            for (int j = 0; j < budgetEntiteAdministratifs.size(); j++) {
+                BudgetEntiteAdministratif entiteAdministratif=budgetEntiteAdministratifs.get(j);
                 budgetSousProjet.setDetaillesBudget(budgetSousProjet.getDetaillesBudget());
-                double restEstimatif = budgetSousProjet.getDetaillesBudget().getReliquatEstimatif() - bea.getDetaillesBudget().getCreditOuvertEstimatif();
-                double restReel = budgetSousProjet.getDetaillesBudget().getReliquatReel() - bea.getDetaillesBudget().getCreditOuvertReel();
+                double restEstimatif = budgetSousProjet.getDetaillesBudget().getReliquatEstimatif() - entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif();
+                double restReel = budgetSousProjet.getDetaillesBudget().getReliquatReel() - entiteAdministratif.getDetaillesBudget().getCreditOuvertReel();
                 if (restEstimatif < 0 || restReel < 0) {
                     break;
                 } else {
-                    bea.setDetaillesBudget(bea.getDetaillesBudget());
-                    bea.setReferenceEntiteAdministratif(bea.getReferenceEntiteAdministratif());
-                    bea.getDetaillesBudget().setReliquatEstimatif(bea.getDetaillesBudget().getCreditOuvertEstimatif());
-                    bea.getDetaillesBudget().setCreditOuvertEstimatif(bea.getDetaillesBudget().getCreditOuvertEstimatif());
-                    bea.getDetaillesBudget().setReliquatReel(bea.getDetaillesBudget().getCreditOuvertReel());
-                    bea.getDetaillesBudget().setCreditOuvertReel(bea.getDetaillesBudget().getCreditOuvertReel());
-                    bea.getDetaillesBudget().setEngagePaye(bea.getDetaillesBudget().getEngagePaye());
-                    bea.getDetaillesBudget().setEngageNonPaye(bea.getDetaillesBudget().getEngageNonPaye());
-                    bea.setBudgetSousProjet(budgetSousProjet);
-                    budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
-                    budgetSousProjet.getDetaillesBudget().setReliquatReel(restReel);
-                    budgetSousProjetService.updateReliquatBsp(budgetSousProjet);
-                    budgetEntiteAdministratifDao.save(bea);
-                    budgetCompteBudgitaireService.createBudgetCompteBudgitaire(bea, bea.getBudgeCompteBudgitaires());
-                    
-                    res = 2;
+                    BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee());
+                    if (bea != null) {
+                        budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
+                        budgetSousProjet.getDetaillesBudget().setReliquatReel(restReel);
+                        budgetSousProjetService.updateReliquatBsp(budgetSousProjet);
+                        budgetCompteBudgitaireService.createBudgetCompteBudgitaire(bea, entiteAdministratif.getBudgeCompteBudgitaires());
+                    } else {
+                        bea=new BudgetEntiteAdministratif();
+                        bea.setDetaillesBudget(entiteAdministratif.getDetaillesBudget());
+                        bea.setReferenceEntiteAdministratif(entiteAdministratif.getReferenceEntiteAdministratif());
+                        bea.getDetaillesBudget().setReliquatEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
+                        bea.getDetaillesBudget().setCreditOuvertEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
+                        bea.getDetaillesBudget().setReliquatReel(entiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
+                        bea.getDetaillesBudget().setCreditOuvertReel(entiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
+                        bea.getDetaillesBudget().setEngagePaye(entiteAdministratif.getDetaillesBudget().getEngagePaye());
+                        bea.getDetaillesBudget().setEngageNonPaye(entiteAdministratif.getDetaillesBudget().getEngageNonPaye());
+                        bea.setBudgetSousProjet(budgetSousProjet);
+                        budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
+                        budgetSousProjet.getDetaillesBudget().setReliquatReel(restReel);
+                        budgetSousProjetService.updateReliquatBsp(budgetSousProjet);
+                        budgetEntiteAdministratifDao.save(bea);
+                        budgetCompteBudgitaireService.createBudgetCompteBudgitaire(bea, entiteAdministratif.getBudgeCompteBudgitaires());
+                    }
                 }
             }
+            return 1;
         }
-        return res;
     }
-    
+
     @Override
-    public void deleteBudgetEntiteAdmin(String referenceSousProjet, int annee) {
-        List<BudgetEntiteAdministratif> budgetEntiteAdministratifs = findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
-        for (BudgetEntiteAdministratif budgetEntiteAdministratif : budgetEntiteAdministratifs) {
-            budgetCompteBudgitaireService.deleteBudgetCompteBudgitaire(budgetEntiteAdministratif.getReferenceEntiteAdministratif(), referenceSousProjet, annee);
-            budgetEntiteAdministratifDao.delete(budgetEntiteAdministratif);
-        }
+    public void removeBea(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
+        BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+        budgetEntiteAdministratifDao.delete(bea);
     }
 }

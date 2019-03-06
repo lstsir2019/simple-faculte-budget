@@ -24,7 +24,6 @@ public class CompteBudgitaire implements Serializable {
     private Long id;
     private String code;
     private String libelle;
-    
 
     public String getCode() {
         return code;
@@ -41,8 +40,6 @@ public class CompteBudgitaire implements Serializable {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
-
-
 
     public Long getId() {
         return id;
@@ -76,5 +73,5 @@ public class CompteBudgitaire implements Serializable {
     public String toString() {
         return "com.faculte.budget.bean.CompteBudgitaire[ id=" + id + " ]";
     }
-    
+
 }

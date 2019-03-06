@@ -76,7 +76,8 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
         BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
         if (bf != null) {
-            return -1;
+            budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
+            return 1;
         } else {
             bf = new BudgetFaculte();
             bf.setDetaillesBudget(budgetFaculte.getDetaillesBudget());
@@ -87,15 +88,16 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
             bf.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
             bf.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
             bf.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
-            // budgetFaculteDao.save(bf);
+            budgetFaculteDao.save(bf);
             budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
-            return 1;
+            return 2;
         }
     }
 
     @Override
     public void updateReliquatBf(BudgetFaculte budgetFaculte) {
-        budgetFaculteDao.save(budgetFaculte);
+        BudgetFaculte bf=findByAnnee(budgetFaculte.getAnnee());
+        budgetFaculteDao.save(bf);
     }
 
     @Override
@@ -104,9 +106,8 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
-    public void deleteBudgetFaculte(int annee) {
-        BudgetFaculte bf=findByAnnee(annee);
-        budgetSousProjetService.deleteBudgetSousProjets(annee);
+    public void removeBf(int annee) {
+        BudgetFaculte bf = findByAnnee(annee);
         budgetFaculteDao.delete(bf);
     }
 

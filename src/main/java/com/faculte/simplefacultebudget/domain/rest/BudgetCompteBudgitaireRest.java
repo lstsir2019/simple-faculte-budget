@@ -13,7 +13,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,19 +40,6 @@ public class BudgetCompteBudgitaireRest {
         return budgetCompteBudgitaireConverter.toVo(bcbs);
     }
 
-    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
-        return budgetCompteBudgitaireService;
-    }
-
-    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
-        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
-    }
-
-    @DeleteMapping("/suppression/referenceEntiteAdministratif/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
-    public void deleteBudgetCompteBudgitaire(@PathVariable("referenceEntiteAdministratif") String referenceEntiteAdministratif, @PathVariable("referenceSousProjet") String referenceSousProjet, @PathVariable("annee") int annee) {
-        budgetCompteBudgitaireService.deleteBudgetCompteBudgitaire(referenceEntiteAdministratif, referenceSousProjet, annee);
-    }
-
     @GetMapping("/annee/{annee}")
     public List<BudgetCompteBudgitaireVo> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
         List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(annee);
@@ -66,4 +52,11 @@ public class BudgetCompteBudgitaireRest {
         return budgetCompteBudgitaireConverter.toVo(myBcbs);
     }
 
+    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
+        return budgetCompteBudgitaireService;
+    }
+
+    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
+        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
+    }
 }

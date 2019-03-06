@@ -57,15 +57,15 @@ public class BudgetEntiteAdministratifRest {
         return budgetEntiteAdministratifService.creerBudgetEntiteAdministratif(budgetEntiteAdministratif);
     }
 
-    @DeleteMapping("/suppression/refSousProjet/{refSousProjet}/annee/{annee}")
-    public void deleteBudgetEntiteAdmin(@PathVariable("refSousProjet") String referenceSousProjet, @PathVariable("annee") int annee) {
-        budgetEntiteAdministratifService.deleteBudgetEntiteAdmin(referenceSousProjet, annee);
-    }
-
     @GetMapping("/annee/{annee}")
     public List<BudgetEntiteAdministratifVo> findByBudgetSousProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
         List<BudgetEntiteAdministratif> myBeas = budgetEntiteAdministratifService.findByBudgetSousProjetBudgetFaculteAnnee(annee);
         return budgetEntiteAdministratifConverter.toVo(myBeas);
+    }
+
+    @DeleteMapping("/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
+    public void removeBea(@PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
+        budgetEntiteAdministratifService.removeBea(referenceEntiteAdministratif, referenceSousProjet, annee);
     }
 
     public AbstractConverter<BudgetEntiteAdministratif, BudgetEntiteAdministratifVo> getBudgetEntiteAdministratifConverter() {
