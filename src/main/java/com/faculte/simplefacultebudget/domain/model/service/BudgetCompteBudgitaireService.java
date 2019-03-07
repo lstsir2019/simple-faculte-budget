@@ -28,4 +28,7 @@ public interface BudgetCompteBudgitaireService {
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(int annee);
 
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+
+    public void removeBcb(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
 }

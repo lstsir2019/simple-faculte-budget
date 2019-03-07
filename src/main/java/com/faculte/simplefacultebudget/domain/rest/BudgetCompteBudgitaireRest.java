@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,11 @@ public class BudgetCompteBudgitaireRest {
     public List<BudgetCompteBudgitaireVo> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
         List<BudgetCompteBudgitaire> myBcbs = budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
         return budgetCompteBudgitaireConverter.toVo(myBcbs);
+    }
+
+    @DeleteMapping("/code/{code}/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
+    public void removeBcb(@PathVariable String code, @PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
+        budgetCompteBudgitaireService.removeBcb(code, referenceEntiteAdministratif, referenceSousProjet, annee);
     }
 
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {

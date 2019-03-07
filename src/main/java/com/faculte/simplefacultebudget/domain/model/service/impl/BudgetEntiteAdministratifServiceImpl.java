@@ -185,6 +185,12 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
     @Override
     public void removeBea(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
         BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+        BudgetSousProjet bsp =  budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+        bsp.setDetaillesBudget(bsp.getDetaillesBudget());
+        bea.setDetaillesBudget(bea.getDetaillesBudget());
+        bsp.getDetaillesBudget().setReliquatEstimatif(bsp.getDetaillesBudget().getReliquatEstimatif()+bea.getDetaillesBudget().getCreditOuvertEstimatif());
+        bsp.getDetaillesBudget().setReliquatReel(bsp.getDetaillesBudget().getReliquatReel()+bea.getDetaillesBudget().getCreditOuvertReel());
+        budgetSousProjetService.updateReliquatBsp(bsp);
         budgetEntiteAdministratifDao.delete(bea);
     }
 }

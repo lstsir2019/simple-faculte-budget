@@ -193,7 +193,13 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
 
     @Override
     public void removeBsp(int annee, String referenceSousProjet) {
+      BudgetFaculte bf = budgetFaculteService.findByAnnee(annee);
         BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+        bf.setDetaillesBudget(bf.getDetaillesBudget());
+        bsp.setDetaillesBudget(bsp.getDetaillesBudget());
+        bf.getDetaillesBudget().setReliquatEstimatif(bf.getDetaillesBudget().getReliquatEstimatif()+bsp.getDetaillesBudget().getCreditOuvertEstimatif());
+        bf.getDetaillesBudget().setReliquatReel(bf.getDetaillesBudget().getReliquatReel()+bsp.getDetaillesBudget().getCreditOuvertReel());
+        budgetFaculteService.updateReliquatBf(bf);
         budgetSousProjetDao.delete(bsp);
     }
 
