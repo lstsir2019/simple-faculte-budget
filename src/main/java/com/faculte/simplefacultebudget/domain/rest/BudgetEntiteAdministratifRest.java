@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,20 +48,13 @@ public class BudgetEntiteAdministratifRest {
         return budgetEntiteAdministratifConverter.toVo(myBeas);
     }
 
-    @PostMapping("/")
-    public int creerBudgetEntiteAdministratif(@RequestBody BudgetEntiteAdministratifVo budgetEntiteAdministratifVo) {
-        BudgetEntiteAdministratif budgetEntiteAdministratif = budgetEntiteAdministratifConverter.toItem(budgetEntiteAdministratifVo);
-        budgetEntiteAdministratifConverter.toVo(budgetEntiteAdministratif);
-        return budgetEntiteAdministratifService.creerBudgetEntiteAdministratif(budgetEntiteAdministratif);
-    }
-
     @GetMapping("/annee/{annee}")
     public List<BudgetEntiteAdministratifVo> findByBudgetSousProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
         List<BudgetEntiteAdministratif> myBeas = budgetEntiteAdministratifService.findByBudgetSousProjetBudgetFaculteAnnee(annee);
         return budgetEntiteAdministratifConverter.toVo(myBeas);
     }
 
-    @DeleteMapping("/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
+    @DeleteMapping("/suppression/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
     public void removeBea(@PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
         budgetEntiteAdministratifService.removeBea(referenceEntiteAdministratif, referenceSousProjet, annee);
     }

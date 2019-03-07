@@ -17,8 +17,6 @@ public interface CompteBudgitaireService {
 
     public void creerCompteBudgitaire(CompteBudgitaire compteBudgitaire);
 
-    public void deleteBudgetCompteBudgitaire(String code);
-
     public int payerCB(String code);
 
 }

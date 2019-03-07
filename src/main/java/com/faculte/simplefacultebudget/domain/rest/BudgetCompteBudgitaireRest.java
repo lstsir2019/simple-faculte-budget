@@ -53,7 +53,7 @@ public class BudgetCompteBudgitaireRest {
         return budgetCompteBudgitaireConverter.toVo(myBcbs);
     }
 
-    @DeleteMapping("/code/{code}/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
+    @DeleteMapping("/suppression/code/{code}/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
     public void removeBcb(@PathVariable String code, @PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
         budgetCompteBudgitaireService.removeBcb(code, referenceEntiteAdministratif, referenceSousProjet, annee);
     }

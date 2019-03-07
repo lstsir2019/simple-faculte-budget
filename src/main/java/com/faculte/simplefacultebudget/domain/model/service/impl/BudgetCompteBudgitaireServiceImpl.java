@@ -7,7 +7,6 @@ package com.faculte.simplefacultebudget.domain.model.service.impl;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
-import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetCompteBudgitaireDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
@@ -25,30 +24,50 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaireService {
-    
+
     @Autowired
     private BudgetCompteBudgitaireService budgetCompteBudgitaireService;
-    
+
     @Autowired
     private BudgetCompteBudgitaireDao budgetCompteBudgitaireDao;
-    
+
     @Autowired
     private CompteBudgitaireService compteBudgitaireService;
-    
+
     @Autowired
     private BudgetEntiteAdministratifService budgetEntiteAdministratifService;
-    
+
     @Autowired
     private BudgetFaculteService budgetFaculteService;
-    
+
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
-    
+
     @Override
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
         return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
     }
-    
+
+    @Override
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(int annee) {
+        return budgetCompteBudgitaireDao.findDistinctByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(annee);
+    }
+
+    @Override
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
+        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+    }
+
+    @Override
+    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
+        return budgetCompteBudgitaireDao.findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(code, referenceEntiteAdministratif, referenceSousProjet, annee);
+    }
+
+    @Override
+    public BudgetCompteBudgitaire findByCompteBudgitaireCode(String code) {
+        return budgetCompteBudgitaireDao.findByCompteBudgitaireCode(code);
+    }
+
     @Override
     public int payerBCB(String code) {
         BudgetCompteBudgitaire bcb = findByCompteBudgitaireCode(code);
@@ -59,35 +78,25 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         } else {
             double nvpaye = bcb.getDetaillesBudget().getEngageNonPaye();
             double nvnonpaye = bcb.getDetaillesBudget().getEngagePaye();
-            
+
             double nvRelPayEst = bcb.getDetaillesBudget().getCreditOuvertEstimatif() - nvpaye;
             double nvRelPayRel = bcb.getDetaillesBudget().getCreditOuvertReel() - nvpaye;
             double nvRelNPyEst = bcb.getDetaillesBudget().getCreditOuvertEstimatif() - nvnonpaye;
             double nvRelNPyRel = bcb.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
-            
+
             bcb.getDetaillesBudget().setEngagePaye(nvpaye);
             bcb.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
             bcb.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
             bcb.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
             bcb.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
             bcb.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
-            
+
             budgetCompteBudgitaireDao.save(bcb);
             budgetEntiteAdministratifService.payerBudgetEA(bcb.getBudgetEntiteAdministratif(), nvpaye);
             return 1;
         }
     }
-    
-    @Override
-    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
-        return budgetCompteBudgitaireDao.findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(code, referenceEntiteAdministratif, referenceSousProjet, annee);
-    }
-    
-    @Override
-    public BudgetCompteBudgitaire findByCompteBudgitaireCode(String code) {
-        return budgetCompteBudgitaireDao.findByCompteBudgitaireCode(code);
-    }
-    
+
     @Override
     public int createBudgetCompteBudgitaire(BudgetEntiteAdministratif budgetEntiteAdministratif, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
         if (budgetCompteBudgitaires == null || budgetCompteBudgitaires.isEmpty()) {
@@ -130,16 +139,6 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
             return 1;
         }
     }
-    
-    @Override
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(int annee) {
-        return budgetCompteBudgitaireDao.findDistinctByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(annee);
-    }
-    
-    @Override
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
-        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(referenceSousProjet, annee);
-    }
 
     @Override
     public void removeBcb(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
@@ -152,53 +151,53 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         budgetEntiteAdministratifService.updateReliquatBea(bea);
         budgetCompteBudgitaireDao.delete(bcb);
     }
-    
+
     public BudgetSousProjetService getBudgetSousProjetService() {
         return budgetSousProjetService;
     }
-    
+
     public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
         this.budgetSousProjetService = budgetSousProjetService;
     }
-    
+
     public BudgetFaculteService getBudgetFaculteService() {
         return budgetFaculteService;
     }
-    
+
     public void setBudgetFaculteService(BudgetFaculteService budgetFaculteService) {
         this.budgetFaculteService = budgetFaculteService;
     }
-    
+
     public BudgetEntiteAdministratifService getBudgetEntiteAdministratifService() {
         return budgetEntiteAdministratifService;
     }
-    
+
     public void setBudgetEntiteAdministratifService(BudgetEntiteAdministratifService budgetEntiteAdministratifService) {
         this.budgetEntiteAdministratifService = budgetEntiteAdministratifService;
     }
-    
+
     public CompteBudgitaireService getCompteBudgitaireService() {
         return compteBudgitaireService;
     }
-    
+
     public void setCompteBudgitaireService(CompteBudgitaireService compteBudgitaireService) {
         this.compteBudgitaireService = compteBudgitaireService;
     }
-    
+
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
         return budgetCompteBudgitaireService;
     }
-    
+
     public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
         this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
     }
-    
+
     public BudgetCompteBudgitaireDao getBudgetCompteBudgitaireDao() {
         return budgetCompteBudgitaireDao;
     }
-    
+
     public void setBudgetCompteBudgitaireDao(BudgetCompteBudgitaireDao budgetCompteBudgitaireDao) {
         this.budgetCompteBudgitaireDao = budgetCompteBudgitaireDao;
     }
-    
+
 }

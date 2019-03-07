@@ -25,18 +25,6 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
     @Autowired
     BudgetCompteBudgitaireService budgetCompteBudgitaireService;
 
-    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
-        return budgetCompteBudgitaireService;
-    }
-
-    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
-        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
-    }
-
-    public void setCompteBudgitaireDao(CompteBudgitaireDao compteBudgitaireDao) {
-        this.compteBudgitaireDao = compteBudgitaireDao;
-    }
-
     @Override
     public CompteBudgitaire findByCode(String code) {
         return compteBudgitaireDao.findByCode(code);
@@ -58,8 +46,15 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
         }
     }
 
-    @Override
-    public void deleteBudgetCompteBudgitaire(String code) {
+    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
+        return budgetCompteBudgitaireService;
     }
 
+    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
+        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
+    }
+
+    public void setCompteBudgitaireDao(CompteBudgitaireDao compteBudgitaireDao) {
+        this.compteBudgitaireDao = compteBudgitaireDao;
+    }
 }

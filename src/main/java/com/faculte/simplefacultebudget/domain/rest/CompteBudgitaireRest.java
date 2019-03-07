@@ -5,7 +5,6 @@
  */
 package com.faculte.simplefacultebudget.domain.rest;
 
-
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.model.service.CompteBudgitaireService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/budget/compte_budgitaires")
 @RestController()
 public class CompteBudgitaireRest {
+
     @Autowired
-  private CompteBudgitaireService compteBudgitaireService;
+    private CompteBudgitaireService compteBudgitaireService;
+
     @GetMapping("/code/{code}")
     public CompteBudgitaire findByCode(@PathVariable String code) {
         return compteBudgitaireService.findByCode(code);
@@ -31,7 +32,7 @@ public class CompteBudgitaireRest {
     public void creerCompteBudgitaire(CompteBudgitaire compteBudgitaire) {
         compteBudgitaireService.creerCompteBudgitaire(compteBudgitaire);
     }
-    
+
     public CompteBudgitaireService getCompteBudgitaireService() {
         return compteBudgitaireService;
     }
@@ -39,6 +40,5 @@ public class CompteBudgitaireRest {
     public void setCompteBudgitaireService(CompteBudgitaireService compteBudgitaireService) {
         this.compteBudgitaireService = compteBudgitaireService;
     }
-    
-    
+
 }

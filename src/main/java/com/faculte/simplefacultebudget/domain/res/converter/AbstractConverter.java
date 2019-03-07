@@ -23,9 +23,9 @@ public abstract class AbstractConverter<T, VO> {
             return null;
         } else {
             List<T> items = new ArrayList();
-            for (VO vo : vos) {
+            vos.forEach((vo) -> {
                 items.add(toItem(vo));
-            }
+            });
             return items;
 
         }
@@ -36,9 +36,9 @@ public abstract class AbstractConverter<T, VO> {
             return null;
         } else {
             List<VO> vos = new ArrayList();
-            for (T item : items) {
+            items.forEach((item) -> {
                 vos.add(toVo(item));
-            }
+            });
             return vos;
         }
     }

@@ -19,8 +19,6 @@ public interface BudgetSousProjetService {
 
     public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee);
 
-    public int creerBudgetSousProjet(BudgetSousProjet budgetSousProjet);
-
     public void updateReliquatBsp(BudgetSousProjet budgetSousProjet);
 
     public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> BudgetSousProjets);

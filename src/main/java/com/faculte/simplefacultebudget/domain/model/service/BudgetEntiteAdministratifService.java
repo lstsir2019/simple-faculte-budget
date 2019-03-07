@@ -19,8 +19,6 @@ public interface BudgetEntiteAdministratifService {
 
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    public int creerBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif);
-
     public void updateReliquatBea(BudgetEntiteAdministratif budgetEntiteAdministratif);
 
     public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetEntiteAdministratif> budgetEntiteAdministratifs);
