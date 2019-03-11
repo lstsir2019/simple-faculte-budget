@@ -12,6 +12,7 @@ package com.faculte.simplefacultebudget.domain.rest.vo;
 public class BudgetCompteBudgitaireVo {
 
     private Long id;
+    private String codeBcb;
     private DetaillesBudgetVo detaillesBudgetVo;
     private BudgetEntiteAdministratifVo budgetEntiteAdministratifVo;
     private CompteBudgitaireVo compteBudgitaireVo;
@@ -22,6 +23,14 @@ public class BudgetCompteBudgitaireVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCodeBcb() {
+        return codeBcb;
+    }
+
+    public void setCodeBcb(String codeBcb) {
+        this.codeBcb = codeBcb;
     }
 
     public DetaillesBudgetVo getDetaillesBudgetVo() {

@@ -57,4 +57,9 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
     public void setCompteBudgitaireDao(CompteBudgitaireDao compteBudgitaireDao) {
         this.compteBudgitaireDao = compteBudgitaireDao;
     }
+
+    @Override
+    public void save(CompteBudgitaire cb) {
+        compteBudgitaireDao.save(cb);
+    }
 }

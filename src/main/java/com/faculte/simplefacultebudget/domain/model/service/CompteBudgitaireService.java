@@ -19,4 +19,6 @@ public interface CompteBudgitaireService {
 
     public int payerCB(String code);
 
+    public void save(CompteBudgitaire cb);
+
 }

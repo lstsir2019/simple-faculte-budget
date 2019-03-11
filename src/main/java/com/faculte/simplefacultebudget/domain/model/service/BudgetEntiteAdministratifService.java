@@ -19,8 +19,6 @@ public interface BudgetEntiteAdministratifService {
 
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    public void updateReliquatBea(BudgetEntiteAdministratif budgetEntiteAdministratif);
-
     public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetEntiteAdministratif> budgetEntiteAdministratifs);
 
     public int payerBudgetEA(BudgetEntiteAdministratif budgetEntiteAdministratif, double montant);
@@ -28,4 +26,10 @@ public interface BudgetEntiteAdministratifService {
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
 
     public void removeBea(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
+    public void save(BudgetEntiteAdministratif entiteAdministratif);
+
+    public double getAnticident(BudgetEntiteAdministratif entiteAdministratif);
+
+    public void updateBudgetEntiteAdministratif(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif);
 }

@@ -38,7 +38,8 @@ public class BudgetCompteBudgitaire implements Serializable {
         String referenceEA = this.budgetEntiteAdministratif.getReferenceEntiteAdministratif();
         String referenceSP = this.budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet();
         String annee = (this.budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee()) + "";
-        gerenerateCode +=annee + referenceSP.substring(0, 4)+referenceEA.substring(0, 4) ;
+        Long id = this.compteBudgitaire.getId();
+        gerenerateCode +=annee +"-"+ referenceSP.substring(0, 4)+"-"+referenceEA.substring(0, 4)+"-"+id ;
         return gerenerateCode;
     }
 

@@ -31,4 +31,7 @@ public interface BudgetCompteBudgitaireService {
 
     public void removeBcb(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 
+    public double getAnticident(BudgetCompteBudgitaire budgetCompteBudgitaire);
+
+    public void updateBudgetCompteBudgitaire(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire budgetCompteBudgitaire);
 }

@@ -61,24 +61,34 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
+    public void updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte) {
+        bfFound.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
+        bfFound.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
+        bfFound.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
+        bfFound.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
+        bfFound.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
+        bfFound.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
+        budgetFaculteDao.save(bfFound);
+    }
+
+    @Override
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
         BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
         if (bf != null) {
-            bf.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
-            bf.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
-            bf.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
-            bf.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
-            budgetFaculteDao.save(bf);
+            if (!bf.equals(budgetFaculte)) {
+                updateBudgetFaculte(bf, budgetFaculte);
+            }
             budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
             return 1;
         } else {
             bf = new BudgetFaculte();
             bf.setDetaillesBudget(budgetFaculte.getDetaillesBudget());
             bf.setAnnee(budgetFaculte.getAnnee());
-            //bf.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
+            bf.getDetaillesBudget().setAntecedent(getAnticident(budgetFaculte));
+            bf.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
             bf.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
-            //bf.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
-            bf.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
+            bf.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel() + bf.getDetaillesBudget().getAntecedent());
+            bf.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel() + bf.getDetaillesBudget().getAntecedent());
             bf.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
             bf.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
             budgetFaculteDao.save(bf);
@@ -89,8 +99,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public void updateReliquatBf(BudgetFaculte budgetFaculte) {
-        BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
-        budgetFaculteDao.save(bf);
+        budgetFaculteDao.save(budgetFaculte);
     }
 
     @Override
@@ -114,6 +123,16 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     public void setBudgetFaculteDao(BudgetFaculteDao budgetFaculteDao) {
         this.budgetFaculteDao = budgetFaculteDao;
+    }
+
+    @Override
+    public double getAnticident(BudgetFaculte budgetFaculte) {
+        BudgetFaculte bfOld = findByAnnee(budgetFaculte.getAnnee() - 1);
+        if (bfOld != null) {
+            return bfOld.getDetaillesBudget().getReliquatReel();
+        } else {
+            return 0D;
+        }
     }
 
 }

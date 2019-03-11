@@ -19,11 +19,15 @@ public interface BudgetSousProjetService {
 
     public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee);
 
-    public void updateReliquatBsp(BudgetSousProjet budgetSousProjet);
+    public void save(BudgetSousProjet budgetSousProjet);
 
     public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> BudgetSousProjets);
 
     public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix);
 
     public void removeBsp(int annee, String referenceSousProjet);
+    
+    public double getAnticident(BudgetSousProjet sousProjet);
+    
+    public void updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet);
 }
