@@ -98,7 +98,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
-    public void updateReliquatBf(BudgetFaculte budgetFaculte) {
+    public void save(BudgetFaculte budgetFaculte) {
         budgetFaculteDao.save(budgetFaculte);
     }
 

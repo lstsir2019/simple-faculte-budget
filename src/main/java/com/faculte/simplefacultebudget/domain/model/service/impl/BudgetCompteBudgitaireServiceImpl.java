@@ -135,7 +135,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
                         cb.setLibelle(budgetCompteBudgitaire.getCompteBudgitaire().getLibelle());
                         compteBudgitaireService.creerCompteBudgitaire(cb);
 
-                        bcb.getDetaillesBudget().setAntecedent(getAnticident(budgetCompteBudgitaire));
+                        bcb.getDetaillesBudget().setAntecedent(getAnticident(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee() - 1));
                         bcb.setBudgetEntiteAdministratif(budgetEntiteAdministratif);
                         bcb.getDetaillesBudget().setCreditOuvertEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
                         bcb.getDetaillesBudget().setReliquatEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
@@ -217,8 +217,8 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
-    public double getAnticident(BudgetCompteBudgitaire budgetCompteBudgitaire) {
-        BudgetCompteBudgitaire bcb = findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetCompteBudgitaire.getBudgetEntiteAdministratif().getReferenceEntiteAdministratif(), budgetCompteBudgitaire.getBudgetEntiteAdministratif().getBudgetSousProjet().getReferenceSousProjet(), budgetCompteBudgitaire.getBudgetEntiteAdministratif().getBudgetSousProjet().getBudgetFaculte().getAnnee() - 1);
+    public double getAnticident(String code, String refEa, String refBsp, int annee) {
+        BudgetCompteBudgitaire bcb = findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(code, refEa, refBsp, annee);
         if (bcb != null) {
             return bcb.getDetaillesBudget().getReliquatReel();
         } else {

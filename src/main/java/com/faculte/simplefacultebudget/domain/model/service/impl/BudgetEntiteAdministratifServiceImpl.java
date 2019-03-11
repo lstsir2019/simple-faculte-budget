@@ -120,7 +120,7 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
                     } else {
                         bea = new BudgetEntiteAdministratif();
                         bea.setDetaillesBudget(entiteAdministratif.getDetaillesBudget());
-                        bea.getDetaillesBudget().setAntecedent(getAnticident(entiteAdministratif));
+                        bea.getDetaillesBudget().setAntecedent(getAnticident(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee()));
                         bea.setReferenceEntiteAdministratif(entiteAdministratif.getReferenceEntiteAdministratif());
                         bea.getDetaillesBudget().setReliquatEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
                         bea.getDetaillesBudget().setCreditOuvertEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
@@ -172,8 +172,8 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
     }
 
     @Override
-    public double getAnticident(BudgetEntiteAdministratif entiteAdministratif) {
-        BudgetEntiteAdministratif beaOld = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(entiteAdministratif.getReferenceEntiteAdministratif(), entiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), entiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee() - 1);
+    public double getAnticident(String refEa, String refSp, int annee) {
+        BudgetEntiteAdministratif beaOld = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(refEa, refSp, annee - 1);
         if (beaOld != null) {
             return beaOld.getDetaillesBudget().getReliquatReel();
         } else {

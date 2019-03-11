@@ -17,7 +17,7 @@ public interface BudgetFaculteService {
 
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte);
 
-    public void updateReliquatBf(BudgetFaculte budgetFaculte);
+    public void save(BudgetFaculte budgetFaculte);
 
     public BudgetFaculte findById(Long id);
 

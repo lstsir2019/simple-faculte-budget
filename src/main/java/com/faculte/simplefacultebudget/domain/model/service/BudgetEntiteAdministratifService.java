@@ -29,7 +29,7 @@ public interface BudgetEntiteAdministratifService {
 
     public void save(BudgetEntiteAdministratif entiteAdministratif);
 
-    public double getAnticident(BudgetEntiteAdministratif entiteAdministratif);
+    public double getAnticident(String refEa, String refSp, int annee);
 
     public void updateBudgetEntiteAdministratif(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif);
 }

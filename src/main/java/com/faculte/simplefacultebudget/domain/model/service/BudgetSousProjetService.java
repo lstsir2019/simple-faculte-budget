@@ -27,7 +27,7 @@ public interface BudgetSousProjetService {
 
     public void removeBsp(int annee, String referenceSousProjet);
     
-    public double getAnticident(BudgetSousProjet sousProjet);
+    public double getAnticident(String reference, int annee);
     
     public void updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet);
 }
