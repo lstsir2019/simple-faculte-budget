@@ -76,7 +76,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
         if (bf != null) {
             if (!bf.equals(budgetFaculte)) {
-                updateBudgetFaculte(bf, budgetFaculte);
+               //updateBudgetFaculte(bf, budgetFaculte);
             }
             budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
             return 1;

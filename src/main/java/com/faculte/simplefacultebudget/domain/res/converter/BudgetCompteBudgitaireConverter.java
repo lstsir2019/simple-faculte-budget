@@ -23,6 +23,7 @@ public class BudgetCompteBudgitaireConverter extends AbstractConverter<BudgetCom
         } else {
             BudgetCompteBudgitaire item = new BudgetCompteBudgitaire();
             item.setId(vo.getId());
+            item.setCodeBcb(vo.getCodeBcb());
             item.setCompteBudgitaire(new CompteBudgitaireConverter().toItem(vo.getCompteBudgitaireVo()));
             item.setDetaillesBudget(new DetaillesBudgetConverter().toItem(vo.getDetaillesBudgetVo()));
             //item.setBudgetEntiteAdministratif(new BudgetEntiteAdministratifConverter().toItem(vo.getBudgetEntiteAdministratifVo()));
@@ -37,6 +38,7 @@ public class BudgetCompteBudgitaireConverter extends AbstractConverter<BudgetCom
         } else {
             BudgetCompteBudgitaireVo vo = new BudgetCompteBudgitaireVo();
             vo.setId(item.getId());
+            vo.setCodeBcb(item.getCodeBcb());
             vo.setCompteBudgitaireVo(new CompteBudgitaireConverter().toVo(item.getCompteBudgitaire()));
             vo.setDetaillesBudgetVo(new DetaillesBudgetConverter().toVo(item.getDetaillesBudget()));
             vo.setBudgetEntiteAdministratifVo(new BudgetEntiteAdministratifConverter().toVo(item.getBudgetEntiteAdministratif()));
