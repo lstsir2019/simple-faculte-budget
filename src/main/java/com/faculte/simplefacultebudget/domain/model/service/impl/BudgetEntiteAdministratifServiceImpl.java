@@ -143,18 +143,20 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
 
     @Override
     public void removeBea(String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
-        double reliquatEstimatif = 0;
-        double reliquatReel = 0;
-        BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+//        double reliquatEstimatif = 0;
+//        double reliquatReel = 0;
+//        BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+//        BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+//        for (BudgetCompteBudgitaire bcb : bea.getBudgeCompteBudgitaires()) {
+//            reliquatEstimatif += bcb.getDetaillesBudget().getReliquatEstimatif();
+//            reliquatReel += bcb.getDetaillesBudget().getReliquatReel();
+//        }
         BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
-        for (BudgetCompteBudgitaire bcb : bea.getBudgeCompteBudgitaires()) {
-            reliquatEstimatif += bcb.getDetaillesBudget().getReliquatEstimatif();
-            reliquatReel += bcb.getDetaillesBudget().getReliquatReel();
-        }
+        BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
         bsp.setDetaillesBudget(bsp.getDetaillesBudget());
         bea.setDetaillesBudget(bea.getDetaillesBudget());
-        bsp.getDetaillesBudget().setReliquatEstimatif(bsp.getDetaillesBudget().getReliquatEstimatif() + bea.getDetaillesBudget().getCreditOuvertEstimatif() + reliquatEstimatif);
-        bsp.getDetaillesBudget().setReliquatReel(bsp.getDetaillesBudget().getReliquatReel() + bea.getDetaillesBudget().getCreditOuvertReel() + reliquatReel);
+        bsp.getDetaillesBudget().setReliquatEstimatif(bsp.getDetaillesBudget().getReliquatEstimatif() + bea.getDetaillesBudget().getCreditOuvertEstimatif());
+        bsp.getDetaillesBudget().setReliquatReel(bsp.getDetaillesBudget().getReliquatReel() + bea.getDetaillesBudget().getCreditOuvertReel());
         budgetSousProjetService.save(bsp);
         budgetEntiteAdministratifDao.delete(bea);
     }
