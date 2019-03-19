@@ -10,6 +10,7 @@ import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService
 import com.faculte.simplefacultebudget.domain.res.converter.AbstractConverter;
 import com.faculte.simplefacultebudget.domain.res.converter.BudgetFaculteConverter;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetFaculteVo;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -61,6 +62,11 @@ public class BudgetFaculteRest {
     @DeleteMapping("/suppression/annee/{annee}")
     public void removeBf(@PathVariable int annee) {
         budgetFaculteService.removeBf(annee);
+    }
+
+    @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
+    public List<BudgetFaculteVo> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(@PathVariable("anneeMin") int anneeMin, @PathVariable("anneeMax") int anneeMax) {
+        return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeGreaterThanEqualOrAnneeLessThanEqual(anneeMin, anneeMax));
     }
 
 }

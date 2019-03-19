@@ -8,7 +8,9 @@ package com.faculte.simplefacultebudget.domain.rest;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import com.faculte.simplefacultebudget.domain.res.converter.AbstractConverter;
+import com.faculte.simplefacultebudget.domain.rest.proxy.SousProjetService;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetSousProjetVo;
+import com.faculte.simplefacultebudget.domain.rest.vo.exchange.SousProjetVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,6 +37,9 @@ public class BudgetSousProjetRest {
     @Autowired
     @Qualifier("budgetSousProjetConverter")
     private AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> budgetSousProjetConverter;
+
+    @Autowired
+    private SousProjetService sousProjetService;
 
     public BudgetSousProjetService getBudgetSousProjetService() {
         return budgetSousProjetService;
@@ -69,4 +74,13 @@ public class BudgetSousProjetRest {
         budgetSousProjetService.removeBsp(annee, referenceSousProjet);
     }
 
+    @GetMapping("/all/sousprojet")
+    public List<SousProjetVo> findAllSousProjet() {
+        return sousProjetService.findAllSousProjet();
+    }
+
+    @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
+    public List<BudgetSousProjetVo> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(@PathVariable("anneeMin") Integer anneeMin, @PathVariable("anneeMax") Integer anneeMax) {
+        return budgetSousProjetConverter.toVo(budgetSousProjetService.findByBudgetFaculteAnneeOrBudgetFaculteAnnee(anneeMin, anneeMax));
+    }
 }

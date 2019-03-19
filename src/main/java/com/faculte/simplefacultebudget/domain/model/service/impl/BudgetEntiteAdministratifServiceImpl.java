@@ -5,7 +5,6 @@
  */
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetEntiteAdministratifDao;
@@ -181,6 +180,11 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
         } else {
             return 0D;
         }
+    }
+
+    @Override
+    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax) {
+        return budgetEntiteAdministratifDao.findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
     }
 
 }

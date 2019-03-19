@@ -15,9 +15,15 @@ import org.springframework.stereotype.Repository;
  * @author AMINE
  */
 @Repository
-public interface BudgetEntiteAdministratifDao extends JpaRepository<BudgetEntiteAdministratif , Long>{
-    public BudgetEntiteAdministratif findByReferenceEntiteAdministratif (String referenceEntiteAdministratif);
-    public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet , int annee);
-    public BudgetEntiteAdministratif findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif ,String referenceSousProjet , int annee);
+public interface BudgetEntiteAdministratifDao extends JpaRepository<BudgetEntiteAdministratif, Long> {
+
+    public BudgetEntiteAdministratif findByReferenceEntiteAdministratif(String referenceEntiteAdministratif);
+
+    public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+
+    public BudgetEntiteAdministratif findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
+
+    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 }

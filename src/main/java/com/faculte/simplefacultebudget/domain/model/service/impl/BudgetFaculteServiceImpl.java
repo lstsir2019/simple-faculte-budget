@@ -9,6 +9,7 @@ import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetFaculteDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -133,6 +134,11 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         } else {
             return 0D;
         }
+    }
+
+    @Override
+    public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax) {
+        return budgetFaculteDao.findByAnneeGreaterThanEqualOrAnneeLessThanEqual(anneeMin, anneeMax);
     }
 
 }

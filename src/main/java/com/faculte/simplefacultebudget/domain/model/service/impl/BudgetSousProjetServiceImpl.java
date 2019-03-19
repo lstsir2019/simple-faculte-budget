@@ -202,4 +202,9 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         }
     }
 
+    @Override
+    public List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax) {
+        return budgetSousProjetDao.findByBudgetFaculteAnneeOrBudgetFaculteAnnee(anneeMin, anneeMax);
+    }
+
 }

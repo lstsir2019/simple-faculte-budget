@@ -8,6 +8,7 @@ package com.faculte.simplefacultebudget.domain.model.dao;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,4 +21,7 @@ public interface BudgetSousProjetDao extends JpaRepository<BudgetSousProjet, Lon
     public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
     public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee);
+
+    @Query("SELECT bsp FROM BudgetSousProjet bsp WHERE bsp.budgetFaculte.annee >= ?1 or bsp.budgetFaculte.annee <= ?2")
+    List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
 }

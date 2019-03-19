@@ -6,6 +6,7 @@
 package com.faculte.simplefacultebudget.domain.model.service;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
+import java.util.List;
 
 /**
  *
@@ -28,4 +29,6 @@ public interface BudgetFaculteService {
     public void updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte);
     
     public double getAnticident(BudgetFaculte budgetFaculte);
+    
+    public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax);
 }

@@ -8,7 +8,9 @@ package com.faculte.simplefacultebudget.domain.rest;
 import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetEntiteAdministratifService;
 import com.faculte.simplefacultebudget.domain.res.converter.AbstractConverter;
+import com.faculte.simplefacultebudget.domain.rest.proxy.EntiteAdministratifService;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetEntiteAdministratifVo;
+import com.faculte.simplefacultebudget.domain.rest.vo.exchange.EntiteAdministratifVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,6 +37,9 @@ public class BudgetEntiteAdministratifRest {
     @Autowired
     @Qualifier("budgetEntiteAdministratifConverter")
     private AbstractConverter<BudgetEntiteAdministratif, BudgetEntiteAdministratifVo> budgetEntiteAdministratifConverter;
+
+    @Autowired
+    private EntiteAdministratifService entiteAdministratifService;
 
     @GetMapping("/referenceEntiteAdmin/{referenceEntiteAdmin}/refSousProjet/{referenceSousProjet}/annee/{annee}")
     public BudgetEntiteAdministratifVo findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(@PathVariable("referenceEntiteAdmin") String referenceEntiteAdministratif, @PathVariable("referenceSousProjet") String referenceSousProjet, @PathVariable("annee") int annee) {
@@ -74,4 +79,15 @@ public class BudgetEntiteAdministratifRest {
     public void setBudgetEntiteAdministratifService(BudgetEntiteAdministratifService budgetEntiteAdministratifService) {
         this.budgetEntiteAdministratifService = budgetEntiteAdministratifService;
     }
+
+    @GetMapping("/all/entiteadministratif")
+    public List<EntiteAdministratifVo> findAllEntiteAdministratif() {
+        return entiteAdministratifService.findAllEntiteAdministratif();
+    }
+
+    @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
+    public List<BudgetEntiteAdministratifVo> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(@PathVariable("anneeMin") Integer anneeMin, @PathVariable("anneeMax") Integer anneeMax) {
+        return budgetEntiteAdministratifConverter.toVo(budgetEntiteAdministratifService.findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax));
+    }
+
 }

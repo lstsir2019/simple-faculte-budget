@@ -58,6 +58,11 @@ public class BudgetCompteBudgitaireRest {
         budgetCompteBudgitaireService.removeBcb(code, referenceEntiteAdministratif, referenceSousProjet, annee);
     }
 
+    @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(@PathVariable("anneeMin") Integer anneeMin, @PathVariable("anneeMax") Integer anneeMax) {
+        return budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
+    }
+
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
         return budgetCompteBudgitaireService;
     }

@@ -106,6 +106,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         budgetCompteBudgitaireDao.save(bcb);
     }
 
+    int i=1;
     @Override
     public int createBudgetCompteBudgitaire(BudgetEntiteAdministratif budgetEntiteAdministratif, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
         if (budgetCompteBudgitaires == null || budgetCompteBudgitaires.isEmpty()) {
@@ -147,8 +148,9 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
                         budgetEntiteAdministratif.getDetaillesBudget().setReliquatReel(restReel);
                         budgetEntiteAdministratifService.save(budgetEntiteAdministratif);
 
-                        bcb.setCodeBcb(bcb.generateCode());
+                        bcb.setCodeBcb(bcb.generateCode(i));
                         budgetCompteBudgitaireDao.save(bcb);
+                        i++;
                     }
                 }
             }
@@ -224,6 +226,11 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         } else {
             return 0D;
         }
+    }
+
+    @Override
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax) {
+        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
     }
 
 }

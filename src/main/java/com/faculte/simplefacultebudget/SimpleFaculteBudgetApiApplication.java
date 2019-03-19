@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients("com.faculte.budgetapi.domain.rest")
+@EnableFeignClients("com.faculte.simplefacultebudget.domain.rest")
 @EnableDiscoveryClient
 public class SimpleFaculteBudgetApiApplication {
 

@@ -30,4 +30,6 @@ public interface BudgetSousProjetService {
     public double getAnticident(String reference, int annee);
     
     public void updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet);
+    
+    List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
 }

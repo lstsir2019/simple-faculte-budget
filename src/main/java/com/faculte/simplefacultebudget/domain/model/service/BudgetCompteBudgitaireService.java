@@ -34,4 +34,6 @@ public interface BudgetCompteBudgitaireService {
     public double getAnticident(String code, String refEa, String refBsp, int annee);
 
     public void updateBudgetCompteBudgitaire(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire budgetCompteBudgitaire);
+
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 }
