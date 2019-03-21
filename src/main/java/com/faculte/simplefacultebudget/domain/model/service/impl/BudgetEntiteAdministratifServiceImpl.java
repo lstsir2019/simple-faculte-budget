@@ -93,16 +93,17 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
         bea.getDetaillesBudget().setEngageNonPaye(entiteAdministratif.getDetaillesBudget().getEngageNonPaye());
         budgetEntiteAdministratifDao.save(bea);
     }
-    
+
     @Override
     public boolean isEqual(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif) {
-        if (bea.getDetaillesBudget().getCreditOuvertEstimatif()!=entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif()||
-            bea.getDetaillesBudget().getCreditOuvertReel()!=entiteAdministratif.getDetaillesBudget().getCreditOuvertReel()||
-            bea.getDetaillesBudget().getEngagePaye()!=entiteAdministratif.getDetaillesBudget().getEngagePaye()||
-            bea.getDetaillesBudget().getEngageNonPaye()!=entiteAdministratif.getDetaillesBudget().getEngageNonPaye()) {
+        if (bea.getDetaillesBudget().getCreditOuvertEstimatif() != entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif()
+                || bea.getDetaillesBudget().getCreditOuvertReel() != entiteAdministratif.getDetaillesBudget().getCreditOuvertReel()
+                || bea.getDetaillesBudget().getEngagePaye() != entiteAdministratif.getDetaillesBudget().getEngagePaye()
+                || bea.getDetaillesBudget().getEngageNonPaye() != entiteAdministratif.getDetaillesBudget().getEngageNonPaye()) {
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
     @Override
@@ -120,7 +121,7 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
                 } else {
                     BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee());
                     if (bea != null) {
-                        if (!isEqual(bea,entiteAdministratif)) {
+                        if (!isEqual(bea, entiteAdministratif)) {
                             budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bea.getDetaillesBudget().getCreditOuvertEstimatif());
                             budgetSousProjet.getDetaillesBudget().setReliquatReel(restReel + bea.getDetaillesBudget().getCreditOuvertReel());
                             budgetSousProjetService.save(budgetSousProjet);

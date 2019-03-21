@@ -10,7 +10,6 @@ import com.faculte.simplefacultebudget.domain.model.dao.BudgetFaculteDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import java.util.List;
-import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +23,10 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Autowired
     private BudgetFaculteDao budgetFaculteDao;
-    
+
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
-    
+
     org.slf4j.Logger log = LoggerFactory.getLogger(this.getClass());
 
     public BudgetFaculteDao getBudgetFaculteDao() {
@@ -82,8 +81,8 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
         BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
         if (bf != null) {
-            if (!isEqual(bf,budgetFaculte)) {
-               updateBudgetFaculte(bf, budgetFaculte);
+            if (!isEqual(bf, budgetFaculte)) {
+                updateBudgetFaculte(bf, budgetFaculte);
             }
             budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
             return 1;
@@ -149,13 +148,14 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte) {
-        if (bf.getDetaillesBudget().getCreditOuvertEstimatif()!=budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()||
-            bf.getDetaillesBudget().getCreditOuvertReel()!=budgetFaculte.getDetaillesBudget().getCreditOuvertReel()||
-            bf.getDetaillesBudget().getEngagePaye()!=budgetFaculte.getDetaillesBudget().getEngagePaye()||
-            bf.getDetaillesBudget().getEngageNonPaye()!=budgetFaculte.getDetaillesBudget().getEngageNonPaye()) {
+        if (bf.getDetaillesBudget().getCreditOuvertEstimatif() != budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()
+                || bf.getDetaillesBudget().getCreditOuvertReel() != budgetFaculte.getDetaillesBudget().getCreditOuvertReel()
+                || bf.getDetaillesBudget().getEngagePaye() != budgetFaculte.getDetaillesBudget().getEngagePaye()
+                || bf.getDetaillesBudget().getEngageNonPaye() != budgetFaculte.getDetaillesBudget().getEngageNonPaye()) {
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
 }
