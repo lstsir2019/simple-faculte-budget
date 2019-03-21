@@ -105,6 +105,19 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         bcb.getDetaillesBudget().setReliquatReel(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
         budgetCompteBudgitaireDao.save(bcb);
     }
+    
+    @Override
+    public boolean isEqual(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire compteBudgitaire) {
+        if (bcb.getDetaillesBudget().getCreditOuvertEstimatif()!=compteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif()||
+            bcb.getDetaillesBudget().getCreditOuvertReel()!=compteBudgitaire.getDetaillesBudget().getCreditOuvertReel()||
+            bcb.getDetaillesBudget().getEngagePaye()!=compteBudgitaire.getDetaillesBudget().getEngagePaye()||
+            bcb.getDetaillesBudget().getEngageNonPaye()!=compteBudgitaire.getDetaillesBudget().getEngageNonPaye()||
+            !bcb.getCompteBudgitaire().getCode().equals(compteBudgitaire.getCompteBudgitaire().getCode())||
+            !bcb.getCompteBudgitaire().getLibelle().equals(compteBudgitaire.getCompteBudgitaire().getLibelle())) {
+            return false;
+        }
+        return true;
+    }
 
     int i=1;
     @Override
@@ -122,7 +135,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
                 } else {
                     BudgetCompteBudgitaire bcb = findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
                     if (bcb != null) {
-                        if (!bcb.equals(budgetCompteBudgitaire)) {
+                        if (!isEqual(bcb,budgetCompteBudgitaire)) {
                             budgetEntiteAdministratif.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bcb.getDetaillesBudget().getCreditOuvertEstimatif());
                             budgetEntiteAdministratif.getDetaillesBudget().setReliquatReel(restReel + bcb.getDetaillesBudget().getCreditOuvertReel());
                             budgetEntiteAdministratifService.save(budgetEntiteAdministratif);
@@ -148,7 +161,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
                         budgetEntiteAdministratif.getDetaillesBudget().setReliquatReel(restReel);
                         budgetEntiteAdministratifService.save(budgetEntiteAdministratif);
 
-                        bcb.setCodeBcb(bcb.generateCode(i));
+                        bcb.setReferenceCompteBudgitaire(bcb.generateCode(i));
                         budgetCompteBudgitaireDao.save(bcb);
                         i++;
                     }
@@ -159,15 +172,25 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
-    public void removeBcb(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee) {
-        BudgetCompteBudgitaire bcb = findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(code, referenceEntiteAdministratif, referenceSousProjet, annee);
-        BudgetEntiteAdministratif bea = budgetEntiteAdministratifService.findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
+    public void removeBcb(String referenceCompteBudgitaire) {
+        BudgetCompteBudgitaire bcb = findByReferenceCompteBudgitaire(referenceCompteBudgitaire);
+        BudgetEntiteAdministratif bea = budgetEntiteAdministratifService.findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(bcb.getBudgetEntiteAdministratif().getReferenceEntiteAdministratif(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getReferenceSousProjet(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getBudgetFaculte().getAnnee());
         bcb.setDetaillesBudget(bcb.getDetaillesBudget());
         bea.setDetaillesBudget(bea.getDetaillesBudget());
         bea.getDetaillesBudget().setReliquatEstimatif(bea.getDetaillesBudget().getReliquatEstimatif() + bcb.getDetaillesBudget().getCreditOuvertEstimatif());
         bea.getDetaillesBudget().setReliquatReel(bea.getDetaillesBudget().getReliquatReel() + bcb.getDetaillesBudget().getCreditOuvertReel());
         budgetEntiteAdministratifService.save(bea);
         budgetCompteBudgitaireDao.delete(bcb);
+    }
+    
+    @Override
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax) {
+        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
+    }
+
+    @Override
+    public BudgetCompteBudgitaire findByReferenceCompteBudgitaire(String reference) {
+        return budgetCompteBudgitaireDao.findByReferenceCompteBudgitaire(reference);
     }
 
     public BudgetSousProjetService getBudgetSousProjetService() {
@@ -226,11 +249,6 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         } else {
             return 0D;
         }
-    }
-
-    @Override
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax) {
-        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
     }
 
 }

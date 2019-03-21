@@ -59,7 +59,7 @@ public class BudgetFaculteRest {
         return budgetFaculteService.creerBudgetFaculte(myBudgetFaculte);
     }
 
-    @DeleteMapping("/suppression/annee/{annee}")
+    @DeleteMapping("/annee/{annee}")
     public void removeBf(@PathVariable int annee) {
         budgetFaculteService.removeBf(annee);
     }

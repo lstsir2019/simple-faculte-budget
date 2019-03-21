@@ -29,11 +29,15 @@ public interface BudgetCompteBudgitaireService {
 
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    public void removeBcb(String code, String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+    public void removeBcb(String referenceCompteBudgitaire);
 
     public double getAnticident(String code, String refEa, String refBsp, int annee);
 
     public void updateBudgetCompteBudgitaire(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire budgetCompteBudgitaire);
 
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
+
+    public boolean isEqual(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire compteBudgitaire);
+    
+    public BudgetCompteBudgitaire findByReferenceCompteBudgitaire(String reference);
 }

@@ -53,14 +53,19 @@ public class BudgetCompteBudgitaireRest {
         return budgetCompteBudgitaireConverter.toVo(myBcbs);
     }
 
-    @DeleteMapping("/suppression/code/{code}/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
-    public void removeBcb(@PathVariable String code, @PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
-        budgetCompteBudgitaireService.removeBcb(code, referenceEntiteAdministratif, referenceSousProjet, annee);
+    @DeleteMapping("/referenceCompteBudgitaire/{referenceCompteBudgitaire}")
+    public void removeBcb(@PathVariable("referenceCompteBudgitaire") String referenceCompteBudgitaire) {
+        budgetCompteBudgitaireService.removeBcb(referenceCompteBudgitaire);
     }
 
     @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(@PathVariable("anneeMin") Integer anneeMin, @PathVariable("anneeMax") Integer anneeMax) {
         return budgetCompteBudgitaireService.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
+    }
+
+    @GetMapping("/referenceCompteBudgitaire/{referenceCompteBudgitaire}")
+    public BudgetCompteBudgitaire findByReferenceCompteBudgitaire(@PathVariable("referenceCompteBudgitaire") String reference) {
+        return budgetCompteBudgitaireService.findByReferenceCompteBudgitaire(reference);
     }
 
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {

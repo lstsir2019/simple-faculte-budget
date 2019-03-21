@@ -5,8 +5,6 @@
  */
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
-import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetSousProjetDao;
@@ -68,6 +66,17 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
             return 1;
         }
     }
+    
+    @Override
+    public boolean isEqual(BudgetSousProjet bsp, BudgetSousProjet sousProjet) {
+        if (bsp.getDetaillesBudget().getCreditOuvertEstimatif()!=sousProjet.getDetaillesBudget().getCreditOuvertEstimatif()||
+            bsp.getDetaillesBudget().getCreditOuvertReel()!=sousProjet.getDetaillesBudget().getCreditOuvertReel()||
+            bsp.getDetaillesBudget().getEngagePaye()!=sousProjet.getDetaillesBudget().getEngagePaye()||
+            bsp.getDetaillesBudget().getEngageNonPaye()!=sousProjet.getDetaillesBudget().getEngageNonPaye()) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> budgetSousProjets) {
@@ -84,7 +93,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
                 } else {
                     BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetFaculteAnnee(budgetSousProjets.get(i).getReferenceSousProjet(), budgetFacultet.getAnnee());
                     if (bsp != null) {
-                        if (!bsp.equals(sousProjet)) {
+                        if (!isEqual(bsp,sousProjet)) {
                             budgetFacultet.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bsp.getDetaillesBudget().getCreditOuvertEstimatif());
                             budgetFacultet.getDetaillesBudget().setReliquatReel(restReel + bsp.getDetaillesBudget().getCreditOuvertReel());
                             updateBudgetSouSprojet(bsp, sousProjet);

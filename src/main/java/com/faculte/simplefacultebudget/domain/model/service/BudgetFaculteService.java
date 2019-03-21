@@ -31,4 +31,6 @@ public interface BudgetFaculteService {
     public double getAnticident(BudgetFaculte budgetFaculte);
     
     public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax);
+    
+    public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte);
 }

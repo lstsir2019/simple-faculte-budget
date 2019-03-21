@@ -59,7 +59,7 @@ public class BudgetEntiteAdministratifRest {
         return budgetEntiteAdministratifConverter.toVo(myBeas);
     }
 
-    @DeleteMapping("/suppression/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
+    @DeleteMapping("/referenceEntiteAdmin/{referenceEntiteAdministratif}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
     public void removeBea(@PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
         budgetEntiteAdministratifService.removeBea(referenceEntiteAdministratif, referenceSousProjet, annee);
     }

@@ -12,7 +12,7 @@ package com.faculte.simplefacultebudget.domain.rest.vo;
 public class BudgetCompteBudgitaireVo {
 
     private Long id;
-    private String codeBcb;
+    private String referenceCompteBudgitaire;
     private DetaillesBudgetVo detaillesBudgetVo;
     private BudgetEntiteAdministratifVo budgetEntiteAdministratifVo;
     private CompteBudgitaireVo compteBudgitaireVo;
@@ -25,12 +25,12 @@ public class BudgetCompteBudgitaireVo {
         this.id = id;
     }
 
-    public String getCodeBcb() {
-        return codeBcb;
+    public String getReferenceCompteBudgitaire() {
+        return referenceCompteBudgitaire;
     }
 
-    public void setCodeBcb(String codeBcb) {
-        this.codeBcb = codeBcb;
+    public void setReferenceCompteBudgitaire(String referenceCompteBudgitaire) {
+        this.referenceCompteBudgitaire = referenceCompteBudgitaire;
     }
 
     public DetaillesBudgetVo getDetaillesBudgetVo() {

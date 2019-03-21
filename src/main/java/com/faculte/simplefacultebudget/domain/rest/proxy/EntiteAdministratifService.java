@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author hp
  */
-@FeignClient(name = "microservice3-mandatPersonnel", url = "localhost:8090")
+@FeignClient(name = "microservice3-mandatPersonnel")
 public interface EntiteAdministratifService {
     
     @GetMapping("/mandat/mandats/all/entiteadministratif")

@@ -34,4 +34,6 @@ public interface BudgetEntiteAdministratifService {
     public void updateBudgetEntiteAdministratif(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif);
 
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
+
+    public boolean isEqual(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif);
 }

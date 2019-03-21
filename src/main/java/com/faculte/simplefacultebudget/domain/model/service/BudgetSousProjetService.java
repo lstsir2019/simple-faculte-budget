@@ -32,4 +32,6 @@ public interface BudgetSousProjetService {
     public void updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet);
     
     List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
+    
+    public boolean isEqual(BudgetSousProjet bsp, BudgetSousProjet sousProjet);
 }
