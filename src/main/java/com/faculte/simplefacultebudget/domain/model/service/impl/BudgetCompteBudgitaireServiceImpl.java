@@ -108,15 +108,15 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
 
     @Override
     public boolean isEqual(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire compteBudgitaire) {
-        if (bcb.getDetaillesBudget().getCreditOuvertEstimatif() != compteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif()
-                || bcb.getDetaillesBudget().getCreditOuvertReel() != compteBudgitaire.getDetaillesBudget().getCreditOuvertReel()
-                || bcb.getDetaillesBudget().getEngagePaye() != compteBudgitaire.getDetaillesBudget().getEngagePaye()
-                || bcb.getDetaillesBudget().getEngageNonPaye() != compteBudgitaire.getDetaillesBudget().getEngageNonPaye()
-                || !bcb.getCompteBudgitaire().getCode().equals(compteBudgitaire.getCompteBudgitaire().getCode())
-                || !bcb.getCompteBudgitaire().getLibelle().equals(compteBudgitaire.getCompteBudgitaire().getLibelle())) {
-            return false;
-        } else {
+        if (bcb.getDetaillesBudget().getCreditOuvertEstimatif() == compteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif()
+                && bcb.getDetaillesBudget().getCreditOuvertReel() == compteBudgitaire.getDetaillesBudget().getCreditOuvertReel()
+                && bcb.getDetaillesBudget().getEngagePaye() == compteBudgitaire.getDetaillesBudget().getEngagePaye()
+                && bcb.getDetaillesBudget().getEngageNonPaye() == compteBudgitaire.getDetaillesBudget().getEngageNonPaye()
+                && bcb.getCompteBudgitaire().getCode().equals(compteBudgitaire.getCompteBudgitaire().getCode())
+                && bcb.getCompteBudgitaire().getLibelle().equals(compteBudgitaire.getCompteBudgitaire().getLibelle())) {
             return true;
+        } else {
+            return false;
         }
     }
 

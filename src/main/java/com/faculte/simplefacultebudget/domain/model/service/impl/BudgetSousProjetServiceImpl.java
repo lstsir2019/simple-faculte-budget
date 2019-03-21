@@ -69,13 +69,13 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
 
     @Override
     public boolean isEqual(BudgetSousProjet bsp, BudgetSousProjet sousProjet) {
-        if (bsp.getDetaillesBudget().getCreditOuvertEstimatif() != sousProjet.getDetaillesBudget().getCreditOuvertEstimatif()
-                || bsp.getDetaillesBudget().getCreditOuvertReel() != sousProjet.getDetaillesBudget().getCreditOuvertReel()
-                || bsp.getDetaillesBudget().getEngagePaye() != sousProjet.getDetaillesBudget().getEngagePaye()
-                || bsp.getDetaillesBudget().getEngageNonPaye() != sousProjet.getDetaillesBudget().getEngageNonPaye()) {
-            return false;
-        } else {
+        if (bsp.getDetaillesBudget().getCreditOuvertEstimatif() == sousProjet.getDetaillesBudget().getCreditOuvertEstimatif()
+                && bsp.getDetaillesBudget().getCreditOuvertReel() == sousProjet.getDetaillesBudget().getCreditOuvertReel()
+                && bsp.getDetaillesBudget().getEngagePaye() == sousProjet.getDetaillesBudget().getEngagePaye()
+                && bsp.getDetaillesBudget().getEngageNonPaye() == sousProjet.getDetaillesBudget().getEngageNonPaye()) {
             return true;
+        } else {
+            return false;
         }
     }
 

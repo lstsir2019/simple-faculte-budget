@@ -148,13 +148,13 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte) {
-        if (bf.getDetaillesBudget().getCreditOuvertEstimatif() != budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()
-                || bf.getDetaillesBudget().getCreditOuvertReel() != budgetFaculte.getDetaillesBudget().getCreditOuvertReel()
-                || bf.getDetaillesBudget().getEngagePaye() != budgetFaculte.getDetaillesBudget().getEngagePaye()
-                || bf.getDetaillesBudget().getEngageNonPaye() != budgetFaculte.getDetaillesBudget().getEngageNonPaye()) {
-            return false;
-        } else {
+        if (bf.getDetaillesBudget().getCreditOuvertEstimatif() == budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()
+                && bf.getDetaillesBudget().getCreditOuvertReel() == budgetFaculte.getDetaillesBudget().getCreditOuvertReel()
+                && bf.getDetaillesBudget().getEngagePaye() == budgetFaculte.getDetaillesBudget().getEngagePaye()
+                && bf.getDetaillesBudget().getEngageNonPaye() == budgetFaculte.getDetaillesBudget().getEngageNonPaye()) {
             return true;
+        } else {
+            return false;
         }
     }
 

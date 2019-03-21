@@ -96,13 +96,13 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
 
     @Override
     public boolean isEqual(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif) {
-        if (bea.getDetaillesBudget().getCreditOuvertEstimatif() != entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif()
-                || bea.getDetaillesBudget().getCreditOuvertReel() != entiteAdministratif.getDetaillesBudget().getCreditOuvertReel()
-                || bea.getDetaillesBudget().getEngagePaye() != entiteAdministratif.getDetaillesBudget().getEngagePaye()
-                || bea.getDetaillesBudget().getEngageNonPaye() != entiteAdministratif.getDetaillesBudget().getEngageNonPaye()) {
-            return false;
-        } else {
+        if (bea.getDetaillesBudget().getCreditOuvertEstimatif() == entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif()
+                && bea.getDetaillesBudget().getCreditOuvertReel() == entiteAdministratif.getDetaillesBudget().getCreditOuvertReel()
+                && bea.getDetaillesBudget().getEngagePaye() == entiteAdministratif.getDetaillesBudget().getEngagePaye()
+                && bea.getDetaillesBudget().getEngageNonPaye() == entiteAdministratif.getDetaillesBudget().getEngageNonPaye()) {
             return true;
+        } else {
+            return false;
         }
     }
 
