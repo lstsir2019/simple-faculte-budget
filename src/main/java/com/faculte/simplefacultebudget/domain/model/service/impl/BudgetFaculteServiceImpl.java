@@ -67,17 +67,27 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
-    public void updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte) {
-        if (budgetFaculte.getDetaillesBudget().getCreditOuvertReel() >= bfFound.getDetaillesBudget().getReliquatReel()
-                && budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif() >= bfFound.getDetaillesBudget().getReliquatEstimatif()) {
-            bfFound.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
+    public int updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte) {
+       
+       double ReelConsomer = bfFound.getDetaillesBudget().getCreditOuvertReel()-bfFound.getDetaillesBudget().getReliquatReel();
+       double EstimatifConsomer = bfFound.getDetaillesBudget().getCreditOuvertEstimatif()-bfFound.getDetaillesBudget().getReliquatEstimatif();
+        if (bfFound == null ){
+            return -1;
+        }
+        else if (budgetFaculte.getDetaillesBudget().getCreditOuvertReel() < ReelConsomer
+                || budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif() < EstimatifConsomer ){
+           
+            return -2;
+        } else{
+            bfFound.setAnnee(budgetFaculte.getAnnee());
+             bfFound.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
             bfFound.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
             bfFound.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
             bfFound.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
-            bfFound.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
-            bfFound.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
+            bfFound.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel()-EstimatifConsomer);
+            bfFound.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()-ReelConsomer);
             budgetFaculteDao.save(bfFound);
-        }
+        }return 1;
     }
 
     @Override
