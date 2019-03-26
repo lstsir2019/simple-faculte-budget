@@ -68,26 +68,29 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public void updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte) {
-        bfFound.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
-        bfFound.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
-        bfFound.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
-        bfFound.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
-        bfFound.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
-        bfFound.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
-        budgetFaculteDao.save(bfFound);
+        if (budgetFaculte.getDetaillesBudget().getCreditOuvertReel() >= bfFound.getDetaillesBudget().getReliquatReel()
+                && budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif() >= bfFound.getDetaillesBudget().getReliquatEstimatif()) {
+            bfFound.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
+            bfFound.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
+            bfFound.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
+            bfFound.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
+            bfFound.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
+            bfFound.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
+            budgetFaculteDao.save(bfFound);
+        }
     }
 
     @Override
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
-        BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
-        if (bf != null) {
+        if (budgetFaculte.getId() != null) {
+            BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
             if (!isEqual(bf, budgetFaculte)) {
                 updateBudgetFaculte(bf, budgetFaculte);
             }
             budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
             return 1;
         } else {
-            bf = new BudgetFaculte();
+            BudgetFaculte bf = new BudgetFaculte();
             bf.setDetaillesBudget(budgetFaculte.getDetaillesBudget());
             bf.setAnnee(budgetFaculte.getAnnee());
             bf.getDetaillesBudget().setAntecedent(getAnticident(budgetFaculte));
@@ -148,14 +151,10 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte) {
-        if (bf.getDetaillesBudget().getCreditOuvertEstimatif() == budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()
+        return bf.getDetaillesBudget().getCreditOuvertEstimatif() == budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()
                 && bf.getDetaillesBudget().getCreditOuvertReel() == budgetFaculte.getDetaillesBudget().getCreditOuvertReel()
                 && bf.getDetaillesBudget().getEngagePaye() == budgetFaculte.getDetaillesBudget().getEngagePaye()
-                && bf.getDetaillesBudget().getEngageNonPaye() == budgetFaculte.getDetaillesBudget().getEngageNonPaye()) {
-            return true;
-        } else {
-            return false;
-        }
+                && bf.getDetaillesBudget().getEngageNonPaye() == budgetFaculte.getDetaillesBudget().getEngageNonPaye();
     }
 
 }

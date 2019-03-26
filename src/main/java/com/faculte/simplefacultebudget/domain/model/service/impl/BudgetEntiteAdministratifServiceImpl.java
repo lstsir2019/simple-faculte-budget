@@ -84,14 +84,18 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
     }
 
     @Override
-    public void updateBudgetEntiteAdministratif(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif) {
-        bea.getDetaillesBudget().setReliquatEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
-        bea.getDetaillesBudget().setCreditOuvertEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
-        bea.getDetaillesBudget().setReliquatReel(entiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
-        bea.getDetaillesBudget().setCreditOuvertReel(entiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
-        bea.getDetaillesBudget().setEngagePaye(entiteAdministratif.getDetaillesBudget().getEngagePaye());
-        bea.getDetaillesBudget().setEngageNonPaye(entiteAdministratif.getDetaillesBudget().getEngageNonPaye());
-        budgetEntiteAdministratifDao.save(bea);
+    public void updateBudgetEntiteAdministratif(BudgetEntiteAdministratif beaOld, BudgetEntiteAdministratif entiteAdministratif) {
+        if (entiteAdministratif.getDetaillesBudget().getCreditOuvertReel() >= beaOld.getDetaillesBudget().getReliquatReel()
+                && entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif() >= beaOld.getDetaillesBudget().getReliquatEstimatif()) {
+
+            beaOld.getDetaillesBudget().setReliquatEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
+            beaOld.getDetaillesBudget().setCreditOuvertEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
+            beaOld.getDetaillesBudget().setReliquatReel(entiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
+            beaOld.getDetaillesBudget().setCreditOuvertReel(entiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
+            beaOld.getDetaillesBudget().setEngagePaye(entiteAdministratif.getDetaillesBudget().getEngagePaye());
+            beaOld.getDetaillesBudget().setEngageNonPaye(entiteAdministratif.getDetaillesBudget().getEngageNonPaye());
+            budgetEntiteAdministratifDao.save(beaOld);
+        }
     }
 
     @Override
@@ -119,8 +123,8 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
                 if (restEstimatif < 0 || restReel < 0) {
                     return -2;
                 } else {
-                    BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee());
-                    if (bea != null) {
+                    if (entiteAdministratif.getId() != null) {
+                        BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee());
                         if (!isEqual(bea, entiteAdministratif)) {
                             budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bea.getDetaillesBudget().getCreditOuvertEstimatif());
                             budgetSousProjet.getDetaillesBudget().setReliquatReel(restReel + bea.getDetaillesBudget().getCreditOuvertReel());
@@ -129,7 +133,7 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
                         }
                         budgetCompteBudgitaireService.createBudgetCompteBudgitaire(bea, entiteAdministratif.getBudgeCompteBudgitaires());
                     } else {
-                        bea = new BudgetEntiteAdministratif();
+                        BudgetEntiteAdministratif bea = new BudgetEntiteAdministratif();
                         bea.setDetaillesBudget(entiteAdministratif.getDetaillesBudget());
                         bea.getDetaillesBudget().setAntecedent(getAnticident(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee()));
                         bea.setReferenceEntiteAdministratif(entiteAdministratif.getReferenceEntiteAdministratif());

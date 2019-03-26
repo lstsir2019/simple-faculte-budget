@@ -7,6 +7,7 @@ package com.faculte.simplefacultebudget.domain.rest.proxy;
 
 import com.faculte.simplefacultebudget.domain.rest.vo.exchange.EntiteAdministratifVo;
 import java.util.List;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author hp
  */
 @FeignClient(name = "microservice3-mandatPersonnel")
+//@RibbonClient(name = "microservice3-mandatPersonnel")
 public interface EntiteAdministratifService {
     
     @GetMapping("/mandat/mandats/all/entiteadministratif")

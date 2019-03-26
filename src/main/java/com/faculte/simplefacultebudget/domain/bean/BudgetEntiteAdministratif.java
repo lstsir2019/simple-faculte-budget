@@ -104,8 +104,4 @@ public class BudgetEntiteAdministratif implements Serializable {
         return "com.faculte.budget.bean.BudgetEntiteAdmin[ id=" + id + " ]";
     }
 
-    public DetaillesBudget getDetaillesBudget(BudgetEntiteAdministratif entiteAdministratif) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
