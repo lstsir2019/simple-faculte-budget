@@ -84,10 +84,16 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
     }
 
     @Override
-    public void updateBudgetEntiteAdministratif(BudgetEntiteAdministratif beaOld, BudgetEntiteAdministratif entiteAdministratif) {
-        if (entiteAdministratif.getDetaillesBudget().getCreditOuvertReel() >= beaOld.getDetaillesBudget().getReliquatReel()
-                && entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif() >= beaOld.getDetaillesBudget().getReliquatEstimatif()) {
+    public int updateBudgetEntiteAdministratif(BudgetEntiteAdministratif beaOld, BudgetEntiteAdministratif entiteAdministratif) {
+        double ReelConsomer = beaOld.getDetaillesBudget().getCreditOuvertReel() - beaOld.getDetaillesBudget().getReliquatReel();
+        double EstimatifConsomer = beaOld.getDetaillesBudget().getCreditOuvertEstimatif() - beaOld.getDetaillesBudget().getReliquatEstimatif();
+        if (beaOld == null) {
+            return -1;
+        } else if (entiteAdministratif.getDetaillesBudget().getCreditOuvertReel() < ReelConsomer
+                || entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif() < EstimatifConsomer) {
 
+            return -2;
+        } else {
             beaOld.getDetaillesBudget().setReliquatEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
             beaOld.getDetaillesBudget().setCreditOuvertEstimatif(entiteAdministratif.getDetaillesBudget().getCreditOuvertEstimatif());
             beaOld.getDetaillesBudget().setReliquatReel(entiteAdministratif.getDetaillesBudget().getCreditOuvertReel());
@@ -96,6 +102,7 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
             beaOld.getDetaillesBudget().setEngageNonPaye(entiteAdministratif.getDetaillesBudget().getEngageNonPaye());
             budgetEntiteAdministratifDao.save(beaOld);
         }
+        return 1;
     }
 
     @Override
@@ -123,8 +130,8 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
                 if (restEstimatif < 0 || restReel < 0) {
                     return -2;
                 } else {
-                    if (entiteAdministratif.getId() != null) {
-                        BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee());
+                    BudgetEntiteAdministratif bea = findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee());
+                    if (bea != null) {
                         if (!isEqual(bea, entiteAdministratif)) {
                             budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bea.getDetaillesBudget().getCreditOuvertEstimatif());
                             budgetSousProjet.getDetaillesBudget().setReliquatReel(restReel + bea.getDetaillesBudget().getCreditOuvertReel());
@@ -133,7 +140,7 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
                         }
                         budgetCompteBudgitaireService.createBudgetCompteBudgitaire(bea, entiteAdministratif.getBudgeCompteBudgitaires());
                     } else {
-                        BudgetEntiteAdministratif bea = new BudgetEntiteAdministratif();
+                        bea = new BudgetEntiteAdministratif();
                         bea.setDetaillesBudget(entiteAdministratif.getDetaillesBudget());
                         bea.getDetaillesBudget().setAntecedent(getAnticident(entiteAdministratif.getReferenceEntiteAdministratif(), budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetFaculte().getAnnee()));
                         bea.setReferenceEntiteAdministratif(entiteAdministratif.getReferenceEntiteAdministratif());
