@@ -2,11 +2,12 @@
 -- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 20, 2019 at 02:46 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- Hôte : 127.0.0.1
+-- Généré le :  mar. 26 mars 2019 à 21:39
+-- Version du serveur :  10.1.37-MariaDB
+-- Version de PHP :  7.3.1
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -19,13 +20,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `simple_faculte_budget`
+-- Base de données :  `simple_faculte_budget`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `budget_compte_budgitaire`
+-- Structure de la table `budget_compte_budgitaire`
 --
 
 CREATE TABLE `budget_compte_budgitaire` (
@@ -37,7 +38,7 @@ CREATE TABLE `budget_compte_budgitaire` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `budget_compte_budgitaire`
+-- Déchargement des données de la table `budget_compte_budgitaire`
 --
 
 INSERT INTO `budget_compte_budgitaire` (`id`, `reference_compte_budgitaire`, `budget_entite_administratif`, `compte_budgitaire`, `detailles_budget`) VALUES
@@ -53,7 +54,7 @@ INSERT INTO `budget_compte_budgitaire` (`id`, `reference_compte_budgitaire`, `bu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `budget_entite_administratif`
+-- Structure de la table `budget_entite_administratif`
 --
 
 CREATE TABLE `budget_entite_administratif` (
@@ -64,7 +65,7 @@ CREATE TABLE `budget_entite_administratif` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `budget_entite_administratif`
+-- Déchargement des données de la table `budget_entite_administratif`
 --
 
 INSERT INTO `budget_entite_administratif` (`id`, `reference_entite_administratif`, `budget_sous_projet`, `detailles_budget`) VALUES
@@ -76,7 +77,7 @@ INSERT INTO `budget_entite_administratif` (`id`, `reference_entite_administratif
 -- --------------------------------------------------------
 
 --
--- Table structure for table `budget_faculte`
+-- Structure de la table `budget_faculte`
 --
 
 CREATE TABLE `budget_faculte` (
@@ -86,7 +87,7 @@ CREATE TABLE `budget_faculte` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `budget_faculte`
+-- Déchargement des données de la table `budget_faculte`
 --
 
 INSERT INTO `budget_faculte` (`id`, `annee`, `detailles_budget`) VALUES
@@ -95,7 +96,7 @@ INSERT INTO `budget_faculte` (`id`, `annee`, `detailles_budget`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `budget_sous_projet`
+-- Structure de la table `budget_sous_projet`
 --
 
 CREATE TABLE `budget_sous_projet` (
@@ -106,7 +107,7 @@ CREATE TABLE `budget_sous_projet` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `budget_sous_projet`
+-- Déchargement des données de la table `budget_sous_projet`
 --
 
 INSERT INTO `budget_sous_projet` (`id`, `reference_sous_projet`, `budget_faculte`, `detailles_budget`) VALUES
@@ -116,7 +117,7 @@ INSERT INTO `budget_sous_projet` (`id`, `reference_sous_projet`, `budget_faculte
 -- --------------------------------------------------------
 
 --
--- Table structure for table `compte_budgitaire`
+-- Structure de la table `compte_budgitaire`
 --
 
 CREATE TABLE `compte_budgitaire` (
@@ -126,7 +127,7 @@ CREATE TABLE `compte_budgitaire` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `compte_budgitaire`
+-- Déchargement des données de la table `compte_budgitaire`
 --
 
 INSERT INTO `compte_budgitaire` (`id`, `code`, `libelle`) VALUES
@@ -142,7 +143,7 @@ INSERT INTO `compte_budgitaire` (`id`, `code`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detailles_budget`
+-- Structure de la table `detailles_budget`
 --
 
 CREATE TABLE `detailles_budget` (
@@ -161,7 +162,7 @@ CREATE TABLE `detailles_budget` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `detailles_budget`
+-- Déchargement des données de la table `detailles_budget`
 --
 
 INSERT INTO `detailles_budget` (`id`, `antecedent`, `credit_ouvert_estimatif`, `credit_ouvert_reel`, `engage_non_paye`, `engage_paye`, `reliquat_estimatif`, `reliquat_non_pay_reel`, `reliquat_non_paye_estimatif`, `reliquat_paye_estimatif`, `reliquat_payereel`, `reliquat_reel`) VALUES
@@ -184,7 +185,7 @@ INSERT INTO `detailles_budget` (`id`, `antecedent`, `credit_ouvert_estimatif`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hibernate_sequence`
+-- Structure de la table `hibernate_sequence`
 --
 
 CREATE TABLE `hibernate_sequence` (
@@ -192,7 +193,7 @@ CREATE TABLE `hibernate_sequence` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hibernate_sequence`
+-- Déchargement des données de la table `hibernate_sequence`
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
@@ -204,11 +205,11 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 (319);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `budget_compte_budgitaire`
+-- Index pour la table `budget_compte_budgitaire`
 --
 ALTER TABLE `budget_compte_budgitaire`
   ADD PRIMARY KEY (`id`),
@@ -217,7 +218,7 @@ ALTER TABLE `budget_compte_budgitaire`
   ADD KEY `FKi8kxtpub82qjmos85no8t2p3e` (`detailles_budget`);
 
 --
--- Indexes for table `budget_entite_administratif`
+-- Index pour la table `budget_entite_administratif`
 --
 ALTER TABLE `budget_entite_administratif`
   ADD PRIMARY KEY (`id`),
@@ -225,14 +226,14 @@ ALTER TABLE `budget_entite_administratif`
   ADD KEY `FKecsi7abgpj6jqsq1ejwydp20d` (`detailles_budget`);
 
 --
--- Indexes for table `budget_faculte`
+-- Index pour la table `budget_faculte`
 --
 ALTER TABLE `budget_faculte`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK4fm7urfmu8kdk2vi1a5uw6imr` (`detailles_budget`);
 
 --
--- Indexes for table `budget_sous_projet`
+-- Index pour la table `budget_sous_projet`
 --
 ALTER TABLE `budget_sous_projet`
   ADD PRIMARY KEY (`id`),
@@ -240,16 +241,17 @@ ALTER TABLE `budget_sous_projet`
   ADD KEY `FKgbrygfii8su2mipc2vfcvdplo` (`detailles_budget`);
 
 --
--- Indexes for table `compte_budgitaire`
+-- Index pour la table `compte_budgitaire`
 --
 ALTER TABLE `compte_budgitaire`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `detailles_budget`
+-- Index pour la table `detailles_budget`
 --
 ALTER TABLE `detailles_budget`
   ADD PRIMARY KEY (`id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -26,7 +26,7 @@ public interface BudgetFaculteService {
 
     public void removeBf(int annee);
 
-    public void updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte);
+    public int updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte);
     
     public double getAnticident(BudgetFaculte budgetFaculte);
     

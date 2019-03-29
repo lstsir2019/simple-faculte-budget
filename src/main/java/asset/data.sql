@@ -2,11 +2,12 @@
 -- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 20, 2019 at 02:47 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- Hôte : 127.0.0.1
+-- Généré le :  mar. 26 mars 2019 à 21:40
+-- Version du serveur :  10.1.37-MariaDB
+-- Version de PHP :  7.3.1
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -19,11 +20,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `simple_faculte_budget`
+-- Base de données :  `simple_faculte_budget`
 --
 
 --
--- Dumping data for table `budget_compte_budgitaire`
+-- Déchargement des données de la table `budget_compte_budgitaire`
 --
 
 INSERT INTO `budget_compte_budgitaire` (`id`, `reference_compte_budgitaire`, `budget_entite_administratif`, `compte_budgitaire`, `detailles_budget`) VALUES
@@ -37,7 +38,7 @@ INSERT INTO `budget_compte_budgitaire` (`id`, `reference_compte_budgitaire`, `bu
 (317, '2018-Enei-Phys-8', 311, 316, 318);
 
 --
--- Dumping data for table `budget_entite_administratif`
+-- Déchargement des données de la table `budget_entite_administratif`
 --
 
 INSERT INTO `budget_entite_administratif` (`id`, `reference_entite_administratif`, `budget_sous_projet`, `detailles_budget`) VALUES
@@ -47,14 +48,14 @@ INSERT INTO `budget_entite_administratif` (`id`, `reference_entite_administratif
 (311, 'Physique', 301, 312);
 
 --
--- Dumping data for table `budget_faculte`
+-- Déchargement des données de la table `budget_faculte`
 --
 
 INSERT INTO `budget_faculte` (`id`, `annee`, `detailles_budget`) VALUES
 (281, 2018, 282);
 
 --
--- Dumping data for table `budget_sous_projet`
+-- Déchargement des données de la table `budget_sous_projet`
 --
 
 INSERT INTO `budget_sous_projet` (`id`, `reference_sous_projet`, `budget_faculte`, `detailles_budget`) VALUES
@@ -62,7 +63,7 @@ INSERT INTO `budget_sous_projet` (`id`, `reference_sous_projet`, `budget_faculte
 (301, 'Eneignement', 281, 302);
 
 --
--- Dumping data for table `compte_budgitaire`
+-- Déchargement des données de la table `compte_budgitaire`
 --
 
 INSERT INTO `compte_budgitaire` (`id`, `code`, `libelle`) VALUES
@@ -76,7 +77,7 @@ INSERT INTO `compte_budgitaire` (`id`, `code`, `libelle`) VALUES
 (316, 'EE6', 'SORTIE');
 
 --
--- Dumping data for table `detailles_budget`
+-- Déchargement des données de la table `detailles_budget`
 --
 
 INSERT INTO `detailles_budget` (`id`, `antecedent`, `credit_ouvert_estimatif`, `credit_ouvert_reel`, `engage_non_paye`, `engage_paye`, `reliquat_estimatif`, `reliquat_non_pay_reel`, `reliquat_non_paye_estimatif`, `reliquat_paye_estimatif`, `reliquat_payereel`, `reliquat_reel`) VALUES
@@ -97,7 +98,7 @@ INSERT INTO `detailles_budget` (`id`, `antecedent`, `credit_ouvert_estimatif`, `
 (289, 0, 2200, 1300, 500, 0, 2200, 0, 0, 0, 0, 1300);
 
 --
--- Dumping data for table `hibernate_sequence`
+-- Déchargement des données de la table `hibernate_sequence`
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
@@ -107,6 +108,7 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 (319),
 (319),
 (319);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
