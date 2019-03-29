@@ -91,9 +91,9 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
                     if (!isEqual(bsp, sousProjet) && updateBudgetSouSprojet(bsp, sousProjet) == 1) {
                         budgetFacultet.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bsp.getDetaillesBudget().getCreditOuvertEstimatif());
                         budgetFacultet.getDetaillesBudget().setReliquatReel(restReel + bsp.getDetaillesBudget().getCreditOuvertReel());
-                        budgetFaculteService.save(budgetFacultet);
-                    }
-                    budgetEntiteAdministratifService.createBudgetEntiteAdministratif(bsp, sousProjet.getBudgetEntiteAdmins());
+                            budgetFaculteService.save(budgetFacultet);
+                        }
+                        budgetEntiteAdministratifService.createBudgetEntiteAdministratif(bsp, sousProjet.getBudgetEntiteAdmins());
                 } else if (restEstimatif < 0 || restReel < 0) {
                     break;
                 } else {

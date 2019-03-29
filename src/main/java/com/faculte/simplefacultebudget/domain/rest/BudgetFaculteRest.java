@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,6 +64,12 @@ public class BudgetFaculteRest {
     public void removeBf(@PathVariable int annee) {
         budgetFaculteService.removeBf(annee);
     }
+    
+//    @PutMapping("/annee/{annee}")
+//    public int updateBudgetFaculte(@PathVariable int annee, @RequestBody BudgetFaculteVo budgetFaculte) {
+//        return budgetFaculteService.updateBudgetFaculte(annee, budgetFaculteConverter.toItem(budgetFaculte));
+//    }
+//    
 
     @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
     public List<BudgetFaculteVo> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(@PathVariable("anneeMin") int anneeMin, @PathVariable("anneeMax") int anneeMax) {
