@@ -81,19 +81,21 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
             return -1;
         } else {
             for (int i = 0; i < budgetSousProjets.size(); i++) {
+                budgetFacultet.setDetaillesBudget(budgetFacultet.getDetaillesBudget());
                 BudgetSousProjet sousProjet = budgetSousProjets.get(i);
                 BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetFaculteAnnee(sousProjet.getReferenceSousProjet(), budgetFacultet.getAnnee());
-
-                budgetFacultet.setDetaillesBudget(budgetFacultet.getDetaillesBudget());
+              
                 double restEstimatif = budgetFacultet.getDetaillesBudget().getReliquatEstimatif() - sousProjet.getDetaillesBudget().getCreditOuvertEstimatif();
                 double restReel = budgetFacultet.getDetaillesBudget().getReliquatReel() - sousProjet.getDetaillesBudget().getCreditOuvertReel();
                 if (bsp != null) {
-                    if (!isEqual(bsp, sousProjet) && updateBudgetSouSprojet(bsp, sousProjet) == 1) {
-                        budgetFacultet.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bsp.getDetaillesBudget().getCreditOuvertEstimatif());
-                        budgetFacultet.getDetaillesBudget().setReliquatReel(restReel + bsp.getDetaillesBudget().getCreditOuvertReel());
-                            budgetFaculteService.save(budgetFacultet);
-                        }
-                        budgetEntiteAdministratifService.createBudgetEntiteAdministratif(bsp, sousProjet.getBudgetEntiteAdmins());
+                    double nvReliquatReelBudgetFaculte = bsp.getDetaillesBudget().getCreditOuvertReel() + budgetFacultet.getDetaillesBudget().getReliquatReel();
+                    double nvReliquatEstimatifBudgetFaculte = bsp.getDetaillesBudget().getCreditOuvertEstimatif() + budgetFacultet.getDetaillesBudget().getReliquatEstimatif();
+                    if (!isEqual(bsp, sousProjet) && updateBudgetSouSprojet(bsp, sousProjet, nvReliquatReelBudgetFaculte, nvReliquatEstimatifBudgetFaculte) == 1) {
+                        budgetFacultet.getDetaillesBudget().setReliquatEstimatif(nvReliquatEstimatifBudgetFaculte - sousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
+                        budgetFacultet.getDetaillesBudget().setReliquatReel(nvReliquatReelBudgetFaculte - sousProjet.getDetaillesBudget().getCreditOuvertReel());
+                        budgetFaculteService.save(budgetFacultet);
+                    }
+                    budgetEntiteAdministratifService.createBudgetEntiteAdministratif(bsp, sousProjet.getBudgetEntiteAdmins());
                 } else if (restEstimatif < 0 || restReel < 0) {
                     break;
                 } else {
@@ -131,16 +133,15 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
     }
 
     @Override
-    public int updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet) {
+    public int updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet, double nvReliquatReelBudgetFaculte, double nvReliquatEstimatifBudgetFaculte) {
         double ReelConsomer = bspOld.getDetaillesBudget().getCreditOuvertReel() - bspOld.getDetaillesBudget().getReliquatReel();
         double EstimatifConsomer = bspOld.getDetaillesBudget().getCreditOuvertEstimatif() - bspOld.getDetaillesBudget().getReliquatEstimatif();
-        if (sousProjet.getDetaillesBudget().getCreditOuvertReel() < ReelConsomer
-                || sousProjet.getDetaillesBudget().getCreditOuvertEstimatif() < EstimatifConsomer) {
-            System.out.println("hha reel consome ==> " + ReelConsomer + " et estimatif consomer ==> " + EstimatifConsomer);
+        if (nvReliquatReelBudgetFaculte < sousProjet.getDetaillesBudget().getCreditOuvertReel() || nvReliquatEstimatifBudgetFaculte < sousProjet.getDetaillesBudget().getCreditOuvertEstimatif()) {
             return -1;
+        } else if (sousProjet.getDetaillesBudget().getCreditOuvertReel() < ReelConsomer
+                || sousProjet.getDetaillesBudget().getCreditOuvertEstimatif() < EstimatifConsomer) {
+            return -2;
         } else {
-            System.out.println("haa reel =>" + ReelConsomer);
-            //bspOld.setReferenceSousProjet(sousProjet.getReferenceSousProjet());
             bspOld.getDetaillesBudget().setCreditOuvertEstimatif(sousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
             bspOld.getDetaillesBudget().setCreditOuvertReel(sousProjet.getDetaillesBudget().getCreditOuvertReel());
             bspOld.getDetaillesBudget().setEngagePaye(sousProjet.getDetaillesBudget().getEngagePaye());

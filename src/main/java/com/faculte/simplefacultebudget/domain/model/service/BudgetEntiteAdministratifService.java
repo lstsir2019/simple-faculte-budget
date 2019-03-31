@@ -31,7 +31,7 @@ public interface BudgetEntiteAdministratifService {
 
     public double getAnticident(String refEa, String refSp, int annee);
 
-    public int updateBudgetEntiteAdministratif(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif);
+    public int updateBudgetEntiteAdministratif(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif,double nvReliquatReelBudgetSousProjet,double nvReliquatEstimatifBudgetSousProjet);
 
     public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 

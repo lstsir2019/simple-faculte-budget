@@ -98,20 +98,22 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
-    public int updateBudgetCompteBudgitaire(BudgetCompteBudgitaire compteBudgitaireOld, BudgetCompteBudgitaire budgetCompteBudgitaire) {
-        double ReelConsomer = compteBudgitaireOld.getDetaillesBudget().getCreditOuvertReel() - compteBudgitaireOld.getDetaillesBudget().getReliquatReel();
-        double EstimatifConsomer = compteBudgitaireOld.getDetaillesBudget().getCreditOuvertEstimatif() - compteBudgitaireOld.getDetaillesBudget().getReliquatEstimatif();
-        if (budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel() < ReelConsomer
-                || budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif() < EstimatifConsomer) {
+    public int updateBudgetCompteBudgitaire(BudgetCompteBudgitaire budgetCompteBudgitaireOld, BudgetCompteBudgitaire budgetCompteBudgitaireNew, double nvReliquatReelBudgetEntiteAdministratif, double nvReliquatEstimatifBudgetEntiteAdministratif) {
+        double ReelConsomer = budgetCompteBudgitaireOld.getDetaillesBudget().getCreditOuvertReel() - budgetCompteBudgitaireOld.getDetaillesBudget().getReliquatReel();
+        double EstimatifConsomer = budgetCompteBudgitaireOld.getDetaillesBudget().getCreditOuvertEstimatif() - budgetCompteBudgitaireOld.getDetaillesBudget().getReliquatEstimatif();
+        if (nvReliquatReelBudgetEntiteAdministratif < budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertReel() || nvReliquatEstimatifBudgetEntiteAdministratif < budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertEstimatif()) {
             return -1;
+        } else if (budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertReel() < ReelConsomer
+                || budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertEstimatif() < EstimatifConsomer) {
+            return -2;
         } else {
-            compteBudgitaireOld.getDetaillesBudget().setCreditOuvertEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
-            compteBudgitaireOld.getDetaillesBudget().setReliquatEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
-            compteBudgitaireOld.getDetaillesBudget().setCreditOuvertReel(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
-            compteBudgitaireOld.getDetaillesBudget().setReliquatReel(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
-            compteBudgitaireOld.getDetaillesBudget().setEngagePaye(budgetCompteBudgitaire.getDetaillesBudget().getEngagePaye());
-            compteBudgitaireOld.getDetaillesBudget().setEngageNonPaye(budgetCompteBudgitaire.getDetaillesBudget().getEngageNonPaye());
-            budgetCompteBudgitaireDao.save(compteBudgitaireOld);
+            budgetCompteBudgitaireOld.getDetaillesBudget().setCreditOuvertEstimatif(budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertEstimatif());
+            budgetCompteBudgitaireOld.getDetaillesBudget().setReliquatEstimatif(budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertEstimatif());
+            budgetCompteBudgitaireOld.getDetaillesBudget().setCreditOuvertReel(budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertReel());
+            budgetCompteBudgitaireOld.getDetaillesBudget().setReliquatReel(budgetCompteBudgitaireNew.getDetaillesBudget().getCreditOuvertReel());
+            budgetCompteBudgitaireOld.getDetaillesBudget().setEngagePaye(budgetCompteBudgitaireNew.getDetaillesBudget().getEngagePaye());
+            budgetCompteBudgitaireOld.getDetaillesBudget().setEngageNonPaye(budgetCompteBudgitaireNew.getDetaillesBudget().getEngageNonPaye());
+            budgetCompteBudgitaireDao.save(budgetCompteBudgitaireOld);
             return 1;
         }
     }
@@ -138,41 +140,40 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
                 budgetEntiteAdministratif.setDetaillesBudget(budgetEntiteAdministratif.getDetaillesBudget());
                 double restEstimatif = budgetEntiteAdministratif.getDetaillesBudget().getReliquatEstimatif() - budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif();
                 double restReel = budgetEntiteAdministratif.getDetaillesBudget().getReliquatReel() - budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel();
-                if (restEstimatif < 0 || restReel < 0) {
-                    return -2;
-                } else {
-                    BudgetCompteBudgitaire bcb = findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
-                    if (bcb != null) {
-                        if (!isEqual(bcb, budgetCompteBudgitaire)) {
-                            budgetEntiteAdministratif.getDetaillesBudget().setReliquatEstimatif(restEstimatif + bcb.getDetaillesBudget().getCreditOuvertEstimatif());
-                            budgetEntiteAdministratif.getDetaillesBudget().setReliquatReel(restReel + bcb.getDetaillesBudget().getCreditOuvertReel());
-                            budgetEntiteAdministratifService.save(budgetEntiteAdministratif);
-                            updateBudgetCompteBudgitaire(bcb, budgetCompteBudgitaire);
-                        }
-                    } else {
-                        CompteBudgitaire cb = new CompteBudgitaire();
-                        bcb = new BudgetCompteBudgitaire();
-                        bcb.setDetaillesBudget(budgetCompteBudgitaire.getDetaillesBudget());
-                        cb.setCode(budgetCompteBudgitaire.getCompteBudgitaire().getCode());
-                        cb.setLibelle(budgetCompteBudgitaire.getCompteBudgitaire().getLibelle());
-                        compteBudgitaireService.creerCompteBudgitaire(cb);
-
-                        bcb.getDetaillesBudget().setAntecedent(getAnticident(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee() - 1));
-                        bcb.setBudgetEntiteAdministratif(budgetEntiteAdministratif);
-                        bcb.getDetaillesBudget().setCreditOuvertEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
-                        bcb.getDetaillesBudget().setReliquatEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
-                        bcb.getDetaillesBudget().setCreditOuvertReel(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
-                        bcb.getDetaillesBudget().setReliquatReel(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
-                        bcb.setCompteBudgitaire(cb);
-
-                        budgetEntiteAdministratif.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
-                        budgetEntiteAdministratif.getDetaillesBudget().setReliquatReel(restReel);
+                BudgetCompteBudgitaire bcb = findByCompteBudgitaireCodeAndBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
+                if (bcb != null) {
+                    double nvReliquatReelBudgetEntiteAdministratif = bcb.getDetaillesBudget().getCreditOuvertReel() + budgetEntiteAdministratif.getDetaillesBudget().getReliquatReel();
+                    double nvReliquatEstimatifBudgetEntiteAdministratif = bcb.getDetaillesBudget().getCreditOuvertEstimatif() + budgetEntiteAdministratif.getDetaillesBudget().getReliquatEstimatif();
+                    if (!isEqual(bcb, budgetCompteBudgitaire) && updateBudgetCompteBudgitaire(bcb, budgetCompteBudgitaire, nvReliquatReelBudgetEntiteAdministratif, nvReliquatEstimatifBudgetEntiteAdministratif) == 1) {
+                        budgetEntiteAdministratif.getDetaillesBudget().setReliquatEstimatif(nvReliquatEstimatifBudgetEntiteAdministratif - budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
+                        budgetEntiteAdministratif.getDetaillesBudget().setReliquatReel(nvReliquatReelBudgetEntiteAdministratif - budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
                         budgetEntiteAdministratifService.save(budgetEntiteAdministratif);
-
-                        bcb.setReferenceCompteBudgitaire(bcb.generateCode(i));
-                        budgetCompteBudgitaireDao.save(bcb);
-                        i++;
                     }
+                } else if (restEstimatif < 0 || restReel < 0) {
+                    break;
+                } else {
+                    CompteBudgitaire cb = new CompteBudgitaire();
+                    bcb = new BudgetCompteBudgitaire();
+                    bcb.setDetaillesBudget(budgetCompteBudgitaire.getDetaillesBudget());
+                    cb.setCode(budgetCompteBudgitaire.getCompteBudgitaire().getCode());
+                    cb.setLibelle(budgetCompteBudgitaire.getCompteBudgitaire().getLibelle());
+                    compteBudgitaireService.creerCompteBudgitaire(cb);
+
+                    bcb.getDetaillesBudget().setAntecedent(getAnticident(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetEntiteAdministratif.getReferenceEntiteAdministratif(), budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet(), budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee() - 1));
+                    bcb.setBudgetEntiteAdministratif(budgetEntiteAdministratif);
+                    bcb.getDetaillesBudget().setCreditOuvertEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
+                    bcb.getDetaillesBudget().setReliquatEstimatif(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif());
+                    bcb.getDetaillesBudget().setCreditOuvertReel(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
+                    bcb.getDetaillesBudget().setReliquatReel(budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel());
+                    bcb.setCompteBudgitaire(cb);
+
+                    budgetEntiteAdministratif.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
+                    budgetEntiteAdministratif.getDetaillesBudget().setReliquatReel(restReel);
+                    budgetEntiteAdministratifService.save(budgetEntiteAdministratif);
+
+                    bcb.setReferenceCompteBudgitaire(bcb.generateCode(i));
+                    budgetCompteBudgitaireDao.save(bcb);
+                    i++;
                 }
             }
             return 1;

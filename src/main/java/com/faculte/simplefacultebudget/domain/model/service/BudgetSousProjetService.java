@@ -29,7 +29,7 @@ public interface BudgetSousProjetService {
     
     public double getAnticident(String reference, int annee);
     
-    public int updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet);
+    public int updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet, double reliquatReelBudgetFaculte, double reliquatEstimatifBudgetFaculte);
     
     List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
     

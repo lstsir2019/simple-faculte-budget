@@ -10,7 +10,9 @@ import com.faculte.simplefacultebudget.domain.model.dao.BudgetFaculteDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import java.util.List;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
 
-    org.slf4j.Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(BudgetFaculteServiceImpl.class);
 
     public BudgetFaculteDao getBudgetFaculteDao() {
         return budgetFaculteDao;
@@ -35,7 +37,6 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public BudgetFaculte findByAnnee(int annee) {
-        log.info("l'objet budget faculte");
         return budgetFaculteDao.findByAnnee(annee);
     }
 
@@ -88,12 +89,17 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
 
     @Override
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
-        BudgetFaculte bf=findByAnnee(budgetFaculte.getAnnee());
+        BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
         if (bf != null) {
-            if (!isEqual(bf, budgetFaculte)) {
-                updateBudgetFaculte(bf, budgetFaculte);
+            try {
+                log.info("l'etat de equal est "+isEqual(bf, budgetFaculte));
+                if (!isEqual(bf, budgetFaculte)) {
+                    updateBudgetFaculte(bf, budgetFaculte);
+                }
+            } catch (NullPointerException e) {
+                log.info("l'objet budget faculte est null");
             }
-                budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
+            budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
             return 1;
         } else {
             bf = new BudgetFaculte();
@@ -162,5 +168,4 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
                 && bf.getDetaillesBudget().getEngagePaye() == budgetFaculte.getDetaillesBudget().getEngagePaye()
                 && bf.getDetaillesBudget().getEngageNonPaye() == budgetFaculte.getDetaillesBudget().getEngageNonPaye();
     }
-
 }
