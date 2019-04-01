@@ -33,7 +33,7 @@ public class BudgetCompteBudgitaire implements Serializable {
     @OneToOne(cascade = {CascadeType.ALL})
     private CompteBudgitaire compteBudgitaire;
 
-    public String generateCode(int index) {
+    public String generateCode(long index) {
         String gerenerateCode = "";
         String referenceEA = this.budgetEntiteAdministratif.getReferenceEntiteAdministratif();
         String referenceSP = this.budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet();
