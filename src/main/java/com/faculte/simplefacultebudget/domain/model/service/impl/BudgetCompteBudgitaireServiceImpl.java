@@ -197,7 +197,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
 
     @Override
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax) {
-        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
+        return budgetCompteBudgitaireDao.findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanAndEqualAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThanOrEqual(anneeMin, anneeMax);
     }
 
     @Override
