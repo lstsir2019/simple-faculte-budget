@@ -27,7 +27,7 @@ public interface BudgetCompteBudgitaireDao extends JpaRepository<BudgetCompteBud
 
     public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanAndEqualAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThanOrEqual(int anneeMin, int anneeMax);
+    public List<BudgetCompteBudgitaire> findByBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 
     public BudgetCompteBudgitaire findByReferenceCompteBudgitaire(String reference);
 }
