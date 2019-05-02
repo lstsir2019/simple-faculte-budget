@@ -14,10 +14,11 @@ import java.util.List;
 public class BudgetSousProjetVo {
 
     private Long id;
-    private List<BudgetEntiteAdministratifVo> budgetEntiteAdministratifVo;
     private DetaillesBudgetVo detaillesBudgetVo;
-    private BudgetFaculteVo budgetFaculteVo;
     private String referenceSousProjet;
+    private String libelle;
+    private List<BudgetCompteBudgitaireVo> budgetCompteBudgitaireVos;
+    private BudgetProjetVo budgetProjetVo;
 
     public Long getId() {
         return id;
@@ -25,14 +26,6 @@ public class BudgetSousProjetVo {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<BudgetEntiteAdministratifVo> getBudgetEntiteAdministratifVo() {
-        return budgetEntiteAdministratifVo;
-    }
-
-    public void setBudgetEntiteAdministratifVo(List<BudgetEntiteAdministratifVo> budgetEntiteAdministratifVo) {
-        this.budgetEntiteAdministratifVo = budgetEntiteAdministratifVo;
     }
 
     public DetaillesBudgetVo getDetaillesBudgetVo() {
@@ -43,20 +36,36 @@ public class BudgetSousProjetVo {
         this.detaillesBudgetVo = detaillesBudgetVo;
     }
 
-    public BudgetFaculteVo getBudgetFaculteVo() {
-        return budgetFaculteVo;
-    }
-
-    public void setBudgetFaculteVo(BudgetFaculteVo budgetFaculteVo) {
-        this.budgetFaculteVo = budgetFaculteVo;
-    }
-
     public String getReferenceSousProjet() {
         return referenceSousProjet;
     }
 
     public void setReferenceSousProjet(String referenceSousProjet) {
         this.referenceSousProjet = referenceSousProjet;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public List<BudgetCompteBudgitaireVo> getBudgetCompteBudgitaireVos() {
+        return budgetCompteBudgitaireVos;
+    }
+
+    public void setBudgetCompteBudgitaireVos(List<BudgetCompteBudgitaireVo> budgetCompteBudgitaireVos) {
+        this.budgetCompteBudgitaireVos = budgetCompteBudgitaireVos;
+    }
+
+    public BudgetProjetVo getBudgetProjetVo() {
+        return budgetProjetVo;
+    }
+
+    public void setBudgetProjetVo(BudgetProjetVo budgetProjetVo) {
+        this.budgetProjetVo = budgetProjetVo;
     }
 
 }

@@ -7,7 +7,7 @@ package com.faculte.simplefacultebudget.domain.res.converter;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
-import com.faculte.simplefacultebudget.domain.rest.vo.BudgetEntiteAdministratifVo;
+import com.faculte.simplefacultebudget.domain.rest.vo.BudgetProjetVo;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,17 +15,18 @@ import org.springframework.stereotype.Component;
  * @author AMINE
  */
 @Component
-public class BudgetEntiteAdministratifConverter extends AbstractConverter<BudgetProjet, BudgetEntiteAdministratifVo> {
+public class BudgetProjetConverter extends AbstractConverter<BudgetProjet, BudgetProjetVo> {
 
     @Override
-    public BudgetProjet toItem(BudgetEntiteAdministratifVo vo) {
+    public BudgetProjet toItem(BudgetProjetVo vo) {
         if (vo == null) {
             return null;
         } else {
             BudgetProjet item = new BudgetProjet();
             item.setId(vo.getId());
-            item.setReferenceEntiteAdministratif(vo.getReferenceEntiteAdministratif());
-            item.setBudgeCompteBudgitaires(new BudgetCompteBudgitaireConverter().toItem(vo.getBudgetCompteBudgitaireVo()));
+            item.setReferenceProjet(vo.getReferenceProjet());
+            item.setLibelle(vo.getLibelle());
+            item.setBudgetSousProjets(new BudgetSousProjetConverter().toItem(vo.getBudgetSousProjetVos()));
             item.setDetaillesBudget(new DetaillesBudgetConverter().toItem(vo.getDetaillesBudgetVo()));
             //item.setBudgetSousProjet(new BudgetSousProjetConverter().toItem(vo.getBudgetSousProjetVo()));
             return item;
@@ -33,15 +34,15 @@ public class BudgetEntiteAdministratifConverter extends AbstractConverter<Budget
     }
 
     @Override
-    public BudgetEntiteAdministratifVo toVo(BudgetProjet item) {
+    public BudgetProjetVo toVo(BudgetProjet item) {
         if (item == null) {
             return null;
         } else {
-            BudgetEntiteAdministratifVo vo = new BudgetEntiteAdministratifVo();
+            BudgetProjetVo vo = new BudgetProjetVo();
             vo.setId(item.getId());
-            vo.setReferenceEntiteAdministratif(item.getReferenceEntiteAdministratif());
+            vo.setReferenceProjet(item.getReferenceProjet());
             vo.setDetaillesBudgetVo(new DetaillesBudgetConverter().toVo(item.getDetaillesBudget()));
-            vo.setBudgetSousProjetVo(new BudgetSousProjetConverter().toVo(item.getBudgetSousProjet()));
+            vo.setBudgetSousProjetVos(new BudgetSousProjetConverter().toVo(item.getBudgetSousProjets()));
             return vo;
         }
     }

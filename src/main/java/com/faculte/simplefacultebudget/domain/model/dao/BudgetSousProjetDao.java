@@ -18,10 +18,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BudgetSousProjetDao extends JpaRepository<BudgetSousProjet, Long> {
 
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public BudgetSousProjet findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee);
+    public List<BudgetSousProjet> findBybudgetProjetBudgetFaculteAnnee(int annee);
 
-    @Query("SELECT bsp FROM BudgetSousProjet bsp WHERE bsp.budgetFaculte.annee >= ?1 or bsp.budgetFaculte.annee <= ?2")
+    @Query("SELECT bsp FROM BudgetSousProjet bsp WHERE bsp.budgetProjet.budgetFaculte.annee >= ?1 or bsp.budgetProjet.budgetFaculte.annee <= ?2")
     List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
+
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author AMINE
  */
 @Repository
-public interface BudgetEntiteAdministratifDao extends JpaRepository<BudgetProjet, Long> {
+public interface BudgetProjetDao extends JpaRepository<BudgetProjet, Long> {
 
     public BudgetProjet findByReferenceEntiteAdministratif(String referenceEntiteAdministratif);
 

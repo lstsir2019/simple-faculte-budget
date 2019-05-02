@@ -7,6 +7,7 @@ package com.faculte.simplefacultebudget.domain.res.converter;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
+import com.faculte.simplefacultebudget.domain.rest.vo.BudgetProjetVo;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetSousProjetVo;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class BudgetSousProjetConverter extends AbstractConverter<BudgetSousProje
             BudgetSousProjet item = new BudgetSousProjet();
             item.setId(vo.getId());
             item.setReferenceSousProjet(vo.getReferenceSousProjet());
-            item.setBudgetEntiteAdmins(new BudgetEntiteAdministratifConverter().toItem(vo.getBudgetEntiteAdministratifVo()));
+            item.setBudgetProjet(new BudgetProjetConverter().toItem(vo.getBudgetProjetVo()));
             item.setDetaillesBudget(new DetaillesBudgetConverter().toItem(vo.getDetaillesBudgetVo()));
             //item.setBudgetFaculte(new BudgetFaculteConverter().toItem(vo.getBudgetFaculteVo()));
             return item;
@@ -41,7 +42,7 @@ public class BudgetSousProjetConverter extends AbstractConverter<BudgetSousProje
             vo.setId(item.getId());
             vo.setReferenceSousProjet(item.getReferenceSousProjet());
             vo.setDetaillesBudgetVo(new DetaillesBudgetConverter().toVo(item.getDetaillesBudget()));
-            vo.setBudgetFaculteVo(new BudgetFaculteConverter().toVo(item.getBudgetFaculte()));
+            vo.setBudgetProjetVo(new BudgetProjetConverter().toVo(item.getBudgetProjet()));
             return vo;
         }
     }

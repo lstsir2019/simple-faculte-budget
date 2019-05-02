@@ -6,8 +6,10 @@
 package com.faculte.simplefacultebudget.domain.model.service;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -15,23 +17,23 @@ import java.util.List;
  */
 public interface BudgetSousProjetService {
 
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee);
-
-    public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee);
-
     public void save(BudgetSousProjet budgetSousProjet);
 
-    public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> BudgetSousProjets);
+    public int createBudgetSousProjet(BudgetProjet budgetProjet, List<BudgetSousProjet> BudgetSousProjets);
 
     public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix);
 
     public void removeBsp(int annee, String referenceSousProjet);
-    
+
     public double getAnticident(String reference, int annee);
-    
+
     public int updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet, double reliquatReelBudgetFaculte, double reliquatEstimatifBudgetFaculte);
-    
-    List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
-    
+
     public boolean isEqual(BudgetSousProjet bsp, BudgetSousProjet sousProjet);
+
+    public BudgetSousProjet findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+
+    public List<BudgetSousProjet> findBybudgetProjetBudgetFaculteAnnee(int annee);
+
+    List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
 }

@@ -58,14 +58,14 @@ public class BudgetSousProjetRest {
     }
 
     @GetMapping("/reference/{reference}/annee/{annee}")
-    public BudgetSousProjetVo findByReferenceSousProjetAndBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
-        BudgetSousProjet myBsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+    public BudgetSousProjetVo findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
+        BudgetSousProjet myBsp = budgetSousProjetService.findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
         return budgetSousProjetConverter.toVo(myBsp);
     }
 
     @GetMapping("/annee/{annee}")
-    public List<BudgetSousProjetVo> findByBudgetFaculteAnnee(@PathVariable int annee) {
-        List<BudgetSousProjet> bsps = budgetSousProjetService.findByBudgetFaculteAnnee(annee);
+    public List<BudgetSousProjetVo> findBybudgetProjetBudgetFaculteAnnee(@PathVariable int annee) {
+        List<BudgetSousProjet> bsps = budgetSousProjetService.findBybudgetProjetBudgetFaculteAnnee(annee);
         return budgetSousProjetConverter.toVo(bsps);
     }
 

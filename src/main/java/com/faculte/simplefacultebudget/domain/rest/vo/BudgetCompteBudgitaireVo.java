@@ -12,11 +12,15 @@ package com.faculte.simplefacultebudget.domain.rest.vo;
 public class BudgetCompteBudgitaireVo {
 
     private Long id;
-    private String referenceCompteBudgitaire;
+    private String reference;
     private DetaillesBudgetVo detaillesBudgetVo;
-    private BudgetEntiteAdministratifVo budgetEntiteAdministratifVo;
     private CompteBudgitaireVo compteBudgitaireVo;
+    private BudgetSousProjetVo budgetSousProjetVo;
 
+    public BudgetCompteBudgitaireVo() {
+    }
+
+    
     public Long getId() {
         return id;
     }
@@ -25,12 +29,12 @@ public class BudgetCompteBudgitaireVo {
         this.id = id;
     }
 
-    public String getReferenceCompteBudgitaire() {
-        return referenceCompteBudgitaire;
+    public String getReference() {
+        return reference;
     }
 
-    public void setReferenceCompteBudgitaire(String referenceCompteBudgitaire) {
-        this.referenceCompteBudgitaire = referenceCompteBudgitaire;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public DetaillesBudgetVo getDetaillesBudgetVo() {
@@ -41,14 +45,6 @@ public class BudgetCompteBudgitaireVo {
         this.detaillesBudgetVo = detaillesBudgetVo;
     }
 
-    public BudgetEntiteAdministratifVo getBudgetEntiteAdministratifVo() {
-        return budgetEntiteAdministratifVo;
-    }
-
-    public void setBudgetEntiteAdministratifVo(BudgetEntiteAdministratifVo budgetEntiteAdministratifVo) {
-        this.budgetEntiteAdministratifVo = budgetEntiteAdministratifVo;
-    }
-
     public CompteBudgitaireVo getCompteBudgitaireVo() {
         return compteBudgitaireVo;
     }
@@ -56,5 +52,14 @@ public class BudgetCompteBudgitaireVo {
     public void setCompteBudgitaireVo(CompteBudgitaireVo compteBudgitaireVo) {
         this.compteBudgitaireVo = compteBudgitaireVo;
     }
+
+    public BudgetSousProjetVo getBudgetSousProjetVo() {
+        return budgetSousProjetVo;
+    }
+
+    public void setBudgetSousProjetVo(BudgetSousProjetVo budgetSousProjetVo) {
+        this.budgetSousProjetVo = budgetSousProjetVo;
+    }
+
 
 }

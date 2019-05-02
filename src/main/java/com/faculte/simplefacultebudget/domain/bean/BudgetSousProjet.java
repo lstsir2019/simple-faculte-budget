@@ -27,6 +27,7 @@ public class BudgetSousProjet implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String referenceSousProjet;
+    private String libelle;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
@@ -34,7 +35,6 @@ public class BudgetSousProjet implements Serializable {
     @OneToMany
     private List<BudgetCompteBudgitaire> budgetCompteBudgitaires;
 
-   
     @ManyToOne
     private BudgetProjet budgetProjet;
 
@@ -52,6 +52,14 @@ public class BudgetSousProjet implements Serializable {
 
     public void setReferenceSousProjet(String referenceSousProjet) {
         this.referenceSousProjet = referenceSousProjet;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
     public DetaillesBudget getDetaillesBudget() {
@@ -77,5 +85,7 @@ public class BudgetSousProjet implements Serializable {
     public void setBudgetProjet(BudgetProjet budgetProjet) {
         this.budgetProjet = budgetProjet;
     }
+
+  
 
 }

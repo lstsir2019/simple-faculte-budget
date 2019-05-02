@@ -6,14 +6,15 @@
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetSousProjetDao;
-import com.faculte.simplefacultebudget.domain.model.service.BudgetEntiteAdministratifService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
 
 /**
  *
@@ -32,12 +33,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
     private BudgetFaculteService budgetFaculteService;
 
     @Autowired
-    private BudgetEntiteAdministratifService budgetEntiteAdministratifService;
-
-    @Override
-    public List<BudgetSousProjet> findByBudgetFaculteAnnee(int annee) {
-        return budgetSousProjetDao.findByBudgetFaculteAnnee(annee);
-    }
+    private BudgetProjetService budgetEntiteAdministratifService;
 
     @Override
     public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix) {
@@ -61,7 +57,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
             bsp.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
 
             budgetSousProjetDao.save(bsp);
-            budgetFaculteService.payerBudgetFaculte(bsp.getBudgetFaculte().getAnnee(), prix);
+//            budgetFaculteService.payerBudgetFaculte(bsp.getBudgetFaculte().getAnnee(), prix);
 
             return 1;
         }
@@ -76,24 +72,24 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
     }
 
     @Override
-    public int createBudgetSousProjet(BudgetFaculte budgetFacultet, List<BudgetSousProjet> budgetSousProjets) {
+    public int createBudgetSousProjet(BudgetProjet budgetProjet, List<BudgetSousProjet> budgetSousProjets) {
         if (budgetSousProjets == null || budgetSousProjets.isEmpty()) {
             return -1;
         } else {
             for (int i = 0; i < budgetSousProjets.size(); i++) {
-                budgetFacultet.setDetaillesBudget(budgetFacultet.getDetaillesBudget());
+                budgetProjet.setDetaillesBudget(budgetProjet.getDetaillesBudget());
                 BudgetSousProjet sousProjet = budgetSousProjets.get(i);
-                BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetFaculteAnnee(sousProjet.getReferenceSousProjet(), budgetFacultet.getAnnee());
-              
-                double restEstimatif = budgetFacultet.getDetaillesBudget().getReliquatEstimatif() - sousProjet.getDetaillesBudget().getCreditOuvertEstimatif();
-                double restReel = budgetFacultet.getDetaillesBudget().getReliquatReel() - sousProjet.getDetaillesBudget().getCreditOuvertReel();
+                BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetFaculteAnnee(sousProjet.getReferenceSousProjet(), budgetProjet.getAnnee());
+
+                double restEstimatif = budgetProjet.getDetaillesBudget().getReliquatEstimatif() - sousProjet.getDetaillesBudget().getCreditOuvertEstimatif();
+                double restReel = budgetProjet.getDetaillesBudget().getReliquatReel() - sousProjet.getDetaillesBudget().getCreditOuvertReel();
                 if (bsp != null) {
-                    double nvReliquatReelBudgetFaculte = bsp.getDetaillesBudget().getCreditOuvertReel() + budgetFacultet.getDetaillesBudget().getReliquatReel();
-                    double nvReliquatEstimatifBudgetFaculte = bsp.getDetaillesBudget().getCreditOuvertEstimatif() + budgetFacultet.getDetaillesBudget().getReliquatEstimatif();
+                    double nvReliquatReelBudgetFaculte = bsp.getDetaillesBudget().getCreditOuvertReel() + budgetProjet.getDetaillesBudget().getReliquatReel();
+                    double nvReliquatEstimatifBudgetFaculte = bsp.getDetaillesBudget().getCreditOuvertEstimatif() + budgetProjet.getDetaillesBudget().getReliquatEstimatif();
                     if (!isEqual(bsp, sousProjet) && updateBudgetSouSprojet(bsp, sousProjet, nvReliquatReelBudgetFaculte, nvReliquatEstimatifBudgetFaculte) == 1) {
-                        budgetFacultet.getDetaillesBudget().setReliquatEstimatif(nvReliquatEstimatifBudgetFaculte - sousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
-                        budgetFacultet.getDetaillesBudget().setReliquatReel(nvReliquatReelBudgetFaculte - sousProjet.getDetaillesBudget().getCreditOuvertReel());
-                        budgetFaculteService.save(budgetFacultet);
+                        budgetProjet.getDetaillesBudget().setReliquatEstimatif(nvReliquatEstimatifBudgetFaculte - sousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
+                        budgetProjet.getDetaillesBudget().setReliquatReel(nvReliquatReelBudgetFaculte - sousProjet.getDetaillesBudget().getCreditOuvertReel());
+                        budgetFaculteService.save(budgetProjet);
                     }
                     budgetEntiteAdministratifService.createBudgetEntiteAdministratif(bsp, sousProjet.getBudgetEntiteAdmins());
                 } else if (restEstimatif < 0 || restReel < 0) {
@@ -101,7 +97,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
                 } else {
                     bsp = new BudgetSousProjet();
                     bsp.setDetaillesBudget(sousProjet.getDetaillesBudget());
-                    bsp.getDetaillesBudget().setAntecedent(getAnticident(sousProjet.getReferenceSousProjet(), budgetFacultet.getAnnee()));
+                    bsp.getDetaillesBudget().setAntecedent(getAnticident(sousProjet.getReferenceSousProjet(), budgetProjet.getBudgetFaculte().getAnnee()));
                     bsp.setReferenceSousProjet(sousProjet.getReferenceSousProjet());
                     bsp.getDetaillesBudget().setReliquatEstimatif(sousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
                     bsp.getDetaillesBudget().setCreditOuvertEstimatif(sousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
@@ -109,12 +105,12 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
                     bsp.getDetaillesBudget().setCreditOuvertReel(sousProjet.getDetaillesBudget().getCreditOuvertReel() + bsp.getDetaillesBudget().getAntecedent());
                     bsp.getDetaillesBudget().setEngagePaye(sousProjet.getDetaillesBudget().getEngagePaye());
                     bsp.getDetaillesBudget().setEngageNonPaye(sousProjet.getDetaillesBudget().getEngageNonPaye());
-                    bsp.setBudgetFaculte(budgetFacultet);
-                    budgetFacultet.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
-                    budgetFacultet.getDetaillesBudget().setReliquatReel(restReel);
-                    budgetFaculteService.save(budgetFacultet);
+                    bsp.setBudgetProjet(budgetProjet);
+                    budgetProjet.getDetaillesBudget().setReliquatEstimatif(restEstimatif);
+                    budgetProjet.getDetaillesBudget().setReliquatReel(restReel);
+                   // budgetFaculteService.save(budgetProjet);
                     budgetSousProjetDao.save(bsp);
-                    budgetEntiteAdministratifService.createBudgetEntiteAdministratif(bsp, sousProjet.getBudgetEntiteAdmins());
+                    budgetEntiteAdministratifService.createBudgetEntiteAdministratif(bsp, sousProjet.());
                 }
             }
             return 1;
@@ -124,12 +120,6 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
     @Override
     public void save(BudgetSousProjet budgetSousProjet) {
         budgetSousProjetDao.save(budgetSousProjet);
-    }
-
-    @Override
-
-    public BudgetSousProjet findByReferenceSousProjetAndBudgetFaculteAnnee(String referenceSousProjet, int annee) {
-        return budgetSousProjetDao.findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
     }
 
     @Override
@@ -168,7 +158,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
 //            }
 //        }
         BudgetFaculte bf = budgetFaculteService.findByAnnee(annee);
-        BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetFaculteAnnee(referenceSousProjet, annee);
+        BudgetSousProjet bsp = findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
         bf.setDetaillesBudget(bf.getDetaillesBudget());
         bsp.setDetaillesBudget(bsp.getDetaillesBudget());
         bf.getDetaillesBudget().setReliquatEstimatif(bf.getDetaillesBudget().getReliquatEstimatif() + bsp.getDetaillesBudget().getCreditOuvertEstimatif());
@@ -177,11 +167,36 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         budgetSousProjetDao.delete(bsp);
     }
 
-    public BudgetEntiteAdministratifService getBudgetEntiteAdministratifService() {
+    @Override
+    public double getAnticident(String reference, int annee) {
+        BudgetSousProjet bspOld = findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(reference, annee - 1);
+        if (bspOld != null) {
+            return bspOld.getDetaillesBudget().getReliquatReel();
+        } else {
+            return 0D;
+        }
+    }
+
+    @Override
+    public BudgetSousProjet findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
+        return budgetSousProjetDao.findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+    }
+
+    @Override
+    public List<BudgetSousProjet> findBybudgetProjetBudgetFaculteAnnee(int annee) {
+        return budgetSousProjetDao.findBybudgetProjetBudgetFaculteAnnee(annee);
+    }
+
+    @Override
+    public List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax) {
+        return budgetSousProjetDao.findByBudgetFaculteAnneeOrBudgetFaculteAnnee(anneeMin, anneeMax);
+    }
+
+    public BudgetProjetService getBudgetEntiteAdministratifService() {
         return budgetEntiteAdministratifService;
     }
 
-    public void setBudgetEntiteAdministratifService(BudgetEntiteAdministratifService budgetEntiteAdministratifService) {
+    public void setBudgetEntiteAdministratifService(BudgetProjetService budgetEntiteAdministratifService) {
         this.budgetEntiteAdministratifService = budgetEntiteAdministratifService;
     }
 
@@ -207,21 +222,6 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
 
     public void setBudgetSousProjetDao(BudgetSousProjetDao budgetSousProjetDao) {
         this.budgetSousProjetDao = budgetSousProjetDao;
-    }
-
-    @Override
-    public double getAnticident(String reference, int annee) {
-        BudgetSousProjet bspOld = findByReferenceSousProjetAndBudgetFaculteAnnee(reference, annee - 1);
-        if (bspOld != null) {
-            return bspOld.getDetaillesBudget().getReliquatReel();
-        } else {
-            return 0D;
-        }
-    }
-
-    @Override
-    public List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax) {
-        return budgetSousProjetDao.findByBudgetFaculteAnneeOrBudgetFaculteAnnee(anneeMin, anneeMax);
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author AMINE
  */
-public interface BudgetEntiteAdministratifService {
+public interface BudgetProjetService {
 
     public BudgetProjet findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 

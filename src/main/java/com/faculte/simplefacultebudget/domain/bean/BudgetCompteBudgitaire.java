@@ -26,7 +26,8 @@ public class BudgetCompteBudgitaire implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String referenceCompteBudgitaire;
+    private String reference;
+   
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
 
@@ -44,13 +45,15 @@ public class BudgetCompteBudgitaire implements Serializable {
         this.id = id;
     }
 
-    public String getReferenceCompteBudgitaire() {
-        return referenceCompteBudgitaire;
+    public String getReference() {
+        return reference;
     }
 
-    public void setReferenceCompteBudgitaire(String referenceCompteBudgitaire) {
-        this.referenceCompteBudgitaire = referenceCompteBudgitaire;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
+
+   
 
     public DetaillesBudget getDetaillesBudget() {
         return detaillesBudget;

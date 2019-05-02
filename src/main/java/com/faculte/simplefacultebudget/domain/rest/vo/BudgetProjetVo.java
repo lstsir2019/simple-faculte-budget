@@ -11,12 +11,13 @@ import java.util.List;
  *
  * @author AMINE
  */
-public class BudgetFaculteVo {
+public class BudgetProjetVo {
 
     private Long id;
-    private List<BudgetProjetVo> budgetProjetVos;
-    private String annee;
+    private String referenceProjet;
+    private String libelle;
     private DetaillesBudgetVo detaillesBudgetVo;
+    private List<BudgetSousProjetVo> budgetSousProjetVos;
 
     public Long getId() {
         return id;
@@ -26,24 +27,31 @@ public class BudgetFaculteVo {
         this.id = id;
     }
 
-    public List<BudgetProjetVo> getBudgetProjetVos() {
-        return budgetProjetVos;
+    public String getReferenceProjet() {
+        return referenceProjet;
     }
 
-    public void setBudgetProjetVos(List<BudgetProjetVo> budgetProjetVos) {
-        this.budgetProjetVos = budgetProjetVos;
+    public void setReferenceProjet(String referenceProjet) {
+        this.referenceProjet = referenceProjet;
     }
 
-
-
-    public String getAnnee() {
-        return annee;
+    public String getLibelle() {
+        return libelle;
     }
 
-    public void setAnnee(String annee) {
-        this.annee = annee;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
+    public List<BudgetSousProjetVo> getBudgetSousProjetVos() {
+        return budgetSousProjetVos;
+    }
+
+    public void setBudgetSousProjetVos(List<BudgetSousProjetVo> budgetSousProjetVos) {
+        this.budgetSousProjetVos = budgetSousProjetVos;
+    }
+
+    
     public DetaillesBudgetVo getDetaillesBudgetVo() {
         return detaillesBudgetVo;
     }

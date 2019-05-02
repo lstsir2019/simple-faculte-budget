@@ -30,7 +30,7 @@ public class BudgetFaculte implements Serializable {
     private int annee;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
-    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "budgetFaculte",fetch=FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "budgetFaculte", fetch = FetchType.LAZY)
     private List<BudgetProjet> budgetProjets;
 
     public Long getId() {
@@ -64,8 +64,5 @@ public class BudgetFaculte implements Serializable {
     public void setBudgetProjets(List<BudgetProjet> budgetProjets) {
         this.budgetProjets = budgetProjets;
     }
-
- 
-
 
 }

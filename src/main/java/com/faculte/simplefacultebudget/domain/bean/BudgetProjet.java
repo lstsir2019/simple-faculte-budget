@@ -26,13 +26,17 @@ public class BudgetProjet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String referenceEntiteAdministratif;
+    private String referenceProjet;
+    private String libelle;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
     
     @OneToMany(mappedBy = "budgetProjet")
     private List<BudgetSousProjet> budgetSousProjets;
-
+    
+   
+    @ManyToOne
+    private BudgetFaculte budgetFaculte;
     
     public BudgetProjet() {
     }
@@ -45,13 +49,30 @@ public class BudgetProjet implements Serializable {
         this.id = id;
     }
 
-    public String getReferenceEntiteAdministratif() {
-        return referenceEntiteAdministratif;
+    public String getReferenceProjet() {
+        return referenceProjet;
     }
 
-    public void setReferenceEntiteAdministratif(String referenceEntiteAdministratif) {
-        this.referenceEntiteAdministratif = referenceEntiteAdministratif;
+    public void setReferenceProjet(String referenceProjet) {
+        this.referenceProjet = referenceProjet;
     }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public BudgetFaculte getBudgetFaculte() {
+        return budgetFaculte;
+    }
+
+    public void setBudgetFaculte(BudgetFaculte budgetFaculte) {
+        this.budgetFaculte = budgetFaculte;
+    }
+
 
     public DetaillesBudget getDetaillesBudget() {
         return detaillesBudget;

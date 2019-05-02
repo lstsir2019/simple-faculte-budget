@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author AMINE
  */
 @Repository
-public interface CompteBudgitaireDao extends JpaRepository<CompteBudgitaire, Long>{
-    public CompteBudgitaire findByCode (String code);
-    
+public interface CompteBudgitaireDao extends JpaRepository<CompteBudgitaire, Long> {
+
+    public CompteBudgitaire findByCode(String code);
+
 }

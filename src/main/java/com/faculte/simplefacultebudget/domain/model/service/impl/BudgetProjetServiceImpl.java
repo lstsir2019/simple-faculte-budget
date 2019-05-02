@@ -7,23 +7,23 @@ package com.faculte.simplefacultebudget.domain.model.service.impl;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
-import com.faculte.simplefacultebudget.domain.model.dao.BudgetEntiteAdministratifDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
-import com.faculte.simplefacultebudget.domain.model.service.BudgetEntiteAdministratifService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
+import com.faculte.simplefacultebudget.domain.model.dao.BudgetProjetDao;
 
 /**
  *
  * @author AMINE
  */
 @Service
-public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdministratifService {
+public class BudgetProjetServiceImpl implements BudgetProjetService {
 
     @Autowired
-    private BudgetEntiteAdministratifDao budgetEntiteAdministratifDao;
+    private BudgetProjetDao budgetEntiteAdministratifDao;
 
     @Autowired
     private BudgetCompteBudgitaireService budgetCompteBudgitaireService;
@@ -177,7 +177,7 @@ public class BudgetEntiteAdministratifServiceImpl implements BudgetEntiteAdminis
         this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
     }
 
-    public void setBudgetEntiteAdministratifDao(BudgetEntiteAdministratifDao budgetEntiteAdministratifDao) {
+    public void setBudgetEntiteAdministratifDao(BudgetProjetDao budgetEntiteAdministratifDao) {
         this.budgetEntiteAdministratifDao = budgetEntiteAdministratifDao;
     }
 
