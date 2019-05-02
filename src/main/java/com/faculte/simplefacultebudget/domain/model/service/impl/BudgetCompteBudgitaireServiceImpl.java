@@ -6,7 +6,7 @@
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
-import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetCompteBudgitaireDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
@@ -97,7 +97,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
             bcb.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
 
             budgetCompteBudgitaireDao.save(bcb);
-            budgetEntiteAdministratifService.payerBudgetEA(bcb.getBudgetEntiteAdministratif(), nvpaye);
+            budgetEntiteAdministratifService.payerBudgetEA(bcb.getBudgetSousProjet(), nvpaye);
             return 1;
         }
     }
@@ -134,7 +134,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
-    public int createBudgetCompteBudgitaire(BudgetEntiteAdministratif budgetEntiteAdministratif, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
+    public int createBudgetCompteBudgitaire(BudgetProjet budgetEntiteAdministratif, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
         if (budgetCompteBudgitaires == null || budgetCompteBudgitaires.isEmpty()) {
             return -1;
         } else {
@@ -186,7 +186,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     @Override
     public void removeBcb(String referenceCompteBudgitaire) {
         BudgetCompteBudgitaire bcb = findByReferenceCompteBudgitaire(referenceCompteBudgitaire);
-        BudgetEntiteAdministratif bea = budgetEntiteAdministratifService.findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(bcb.getBudgetEntiteAdministratif().getReferenceEntiteAdministratif(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getReferenceSousProjet(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getBudgetFaculte().getAnnee());
+        BudgetProjet bea = budgetEntiteAdministratifService.findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(bcb.getBudgetEntiteAdministratif().getReferenceEntiteAdministratif(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getReferenceSousProjet(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getBudgetFaculte().getAnnee());
         bcb.setDetaillesBudget(bcb.getDetaillesBudget());
         bea.setDetaillesBudget(bea.getDetaillesBudget());
         bea.getDetaillesBudget().setReliquatEstimatif(bea.getDetaillesBudget().getReliquatEstimatif() + bcb.getDetaillesBudget().getCreditOuvertEstimatif());
@@ -205,6 +205,15 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         return budgetCompteBudgitaireDao.findByReferenceCompteBudgitaire(reference);
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public BudgetSousProjetService getBudgetSousProjetService() {
         return budgetSousProjetService;
     }

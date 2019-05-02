@@ -5,7 +5,7 @@
  */
 package com.faculte.simplefacultebudget.domain.res.converter;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.DetaillesBudget;
 import com.faculte.simplefacultebudget.domain.rest.vo.DetaillesBudgetVo;
 import com.faculte.simplefacultebudget.domain.common.util.NumberUtil;

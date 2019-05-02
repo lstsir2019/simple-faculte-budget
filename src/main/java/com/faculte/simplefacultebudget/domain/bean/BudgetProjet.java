@@ -20,23 +20,22 @@ import javax.persistence.OneToMany;
  * @author AMINE
  */
 @Entity
-public class BudgetSousProjet implements Serializable {
+public class BudgetProjet implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String referenceSousProjet;
-
+    private String referenceEntiteAdministratif;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
+    
+    @OneToMany(mappedBy = "budgetProjet")
+    private List<BudgetSousProjet> budgetSousProjets;
 
-    @OneToMany
-    private List<BudgetCompteBudgitaire> budgetCompteBudgitaires;
-
-   
-    @ManyToOne
-    private BudgetProjet budgetProjet;
+    
+    public BudgetProjet() {
+    }
 
     public Long getId() {
         return id;
@@ -46,12 +45,12 @@ public class BudgetSousProjet implements Serializable {
         this.id = id;
     }
 
-    public String getReferenceSousProjet() {
-        return referenceSousProjet;
+    public String getReferenceEntiteAdministratif() {
+        return referenceEntiteAdministratif;
     }
 
-    public void setReferenceSousProjet(String referenceSousProjet) {
-        this.referenceSousProjet = referenceSousProjet;
+    public void setReferenceEntiteAdministratif(String referenceEntiteAdministratif) {
+        this.referenceEntiteAdministratif = referenceEntiteAdministratif;
     }
 
     public DetaillesBudget getDetaillesBudget() {
@@ -62,20 +61,12 @@ public class BudgetSousProjet implements Serializable {
         this.detaillesBudget = detaillesBudget;
     }
 
-    public List<BudgetCompteBudgitaire> getBudgetCompteBudgitaires() {
-        return budgetCompteBudgitaires;
+    public List<BudgetSousProjet> getBudgetSousProjets() {
+        return budgetSousProjets;
     }
 
-    public void setBudgetCompteBudgitaires(List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
-        this.budgetCompteBudgitaires = budgetCompteBudgitaires;
-    }
-
-    public BudgetProjet getBudgetProjet() {
-        return budgetProjet;
-    }
-
-    public void setBudgetProjet(BudgetProjet budgetProjet) {
-        this.budgetProjet = budgetProjet;
+    public void setBudgetSousProjets(List<BudgetSousProjet> budgetSousProjets) {
+        this.budgetSousProjets = budgetSousProjets;
     }
 
 }

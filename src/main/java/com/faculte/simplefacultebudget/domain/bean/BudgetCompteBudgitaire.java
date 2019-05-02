@@ -6,13 +6,14 @@
 package com.faculte.simplefacultebudget.domain.bean;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -28,18 +29,19 @@ public class BudgetCompteBudgitaire implements Serializable {
     private String referenceCompteBudgitaire;
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
-    @ManyToOne(cascade = {CascadeType.PERSIST})
-    private BudgetEntiteAdministratif budgetEntiteAdministratif;
-    @OneToOne(cascade = {CascadeType.ALL})
-    private CompteBudgitaire compteBudgitaire;
 
-    public String generateCode(long index) {
-        String gerenerateCode = "";
-        String referenceEA = this.budgetEntiteAdministratif.getReferenceEntiteAdministratif();
-        String referenceSP = this.budgetEntiteAdministratif.getBudgetSousProjet().getReferenceSousProjet();
-        int annee = (this.budgetEntiteAdministratif.getBudgetSousProjet().getBudgetFaculte().getAnnee());
-        gerenerateCode += annee + "-" + referenceSP.substring(0, 4) + "-" + referenceEA.substring(0, 4) + "-" + index;
-        return gerenerateCode;
+    @ManyToOne
+    private CompteBudgitaire compteBudgitaire;
+   
+    @ManyToOne
+    private BudgetSousProjet budgetSousProjet;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getReferenceCompteBudgitaire() {
@@ -50,22 +52,6 @@ public class BudgetCompteBudgitaire implements Serializable {
         this.referenceCompteBudgitaire = referenceCompteBudgitaire;
     }
 
-    public CompteBudgitaire getCompteBudgitaire() {
-        return compteBudgitaire;
-    }
-
-    public void setCompteBudgitaire(CompteBudgitaire compteBudgitaire) {
-        this.compteBudgitaire = compteBudgitaire;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public DetaillesBudget getDetaillesBudget() {
         return detaillesBudget;
     }
@@ -74,37 +60,23 @@ public class BudgetCompteBudgitaire implements Serializable {
         this.detaillesBudget = detaillesBudget;
     }
 
-    public BudgetEntiteAdministratif getBudgetEntiteAdministratif() {
-        return budgetEntiteAdministratif;
+    public CompteBudgitaire getCompteBudgitaire() {
+        return compteBudgitaire;
     }
 
-    public void setBudgetEntiteAdministratif(BudgetEntiteAdministratif budgetEntiteAdministratif) {
-        this.budgetEntiteAdministratif = budgetEntiteAdministratif;
+    public void setCompteBudgitaire(CompteBudgitaire compteBudgitaire) {
+        this.compteBudgitaire = compteBudgitaire;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public BudgetSousProjet getBudgetSousProjet() {
+        return budgetSousProjet;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BudgetCompteBudgitaire)) {
-            return false;
-        }
-        BudgetCompteBudgitaire other = (BudgetCompteBudgitaire) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setBudgetSousProjet(BudgetSousProjet budgetSousProjet) {
+        this.budgetSousProjet = budgetSousProjet;
     }
 
-    @Override
-    public String toString() {
-        return "com.faculte.budget.bean.BudgeCompteBudgitaire[ id=" + id + " ]";
-    }
+
+
 
 }

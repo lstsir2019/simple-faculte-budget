@@ -18,7 +18,6 @@ import javax.persistence.Id;
 @Entity
 public class DetaillesBudget implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -33,6 +32,14 @@ public class DetaillesBudget implements Serializable {
     private double reliquatPayereel;
     private double reliquatNonPayeEstimatif;
     private double reliquatNonPayReel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public double getAntecedent() {
         return antecedent;
@@ -58,22 +65,6 @@ public class DetaillesBudget implements Serializable {
         this.creditOuvertReel = creditOuvertReel;
     }
 
-    public double getEngageNonPaye() {
-        return engageNonPaye;
-    }
-
-    public void setEngageNonPaye(double engageNonPaye) {
-        this.engageNonPaye = engageNonPaye;
-    }
-
-    public double getReliquatPayereel() {
-        return reliquatPayereel;
-    }
-
-    public void setReliquatPayereel(double reliquatPayereel) {
-        this.reliquatPayereel = reliquatPayereel;
-    }
-
     public double getReliquatEstimatif() {
         return reliquatEstimatif;
     }
@@ -88,6 +79,14 @@ public class DetaillesBudget implements Serializable {
 
     public void setReliquatReel(double reliquatReel) {
         this.reliquatReel = reliquatReel;
+    }
+
+    public double getEngageNonPaye() {
+        return engageNonPaye;
+    }
+
+    public void setEngageNonPaye(double engageNonPaye) {
+        this.engageNonPaye = engageNonPaye;
     }
 
     public double getEngagePaye() {
@@ -106,6 +105,14 @@ public class DetaillesBudget implements Serializable {
         this.reliquatPayeEstimatif = reliquatPayeEstimatif;
     }
 
+    public double getReliquatPayereel() {
+        return reliquatPayereel;
+    }
+
+    public void setReliquatPayereel(double reliquatPayereel) {
+        this.reliquatPayereel = reliquatPayereel;
+    }
+
     public double getReliquatNonPayeEstimatif() {
         return reliquatNonPayeEstimatif;
     }
@@ -122,37 +129,5 @@ public class DetaillesBudget implements Serializable {
         this.reliquatNonPayReel = reliquatNonPayReel;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DetaillesBudget)) {
-            return false;
-        }
-        DetaillesBudget other = (DetaillesBudget) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.faculte.budget.bean.DetaillesBudget[ id=" + id + " ]";
-    }
-
+    
 }

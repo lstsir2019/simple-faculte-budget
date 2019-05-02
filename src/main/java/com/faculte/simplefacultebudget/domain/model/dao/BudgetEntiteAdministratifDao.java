@@ -5,7 +5,7 @@
  */
 package com.faculte.simplefacultebudget.domain.model.dao;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,15 +15,15 @@ import org.springframework.stereotype.Repository;
  * @author AMINE
  */
 @Repository
-public interface BudgetEntiteAdministratifDao extends JpaRepository<BudgetEntiteAdministratif, Long> {
+public interface BudgetEntiteAdministratifDao extends JpaRepository<BudgetProjet, Long> {
 
-    public BudgetEntiteAdministratif findByReferenceEntiteAdministratif(String referenceEntiteAdministratif);
+    public BudgetProjet findByReferenceEntiteAdministratif(String referenceEntiteAdministratif);
 
-    public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public List<BudgetProjet> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    public BudgetEntiteAdministratif findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+    public BudgetProjet findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 
-    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
+    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
 
-    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
+    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 }

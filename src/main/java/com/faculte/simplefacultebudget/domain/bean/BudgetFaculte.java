@@ -5,8 +5,6 @@
  */
 package com.faculte.simplefacultebudget.domain.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -33,24 +31,14 @@ public class BudgetFaculte implements Serializable {
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
     @OneToMany(cascade = {CascadeType.ALL},mappedBy = "budgetFaculte",fetch=FetchType.LAZY)
-    private List<BudgetSousProjet> budgetSousProjets;
+    private List<BudgetProjet> budgetProjets;
 
-    @JsonIgnore
-    public List<BudgetSousProjet> getBudgetSousProjets() {
-        return budgetSousProjets;
+    public Long getId() {
+        return id;
     }
 
-    @JsonSetter
-    public void setBudgetSousProjets(List<BudgetSousProjet> budgetSousProjets) {
-        this.budgetSousProjets = budgetSousProjets;
-    }
-
-    public DetaillesBudget getDetaillesBudget() {
-        return detaillesBudget;
-    }
-
-    public void setDetaillesBudget(DetaillesBudget detaillesBudget) {
-        this.detaillesBudget = detaillesBudget;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getAnnee() {
@@ -61,37 +49,23 @@ public class BudgetFaculte implements Serializable {
         this.annee = annee;
     }
 
-    public Long getId() {
-        return id;
+    public DetaillesBudget getDetaillesBudget() {
+        return detaillesBudget;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDetaillesBudget(DetaillesBudget detaillesBudget) {
+        this.detaillesBudget = detaillesBudget;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public List<BudgetProjet> getBudgetProjets() {
+        return budgetProjets;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BudgetFaculte)) {
-            return false;
-        }
-        BudgetFaculte other = (BudgetFaculte) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setBudgetProjets(List<BudgetProjet> budgetProjets) {
+        this.budgetProjets = budgetProjets;
     }
 
-    @Override
-    public String toString() {
-        return "com.faculte.budget.bean.BudgetFaculte[ id=" + id + " ]";
-    }
+ 
+
 
 }

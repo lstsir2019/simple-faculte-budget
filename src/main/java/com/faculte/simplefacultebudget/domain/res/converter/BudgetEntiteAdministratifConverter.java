@@ -5,7 +5,7 @@
  */
 package com.faculte.simplefacultebudget.domain.res.converter;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetEntiteAdministratifVo;
 import org.springframework.stereotype.Component;
@@ -15,14 +15,14 @@ import org.springframework.stereotype.Component;
  * @author AMINE
  */
 @Component
-public class BudgetEntiteAdministratifConverter extends AbstractConverter<BudgetEntiteAdministratif, BudgetEntiteAdministratifVo> {
+public class BudgetEntiteAdministratifConverter extends AbstractConverter<BudgetProjet, BudgetEntiteAdministratifVo> {
 
     @Override
-    public BudgetEntiteAdministratif toItem(BudgetEntiteAdministratifVo vo) {
+    public BudgetProjet toItem(BudgetEntiteAdministratifVo vo) {
         if (vo == null) {
             return null;
         } else {
-            BudgetEntiteAdministratif item = new BudgetEntiteAdministratif();
+            BudgetProjet item = new BudgetProjet();
             item.setId(vo.getId());
             item.setReferenceEntiteAdministratif(vo.getReferenceEntiteAdministratif());
             item.setBudgeCompteBudgitaires(new BudgetCompteBudgitaireConverter().toItem(vo.getBudgetCompteBudgitaireVo()));
@@ -33,7 +33,7 @@ public class BudgetEntiteAdministratifConverter extends AbstractConverter<Budget
     }
 
     @Override
-    public BudgetEntiteAdministratifVo toVo(BudgetEntiteAdministratif item) {
+    public BudgetEntiteAdministratifVo toVo(BudgetProjet item) {
         if (item == null) {
             return null;
         } else {

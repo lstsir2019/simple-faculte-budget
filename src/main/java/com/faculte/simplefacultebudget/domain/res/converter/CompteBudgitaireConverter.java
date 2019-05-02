@@ -5,7 +5,7 @@
  */
 package com.faculte.simplefacultebudget.domain.res.converter;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.rest.vo.CompteBudgitaireVo;
 import org.springframework.stereotype.Component;

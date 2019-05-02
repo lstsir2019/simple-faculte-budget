@@ -5,7 +5,7 @@
  */
 package com.faculte.simplefacultebudget.domain.model.service;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetEntiteAdministratif;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
 
@@ -15,25 +15,25 @@ import java.util.List;
  */
 public interface BudgetEntiteAdministratifService {
 
-    public BudgetEntiteAdministratif findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+    public BudgetProjet findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 
-    public List<BudgetEntiteAdministratif> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public List<BudgetProjet> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
-    public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetEntiteAdministratif> budgetEntiteAdministratifs);
+    public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetProjet> budgetEntiteAdministratifs);
 
-    public int payerBudgetEA(BudgetEntiteAdministratif budgetEntiteAdministratif, double montant);
+    public int payerBudgetEA(BudgetProjet budgetEntiteAdministratif, double montant);
 
-    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
+    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
 
     public void removeBea(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 
-    public void save(BudgetEntiteAdministratif entiteAdministratif);
+    public void save(BudgetProjet entiteAdministratif);
 
     public double getAnticident(String refEa, String refSp, int annee);
 
-    public int updateBudgetEntiteAdministratif(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif,double nvReliquatReelBudgetSousProjet,double nvReliquatEstimatifBudgetSousProjet);
+    public int updateBudgetEntiteAdministratif(BudgetProjet bea, BudgetProjet entiteAdministratif,double nvReliquatReelBudgetSousProjet,double nvReliquatEstimatifBudgetSousProjet);
 
-    public List<BudgetEntiteAdministratif> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
+    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 
-    public boolean isEqual(BudgetEntiteAdministratif bea, BudgetEntiteAdministratif entiteAdministratif);
+    public boolean isEqual(BudgetProjet bea, BudgetProjet entiteAdministratif);
 }
