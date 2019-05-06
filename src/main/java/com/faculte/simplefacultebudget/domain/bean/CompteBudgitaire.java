@@ -27,6 +27,9 @@ public class CompteBudgitaire implements Serializable {
     private Long id;
     private String code;
     private String libelle;
+    
+    
+   private DetaillesBudget detaillesBudget;
 
     @OneToMany(mappedBy = "compteBudgitaire")
     private List<BudgetCompteBudgitaire> budgetCompteBudgitaires;

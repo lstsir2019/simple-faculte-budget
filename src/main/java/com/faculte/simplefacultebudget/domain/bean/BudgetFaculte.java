@@ -13,8 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -28,7 +28,7 @@ public class BudgetFaculte implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int annee;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "budgetFaculte", fetch = FetchType.LAZY)
     private List<BudgetProjet> budgetProjets;
