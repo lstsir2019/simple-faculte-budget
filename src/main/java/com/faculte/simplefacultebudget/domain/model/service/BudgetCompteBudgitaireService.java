@@ -7,6 +7,7 @@ package com.faculte.simplefacultebudget.domain.model.service;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
+import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface BudgetCompteBudgitaireService {
 
-    public int createBudgetCompteBudgitaire(BudgetProjet budgetEntiteAdministratif, List<BudgetCompteBudgitaire> budgetCompteBudgitaires);
+    public int createBudgetCompteBudgitaire(BudgetSousProjet budgetSousProjet, List<BudgetCompteBudgitaire> budgetCompteBudgitaires);
 
     public int payerBCB(String code);
 

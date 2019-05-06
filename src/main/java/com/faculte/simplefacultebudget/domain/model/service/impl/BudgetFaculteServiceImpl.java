@@ -55,10 +55,15 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
             double nvRelNPyRel = bf.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
 
             bf.getDetaillesBudget().setEngagePaye(nvpaye);
+            
             bf.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
+            
             bf.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
+            
             bf.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
+            
             bf.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
+            
             bf.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
 
             budgetFaculteDao.save(bf);
