@@ -5,9 +5,11 @@
  */
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
+import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.model.dao.CompteBudgitaireDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
+import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
 import com.faculte.simplefacultebudget.domain.model.service.CompteBudgitaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,21 +25,34 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
     private CompteBudgitaireDao compteBudgitaireDao;
 
     @Autowired
+    private BudgetFaculteService budgetFaculteService;
+
+    @Autowired
     BudgetCompteBudgitaireService budgetCompteBudgitaireService;
 
     @Override
-    public CompteBudgitaire findByCode(String code) {
-        return compteBudgitaireDao.findByCode(code);
+    public CompteBudgitaire findByCodeAndAnnee(String code, int anneee) {
+        return compteBudgitaireDao.findByCodeAndAnnee(code, anneee);
     }
 
     @Override
-    public void creerCompteBudgitaire(CompteBudgitaire compteBudgitaire) {
-        compteBudgitaireDao.save(compteBudgitaire);
+    public int compteBudgitaireSave(CompteBudgitaire compteBudgitaire) {
+        if (null == compteBudgitaire) {
+            return -1;
+        } else {
+            CompteBudgitaire cb = findByCodeAndAnnee(compteBudgitaire.getCode(), compteBudgitaire.getAnnee());
+            if (cb != null) {
+                return -2;
+            } else {
+                compteBudgitaireDao.save(compteBudgitaire);
+                return 1;
+            }
+        }
     }
 
     @Override
-    public int payerCB(String code) {
-        CompteBudgitaire cb = findByCode(code);
+    public int payerCB(String code, int annee) {
+        CompteBudgitaire cb = findByCodeAndAnnee(code, annee);
         if (cb == null) {
             return -1;
         } else {
@@ -58,8 +73,4 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
         this.compteBudgitaireDao = compteBudgitaireDao;
     }
 
-    @Override
-    public void save(CompteBudgitaire cb) {
-        compteBudgitaireDao.save(cb);
-    }
 }

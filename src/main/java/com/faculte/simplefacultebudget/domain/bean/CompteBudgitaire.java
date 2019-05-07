@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -27,12 +29,15 @@ public class CompteBudgitaire implements Serializable {
     private Long id;
     private String code;
     private String libelle;
+    private int annee;
     
-    
+    @OneToOne
    private DetaillesBudget detaillesBudget;
 
     @OneToMany(mappedBy = "compteBudgitaire")
     private List<BudgetCompteBudgitaire> budgetCompteBudgitaires;
+    
+    
 
     public Long getId() {
         return id;
@@ -66,5 +71,26 @@ public class CompteBudgitaire implements Serializable {
         this.budgetCompteBudgitaires = budgetCompteBudgitaires;
     }
 
+
+    public DetaillesBudget getDetaillesBudget() {
+        return detaillesBudget;
+    }
+
+    public void setDetaillesBudget(DetaillesBudget detaillesBudget) {
+        this.detaillesBudget = detaillesBudget;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    @Override
+    public String toString() {
+        return "CompteBudgitaire{" + "id=" + id + ", code=" + code + ", libelle=" + libelle + ", annee=" + annee + ", detaillesBudget=" + detaillesBudget + ", budgetCompteBudgitaires=" + budgetCompteBudgitaires + '}';
+    }
     
 }
