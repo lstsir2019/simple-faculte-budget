@@ -8,6 +8,7 @@ package com.faculte.simplefacultebudget.domain.model.service.impl;
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetFaculteDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
+import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import java.util.List;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     private BudgetFaculteDao budgetFaculteDao;
 
     @Autowired
-    private BudgetSousProjetService budgetSousProjetService;
+    private BudgetProjetService budgetProjetService;
 
     private static final Logger log = LoggerFactory.getLogger(BudgetFaculteServiceImpl.class);
 
@@ -104,7 +105,8 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
             } catch (NullPointerException e) {
                 log.info("l'objet budget faculte est null");
             }
-            budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
+            budgetProjetService.createBudgetProjet(bf, budgetFaculte.getBudgetProjets());
+            
             return 1;
         } else {
             bf = new BudgetFaculte();
@@ -118,7 +120,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
             bf.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
             bf.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
             budgetFaculteDao.save(bf);
-            budgetSousProjetService.createBudgetSousProjet(bf, budgetFaculte.getBudgetSousProjets());
+            budgetProjetService.createBudgetProjet(bf, budgetFaculte.getBudgetProjets());
             return 2;
         }
     }
@@ -139,12 +141,12 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         budgetFaculteDao.delete(bf);
     }
 
-    public BudgetSousProjetService getBudgetSousProjetService() {
-        return budgetSousProjetService;
+    public BudgetProjetService getBudgetProjetService() {
+        return budgetProjetService;
     }
 
-    public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
-        this.budgetSousProjetService = budgetSousProjetService;
+    public void setBudgetSousProjetService(BudgetProjetService budgetProjetService) {
+        this.budgetProjetService = budgetProjetService;
     }
 
     public void setBudgetFaculteDao(BudgetFaculteDao budgetFaculteDao) {

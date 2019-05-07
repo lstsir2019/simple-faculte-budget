@@ -5,6 +5,7 @@
  */
 package com.faculte.simplefacultebudget.domain.model.service;
 
+import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
@@ -15,26 +16,22 @@ import java.util.List;
  */
 public interface BudgetProjetService {
 
-    public BudgetProjet findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
+     public BudgetProjet findByReferenceProjetAndBudgetFaculteAnnee(String referenceProjet, int annee);
 
-    public BudgetProjet findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
-
-    public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetProjet> budgetEntiteAdministratifs);
-
-    public int payerBudgetEA(BudgetProjet budgetEntiteAdministratif, double montant);
-
-    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
-
-    public void removeBea(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
-
-    public void save(BudgetProjet entiteAdministratif);
-
-    public double getAnticident(String refEa, String refSp, int annee);
-
-    public int updateBudgetEntiteAdministratif(BudgetProjet bea, BudgetProjet entiteAdministratif,double nvReliquatReelBudgetSousProjet,double nvReliquatEstimatifBudgetSousProjet);
-
-    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
-
-    public boolean isEqual(BudgetProjet bea, BudgetProjet entiteAdministratif);
+    public List<BudgetProjet> findByBudgetFaculteAnnee(int annee);
+   
+    public void save(BudgetProjet budgetProjet);
+    
+    public int createBudgetProjet(BudgetFaculte budgetFacultet, List<BudgetProjet> budgetProjets);
+    
+    public int payerSousProjet(BudgetProjet budgetProjet, double prix);
+    
+     public void removeBp(int annee, String referenceProjet);
+     
+     public double getAnticident(String reference, int annee);
+     
+     public int updateBudgetProjet(BudgetProjet bpOld, BudgetProjet projet, double reliquatReelBudgetFaculte, double reliquatEstimatifBudgetFaculte);
+     
+     public boolean isEqual(BudgetProjet bp, BudgetProjet projet);
 
 }
