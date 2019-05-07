@@ -17,7 +17,7 @@ public interface BudgetProjetService {
 
     public BudgetProjet findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
 
-    public BudgetProjet findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public List<BudgetProjet> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
     public int createBudgetEntiteAdministratif(BudgetSousProjet budgetSousProjet, List<BudgetProjet> budgetEntiteAdministratifs);
 
@@ -36,5 +36,4 @@ public interface BudgetProjetService {
     public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 
     public boolean isEqual(BudgetProjet bea, BudgetProjet entiteAdministratif);
-
 }

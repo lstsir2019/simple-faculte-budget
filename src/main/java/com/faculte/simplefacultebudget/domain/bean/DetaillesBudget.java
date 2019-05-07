@@ -33,22 +33,6 @@ public class DetaillesBudget implements Serializable {
     private double reliquatNonPayeEstimatif;
     private double reliquatNonPayReel;
 
-    public DetaillesBudget() {
-    }
-
-    public DetaillesBudget(double creditOuvertEstimatif, double creditOuvertReel, double reliquatEstimatif, double reliquatReel, double engageNonPaye, double engagePaye, double reliquatPayeEstimatif, double reliquatPayereel, double reliquatNonPayeEstimatif, double reliquatNonPayReel) {
-        this.creditOuvertEstimatif = creditOuvertEstimatif;
-        this.creditOuvertReel = creditOuvertReel;
-        this.reliquatEstimatif = reliquatEstimatif;
-        this.reliquatReel = reliquatReel;
-        this.engageNonPaye = engageNonPaye;
-        this.engagePaye = engagePaye;
-        this.reliquatPayeEstimatif = reliquatPayeEstimatif;
-        this.reliquatPayereel = reliquatPayereel;
-        this.reliquatNonPayeEstimatif = reliquatNonPayeEstimatif;
-        this.reliquatNonPayReel = reliquatNonPayReel;
-    }
-
     public Long getId() {
         return id;
     }
@@ -145,4 +129,5 @@ public class DetaillesBudget implements Serializable {
         this.reliquatNonPayReel = reliquatNonPayReel;
     }
 
+    
 }

@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -29,7 +28,7 @@ public class BudgetProjet implements Serializable {
     private Long id;
     private String referenceProjet;
     private String libelle;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
     
     @OneToMany(mappedBy = "budgetProjet")
