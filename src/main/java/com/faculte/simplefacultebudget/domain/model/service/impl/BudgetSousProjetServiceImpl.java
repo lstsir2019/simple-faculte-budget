@@ -79,7 +79,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         if (budgetProjet == null || budgetSousProjets == null) {
             return -1;
         } else {
-            BudgetProjet bp = budgetProjetService.findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(budgetProjet.getReferenceProjet(), budgetProjet.getBudgetFaculte().getAnnee());
+            BudgetProjet bp = budgetProjetService.findByReferenceProjetAndBudgetFaculteAnnee(budgetProjet.getReferenceProjet(), budgetProjet.getBudgetFaculte().getAnnee());
             if (bp == null) {
                 return -2;
             } else {
