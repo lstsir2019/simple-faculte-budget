@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BudgetCompteBudgitaireDao extends JpaRepository<BudgetCompteBudgitaire, Long> {
 
-    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceProjet, String referenceSousProjet, int annee);
+    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceProjet, String referenceSousProjet, int annee);
 
     public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String code,String referenceSousProjet, int annee);
 
@@ -27,13 +27,13 @@ public interface BudgetCompteBudgitaireDao extends JpaRepository<BudgetCompteBud
 
     public List<BudgetCompteBudgitaire> findDistinctByBudgetSousProjetBudgetProjetBudgetFaculteAnnee(int annee);
 
-    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
     public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 
     public BudgetCompteBudgitaire findByReference(String reference);
     
-    @Query("SELEC new com.faculte.simplefacultebudget.domain.bean.DetaillesBudget(SUM(bcb.detaillesBudget.creditOuvertEstimatif), SUM(bcb.detaillesBudget.creditOuvertReel), SUM(bcb.detaillesBudget.reliquatEstimatif), SUM(bcb.detaillesBudget.reliquatReel), SUM(bcb.detaillesBudget.engageNonPaye), SUM( bcb.detaillesBudget.engagePaye), SUM( bcb.detaillesBudget.reliquatPayeEstimatif), SUM( bcb.detaillesBudget.reliquatPayereel), SUM( bcb.detaillesBudget.reliquatNonPayeEstimatif), SUM(bcb.detaillesBudget.reliquatNonPayReel) From BudgetCompteBudgitaire bcb Where bcb.compteBudgitaire.code=?1 and budgetSousProjet.budgetProjet.budgetFaculte.annee=2?")
+    @Query("SELECT new com.faculte.simplefacultebudget.domain.bean.DetaillesBudget(SUM(bcb.detaillesBudget.creditOuvertEstimatif), SUM(bcb.detaillesBudget.creditOuvertReel), SUM(bcb.detaillesBudget.reliquatEstimatif), SUM(bcb.detaillesBudget.reliquatReel), SUM(bcb.detaillesBudget.engageNonPaye), SUM( bcb.detaillesBudget.engagePaye), SUM( bcb.detaillesBudget.reliquatPayeEstimatif), SUM( bcb.detaillesBudget.reliquatPayereel), SUM( bcb.detaillesBudget.reliquatNonPayeEstimatif), SUM(bcb.detaillesBudget.reliquatNonPayReel)) From BudgetCompteBudgitaire bcb Where bcb.compteBudgitaire.code=?1 and budgetSousProjet.budgetProjet.budgetFaculte.annee=?2")
     public DetaillesBudget findDetaillesBudgetByCompteBudgitaireAndAnne(String code,int annee);
 
     public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndCompteBudgitaireAnneeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String codeCompteBudgitaire, int annee, String referenceSousProjet, int annee0);

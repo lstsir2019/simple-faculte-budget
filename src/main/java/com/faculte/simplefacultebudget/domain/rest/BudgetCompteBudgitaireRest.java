@@ -35,23 +35,13 @@ public class BudgetCompteBudgitaireRest {
     @Qualifier("budgetCompteBudgitaireConverter")
     private AbstractConverter<BudgetCompteBudgitaire, BudgetCompteBudgitaireVo> budgetCompteBudgitaireConverter;
 
-    @GetMapping("/refEntite/{referenceEntiteAdministratif}/refsousProjet/{referenceSousProjet}/annee/{annee}")
-    public List<BudgetCompteBudgitaireVo> findByBudgetEntiteAdministratifReferenceEntiteAdministratifAndBudgetEntiteAdministratifBudgetSousProjetReferenceSousProjetAndBudgetEntiteAdministratifBudgetSousProjetBudgetFaculteAnnee(@PathVariable String referenceEntiteAdministratif, @PathVariable String referenceSousProjet, @PathVariable int annee) {
-        List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceEntiteAdministratif, referenceSousProjet, annee);
-        return budgetCompteBudgitaireConverter.toVo(bcbs);
-    }
-
+   
     @GetMapping("/annee/{annee}")
     public List<BudgetCompteBudgitaireVo> findDistinctByBudgetSousProjetBudgetProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
         List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findDistinctByBudgetSousProjetBudgetProjetBudgetFaculteAnnee(annee);
         return budgetCompteBudgitaireConverter.toVo(bcbs);
     }
 
-    @GetMapping("/reference/{reference}/annee/{annee}")
-    public List<BudgetCompteBudgitaireVo> findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
-        List<BudgetCompteBudgitaire> myBcbs = budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
-        return budgetCompteBudgitaireConverter.toVo(myBcbs);
-    }
 
     @DeleteMapping("/referenceCompteBudgitaire/{referenceCompteBudgitaire}")
     public void removeBcb(@PathVariable("referenceCompteBudgitaire") String referenceCompteBudgitaire) {

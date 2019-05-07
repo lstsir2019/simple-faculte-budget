@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BudgetSousProjetDao extends JpaRepository<BudgetSousProjet, Long> {
 
-    public BudgetSousProjet findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public BudgetSousProjet findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
     public List<BudgetSousProjet> findBybudgetProjetBudgetFaculteAnnee(int annee);
 

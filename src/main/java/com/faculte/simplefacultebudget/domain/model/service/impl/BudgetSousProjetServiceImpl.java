@@ -173,7 +173,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
 //            }
 //        }
         BudgetFaculte bf = budgetFaculteService.findByAnnee(annee);
-        BudgetSousProjet bsp = findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+        BudgetSousProjet bsp = findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
         bf.setDetaillesBudget(bf.getDetaillesBudget());
         bsp.setDetaillesBudget(bsp.getDetaillesBudget());
         bf.getDetaillesBudget().setReliquatEstimatif(bf.getDetaillesBudget().getReliquatEstimatif() + bsp.getDetaillesBudget().getCreditOuvertEstimatif());
@@ -184,7 +184,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
 
     @Override
     public double getAnticident(String reference, int annee) {
-        BudgetSousProjet bspOld = findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(reference, annee - 1);
+        BudgetSousProjet bspOld = findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(reference, annee - 1);
         if (bspOld != null) {
             return bspOld.getDetaillesBudget().getReliquatReel();
         } else {
@@ -193,8 +193,8 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
     }
 
     @Override
-    public BudgetSousProjet findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
-        return budgetSousProjetDao.findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+    public BudgetSousProjet findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
+        return budgetSousProjetDao.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
     }
 
     @Override

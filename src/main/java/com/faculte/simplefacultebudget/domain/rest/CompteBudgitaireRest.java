@@ -10,6 +10,8 @@ import com.faculte.simplefacultebudget.domain.model.service.CompteBudgitaireServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,13 +26,14 @@ public class CompteBudgitaireRest {
     @Autowired
     private CompteBudgitaireService compteBudgitaireService;
 
-    @GetMapping("/code/{code}")
-    public CompteBudgitaire findByCode(@PathVariable String code) {
-        return compteBudgitaireService.findByCode(code);
+    @GetMapping("/code/{code}/annee/{annee}")
+    public CompteBudgitaire findByCode(@PathVariable String code, @PathVariable int annee) {
+        return compteBudgitaireService.findByCodeAndAnnee(code,annee);
     }
 
-    public void creerCompteBudgitaire(CompteBudgitaire compteBudgitaire) {
-        compteBudgitaireService.creerCompteBudgitaire(compteBudgitaire);
+    @PostMapping("/")
+    public void creerCompteBudgitaire(@RequestBody CompteBudgitaire compteBudgitaire) {
+        compteBudgitaireService.compteBudgitaireSave(compteBudgitaire);
     }
 
     public CompteBudgitaireService getCompteBudgitaireService() {

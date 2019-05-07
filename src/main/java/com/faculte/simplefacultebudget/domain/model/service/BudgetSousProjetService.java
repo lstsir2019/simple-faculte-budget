@@ -31,7 +31,7 @@ public interface BudgetSousProjetService {
 
     public boolean isEqual(BudgetSousProjet bsp, BudgetSousProjet sousProjet);
 
-    public BudgetSousProjet findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public BudgetSousProjet findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
     public List<BudgetSousProjet> findBybudgetProjetBudgetFaculteAnnee(int annee);
 

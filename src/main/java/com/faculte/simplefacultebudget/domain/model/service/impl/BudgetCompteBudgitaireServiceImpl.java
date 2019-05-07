@@ -131,7 +131,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
             return -1;
         } else {
             CompteBudgitaire cb = compteBudgitaireService.findByCodeAndAnnee(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetCompteBudgitaire.getCompteBudgitaire().getAnnee());
-            BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(budgetCompteBudgitaire.getBudgetSousProjet().getReferenceSousProjet(), budgetCompteBudgitaire.getBudgetSousProjet().getBudgetProjet().getBudgetFaculte().getAnnee());
+            BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(budgetCompteBudgitaire.getBudgetSousProjet().getReferenceSousProjet(), budgetCompteBudgitaire.getBudgetSousProjet().getBudgetProjet().getBudgetFaculte().getAnnee());
             if (cb == null || bsp == null) {
                 return -2;
             } else {
@@ -155,7 +155,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
 
     public void removebudgetCompteBudgitaire(String codeCompteBudgitaire, String referenceSousProjet, int annee) {
         CompteBudgitaire cb = compteBudgitaireService.findByCodeAndAnnee(codeCompteBudgitaire, annee);
-        BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndbudgetProjetBudgetFaculteAnnee(referenceSousProjet,annee);
+        BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(referenceSousProjet,annee);
       BudgetCompteBudgitaire bcb= budgetCompteBudgitaireDao.findByCompteBudgitaireCodeAndCompteBudgitaireAnneeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(codeCompteBudgitaire, annee,referenceSousProjet,annee);
     }
 
@@ -172,8 +172,8 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
-    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceProjet, String referenceSousProjet, int annee) {
-        return budgetCompteBudgitaireDao.findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee);
+    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceProjet, String referenceSousProjet, int annee) {
+        return budgetCompteBudgitaireDao.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee);
     }
 
     @Override
@@ -192,8 +192,8 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
-    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
-        return budgetCompteBudgitaireDao.findByBudgetSousProjetBudgetProjetreferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee) {
+        return budgetCompteBudgitaireDao.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
     }
 
     @Override
