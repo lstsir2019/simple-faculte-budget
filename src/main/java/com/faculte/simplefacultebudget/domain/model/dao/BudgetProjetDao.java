@@ -17,13 +17,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BudgetProjetDao extends JpaRepository<BudgetProjet, Long> {
 
-    public BudgetProjet findByReferenceEntiteAdministratif(String referenceEntiteAdministratif);
+    public BudgetProjet findByReferenceProjetAndBudgetFaculteAnnee(String referenceProjet, int annee);
 
-    public List<BudgetProjet> findByBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
+    public List<BudgetProjet> findByBudgetFaculteAnnee(int annee);
 
-    public BudgetProjet findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(String referenceEntiteAdministratif, String referenceSousProjet, int annee);
-
-    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnnee(int annee);
-
-    public List<BudgetProjet> findByBudgetSousProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 }
