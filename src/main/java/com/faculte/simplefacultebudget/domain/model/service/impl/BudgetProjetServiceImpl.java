@@ -57,6 +57,8 @@ public class BudgetProjetServiceImpl implements BudgetProjetService {
         if (budgetProjets == null) {
             return -1;
         } else {
+            //find and remove  Old Budget project
+            findAndRemoveItems(budgetProjets, budgetFacultet);
             double reliquatEstimative = 0;
             double reliquatReel = 0;
 
@@ -76,7 +78,7 @@ public class BudgetProjetServiceImpl implements BudgetProjetService {
 
     }
 
-    private List<BudgetProjet> findItemsToRemove(List<BudgetProjet> budgetProjets, BudgetFaculte budgetFaculte) {
+    private List<BudgetProjet> findAndRemoveItems(List<BudgetProjet> budgetProjets, BudgetFaculte budgetFaculte) {
         List<BudgetProjet> list = findByBudgetFaculteAnnee(budgetFaculte.getAnnee());
         List<BudgetProjet> bpsToRemove = new ArrayList<>();
 

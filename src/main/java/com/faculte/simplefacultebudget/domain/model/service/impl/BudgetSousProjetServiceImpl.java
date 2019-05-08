@@ -72,6 +72,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         if (budgetProjet == null || budgetSousProjets == null) {
             return -1;
         } else {
+            findAndRemoveItems(budgetSousProjets, budgetProjet);
             validateBudgetSouSprojet(budgetProjet, budgetSousProjets);
             for (BudgetSousProjet budgetSousProjet : budgetSousProjets) {
                 budgetSousProjet.setBudgetProjet(budgetProjet);
@@ -82,7 +83,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         }
     }
 
-    private List<BudgetSousProjet> findItemsToRemove(List<BudgetSousProjet> budgetSousProjets, BudgetProjet budgetProjet) {
+    private List<BudgetSousProjet> findAndRemoveItems(List<BudgetSousProjet> budgetSousProjets, BudgetProjet budgetProjet) {
         List<BudgetSousProjet> list = findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(budgetProjet.getReferenceProjet(), budgetProjet.getBudgetFaculte().getAnnee());
         List<BudgetSousProjet> bpsToRemove = new ArrayList<>();
 
@@ -111,7 +112,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
                 reliquatEstimatif += budgetSousProjet.getDetaillesBudget().getCreditOuvertEstimatif();
                 reliquatReel += budgetSousProjet.getDetaillesBudget().getCreditOuvertReel();
             }
-            budgetProjet.getDetaillesBudget().setReliquatReel(reliquatEstimatif);
+            budgetProjet.getDetaillesBudget().setReliquatReel(reliquatReel);
             budgetProjet.getDetaillesBudget().setReliquatEstimatif(reliquatEstimatif);
         }
         return 1;

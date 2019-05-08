@@ -151,7 +151,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
                 reliquatEstimatif += budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif();
                 reliquatReel += budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel();
             }
-            budgetSousProjet.getDetaillesBudget().setReliquatReel(reliquatEstimatif);
+            budgetSousProjet.getDetaillesBudget().setReliquatReel(reliquatReel);
             budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(reliquatEstimatif);
             return 1;
         }
