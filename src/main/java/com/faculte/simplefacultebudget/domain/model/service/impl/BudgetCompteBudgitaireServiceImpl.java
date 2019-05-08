@@ -140,7 +140,7 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
 
     @Override
     public BudgetCompteBudgitaire removebudgetCompteBudgitaire(String codeCompteBudgitaire, String referenceSousProjet, int annee) {
-        BudgetCompteBudgitaire bcb = budgetCompteBudgitaireDao.findByCompteBudgitaireCodeAndCompteBudgitaireAnneeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(codeCompteBudgitaire, annee, referenceSousProjet, annee);
+        BudgetCompteBudgitaire bcb = budgetCompteBudgitaireDao.findByCompteBudgitaireCodeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(codeCompteBudgitaire, referenceSousProjet, annee);
         if (bcb == null) {
             return null;
         } else {

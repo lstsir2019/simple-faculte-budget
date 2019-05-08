@@ -36,6 +36,6 @@ public interface BudgetCompteBudgitaireDao extends JpaRepository<BudgetCompteBud
     @Query("SELECT new com.faculte.simplefacultebudget.domain.bean.DetaillesBudget(SUM(bcb.detaillesBudget.creditOuvertEstimatif), SUM(bcb.detaillesBudget.creditOuvertReel), SUM(bcb.detaillesBudget.reliquatEstimatif), SUM(bcb.detaillesBudget.reliquatReel), SUM(bcb.detaillesBudget.engageNonPaye), SUM( bcb.detaillesBudget.engagePaye), SUM( bcb.detaillesBudget.reliquatPayeEstimatif), SUM( bcb.detaillesBudget.reliquatPayereel), SUM( bcb.detaillesBudget.reliquatNonPayeEstimatif), SUM(bcb.detaillesBudget.reliquatNonPayReel)) From BudgetCompteBudgitaire bcb Where bcb.compteBudgitaire.code=?1 and budgetSousProjet.budgetProjet.budgetFaculte.annee=?2")
     public DetaillesBudget findDetaillesBudgetByCompteBudgitaireAndAnne(String code,int annee);
 
-    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndCompteBudgitaireAnneeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String codeCompteBudgitaire, int annee, String referenceSousProjet, int annee0);
+//    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String codeCompteBudgitaire,String referenceSousProjet, int annee);
 
 }
