@@ -29,6 +29,7 @@ public class BudgetProjet implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String referenceProjet;
+    
     private String libelle;
     @OneToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
