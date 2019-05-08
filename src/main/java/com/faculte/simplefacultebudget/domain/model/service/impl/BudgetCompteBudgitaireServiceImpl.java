@@ -6,6 +6,7 @@
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
+import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
+import java.util.ArrayList;
 
 /**
  *
@@ -111,9 +113,26 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         if (budgetCompteBudgitaires == null || budgetCompteBudgitaires.isEmpty()) {
             return -1;
         } else {
+            // find And Remove Old Items From DataBase
+            List<BudgetCompteBudgitaire> bcbToRemove = findAndRemoveItemsToRemove(budgetCompteBudgitaires, budgetSousProjet);
+
             int res = validateBudgetCompteBudgitaire(budgetSousProjet, budgetCompteBudgitaires);
             return res;
         }
+    }
+
+    private List<BudgetCompteBudgitaire> findAndRemoveItemsToRemove(List<BudgetCompteBudgitaire> budgetCompteBudgitaires, BudgetSousProjet budgetSousProjet) {
+        List<BudgetCompteBudgitaire> list = findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(budgetSousProjet.getReferenceSousProjet(), budgetSousProjet.getBudgetProjet().getBudgetFaculte().getAnnee());
+        List<BudgetCompteBudgitaire> bcbToRemove = new ArrayList<>();
+
+        for (BudgetCompteBudgitaire budgetCompteBudgitaire : list) {
+            if (!budgetCompteBudgitaires.contains(budgetCompteBudgitaire)) {
+                bcbToRemove.add(budgetCompteBudgitaire);
+            }
+        }
+        budgetCompteBudgitaireDao.deleteAll(bcbToRemove);
+
+        return bcbToRemove;
     }
 
     public int validateBudgetCompteBudgitaire(BudgetSousProjet budgetSousProjet, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {

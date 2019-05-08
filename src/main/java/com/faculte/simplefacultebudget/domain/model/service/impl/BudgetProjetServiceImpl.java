@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetProjetDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
+import java.util.ArrayList;
 
 /**
  *
@@ -69,11 +70,23 @@ public class BudgetProjetServiceImpl implements BudgetProjetService {
             }
             budgetFacultet.getDetaillesBudget().setReliquatEstimatif(reliquatEstimative);
             budgetFacultet.getDetaillesBudget().setReliquatReel(reliquatReel);
-            
-            
+
             return 1;
         }
 
+    }
+
+    private List<BudgetProjet> findItemsToRemove(List<BudgetProjet> budgetProjets, BudgetFaculte budgetFaculte) {
+        List<BudgetProjet> list = findByBudgetFaculteAnnee(budgetFaculte.getAnnee());
+        List<BudgetProjet> bpsToRemove = new ArrayList<>();
+
+        for (BudgetProjet budgetProjet : list) {
+            if (!budgetProjets.contains(budgetProjet)) {
+                bpsToRemove.add(budgetProjet);
+            }
+        }
+        budgetProjetDao.deleteAll(bpsToRemove);
+        return bpsToRemove;
     }
 
     @Override

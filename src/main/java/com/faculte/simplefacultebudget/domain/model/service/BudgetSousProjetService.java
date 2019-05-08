@@ -21,6 +21,8 @@ public interface BudgetSousProjetService {
 
     public int createBudgetSousProjet(BudgetProjet budgetProjet, List<BudgetSousProjet> BudgetSousProjets);
 
+    public List<BudgetSousProjet> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(String referenceProjet, int annee);
+
     public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix);
 
     public void removeBsp(int annee, String referenceSousProjet);

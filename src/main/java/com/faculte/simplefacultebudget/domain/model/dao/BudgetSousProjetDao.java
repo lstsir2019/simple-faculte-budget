@@ -20,6 +20,8 @@ public interface BudgetSousProjetDao extends JpaRepository<BudgetSousProjet, Lon
 
     public BudgetSousProjet findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 
+    public List<BudgetSousProjet> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(String referenceProjet, int annee);
+
     public List<BudgetSousProjet> findBybudgetProjetBudgetFaculteAnnee(int annee);
 
     @Query("SELECT bsp FROM BudgetSousProjet bsp WHERE bsp.budgetProjet.budgetFaculte.annee >= ?1 or bsp.budgetProjet.budgetFaculte.annee <= ?2")

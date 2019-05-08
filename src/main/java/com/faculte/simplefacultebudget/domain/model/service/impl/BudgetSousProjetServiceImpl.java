@@ -16,6 +16,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
+import java.util.ArrayList;
 
 /**
  *
@@ -80,7 +81,24 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
             return 1;
         }
     }
-   
+
+    private List<BudgetSousProjet> findItemsToRemove(List<BudgetSousProjet> budgetSousProjets, BudgetProjet budgetProjet) {
+        List<BudgetSousProjet> list = findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(budgetProjet.getReferenceProjet(), budgetProjet.getBudgetFaculte().getAnnee());
+        List<BudgetSousProjet> bpsToRemove = new ArrayList<>();
+
+        for (BudgetSousProjet budgetSousProjet : list) {
+            if (!budgetSousProjets.contains(budgetSousProjet)) {
+                bpsToRemove.add(budgetSousProjet);
+            }
+        }
+        budgetSousProjetDao.deleteAll(bpsToRemove);
+        return bpsToRemove;
+    }
+
+    @Override
+    public List<BudgetSousProjet> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(String referenceProjet, int annee) {
+        return budgetSousProjetDao.findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(referenceProjet, annee);
+    }
 
     public int validateBudgetSouSprojet(BudgetProjet budgetProjet, List<BudgetSousProjet> budgetSousProjets) {
         if (budgetProjet == null || budgetSousProjets == null) {
