@@ -27,7 +27,6 @@ public class BudgetFaculteConverter extends AbstractConverter<BudgetFaculte, Bud
             item.setId(vo.getId());
             item.setBudgetProjets(new BudgetProjetConverter().toItem(vo.getBudgetProjetVos()));
             item.setDetaillesBudget(new DetaillesBudgetConverter().toItem(vo.getDetaillesBudgetVo()));
-
             return item;
         }
     }

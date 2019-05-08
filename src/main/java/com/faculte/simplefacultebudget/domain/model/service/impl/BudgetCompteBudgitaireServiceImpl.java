@@ -111,52 +111,42 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         if (budgetCompteBudgitaires == null || budgetCompteBudgitaires.isEmpty()) {
             return -1;
         } else {
-            if (!valideBudgetCompteBudgitaire(budgetSousProjet, budgetCompteBudgitaires)) {
-                return -2;
+            int res = validateBudgetCompteBudgitaire(budgetSousProjet, budgetCompteBudgitaires);
+            return res;
+        }
+    }
+
+    public int validateBudgetCompteBudgitaire(BudgetSousProjet budgetSousProjet, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
+        if (budgetSousProjet == null || budgetCompteBudgitaires == null) {
+            return -1;
+        } else {
+            double reliquatEstimatif = 0D;
+            double reliquatReel = 0D;
+            for (BudgetCompteBudgitaire budgetCompteBudgitaire : budgetCompteBudgitaires) {
+                CompteBudgitaire compteBudgitaire = compteBudgitaireService.findByCode(budgetCompteBudgitaire.getCompteBudgitaire().getCode());
+                if (compteBudgitaire == null) {
+                    compteBudgitaire = compteBudgitaireService.compteBudgitaireSave(budgetCompteBudgitaire.getCompteBudgitaire());
+                }
+                budgetCompteBudgitaire.setCompteBudgitaire(compteBudgitaire);
+                budgetCompteBudgitaire.setBudgetSousProjet(budgetSousProjet);
+                reliquatEstimatif += budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif();
+                reliquatReel += budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel();
             }
+            budgetSousProjet.getDetaillesBudget().setReliquatReel(reliquatEstimatif);
+            budgetSousProjet.getDetaillesBudget().setReliquatEstimatif(reliquatEstimatif);
             return 1;
         }
     }
 
-    private boolean valideBudgetCompteBudgitaire(BudgetSousProjet budgetSousProjet, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
-        int res = 0;
-        for (BudgetCompteBudgitaire budgetCompteBudgitaire : budgetCompteBudgitaires) {
-            res += validteBudgetCompteBudgitaire(budgetCompteBudgitaire);
-        }
-        return res == budgetCompteBudgitaires.size();
-    }
-
-    public int validteBudgetCompteBudgitaire(BudgetCompteBudgitaire budgetCompteBudgitaire) {
-        if (budgetCompteBudgitaire == null) {
-            return -1;
+    @Override
+    public BudgetCompteBudgitaire removebudgetCompteBudgitaire(String codeCompteBudgitaire, String referenceSousProjet, int annee) {
+        BudgetCompteBudgitaire bcb = budgetCompteBudgitaireDao.findByCompteBudgitaireCodeAndCompteBudgitaireAnneeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(codeCompteBudgitaire, annee, referenceSousProjet, annee);
+        if (bcb == null) {
+            return null;
         } else {
-            CompteBudgitaire cb = compteBudgitaireService.findByCodeAndAnnee(budgetCompteBudgitaire.getCompteBudgitaire().getCode(), budgetCompteBudgitaire.getCompteBudgitaire().getAnnee());
-            BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(budgetCompteBudgitaire.getBudgetSousProjet().getReferenceSousProjet(), budgetCompteBudgitaire.getBudgetSousProjet().getBudgetProjet().getBudgetFaculte().getAnnee());
-            if (cb == null || bsp == null) {
-                return -2;
-            } else {
-                double restEstimatif = cb.getDetaillesBudget().getCreditOuvertEstimatif() - cb.getDetaillesBudget().getReliquatEstimatif() - budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertEstimatif();
-                double restReel = cb.getDetaillesBudget().getCreditOuvertReel() - cb.getDetaillesBudget().getReliquatReel() - budgetCompteBudgitaire.getDetaillesBudget().getCreditOuvertReel();
-                if (restEstimatif < 0) {
-                    return -3;
-                } else if (restReel < 0) {
-                    return -4;
-                } else {
-                    budgetCompteBudgitaire.getDetaillesBudget().setCreditOuvertEstimatif(restEstimatif);
-                    budgetCompteBudgitaire.getDetaillesBudget().setCreditOuvertReel(restReel);
-                    //  budgetCompteBudgitaire.getBudgetSousProjet().getDetaillesBudget().setCreditOuvertEstimatif(budgetCompteBudgitaire.getBudgetSousProjet().getDetaillesBudget().getAntecedent() + restEstimatif);
-                    //  budgetCompteBudgitaire.getBudgetSousProjet().getDetaillesBudget().setCreditOuvertReel(budgetCompteBudgitaire.getBudgetSousProjet().getDetaillesBudget().getReliquatReel()+ restReel);
-
-                    return 1;
-                }
-            }
+            budgetCompteBudgitaireDao.delete(bcb);
+            return bcb;
         }
-    }
-
-    public void removebudgetCompteBudgitaire(String codeCompteBudgitaire, String referenceSousProjet, int annee) {
-        CompteBudgitaire cb = compteBudgitaireService.findByCodeAndAnnee(codeCompteBudgitaire, annee);
-        BudgetSousProjet bsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(referenceSousProjet,annee);
-      BudgetCompteBudgitaire bcb= budgetCompteBudgitaireDao.findByCompteBudgitaireCodeAndCompteBudgitaireAnneeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(codeCompteBudgitaire, annee,referenceSousProjet,annee);
     }
 
     @Override

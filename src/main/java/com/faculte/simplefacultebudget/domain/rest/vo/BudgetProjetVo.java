@@ -17,6 +17,7 @@ public class BudgetProjetVo {
     private String referenceProjet;
     private String libelle;
     private DetaillesBudgetVo detaillesBudgetVo;
+    private BudgetFaculteVo budgetFaculteVo;
     private List<BudgetSousProjetVo> budgetSousProjetVos;
 
     public Long getId() {
@@ -58,6 +59,14 @@ public class BudgetProjetVo {
 
     public void setDetaillesBudgetVo(DetaillesBudgetVo detaillesBudgetVo) {
         this.detaillesBudgetVo = detaillesBudgetVo;
+    }
+
+    public BudgetFaculteVo getBudgetFaculteVo() {
+        return budgetFaculteVo;
+    }
+
+    public void setBudgetFaculteVo(BudgetFaculteVo budgetFaculteVo) {
+        this.budgetFaculteVo = budgetFaculteVo;
     }
 
 }

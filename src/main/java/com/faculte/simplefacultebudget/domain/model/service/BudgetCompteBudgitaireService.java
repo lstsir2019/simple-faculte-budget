@@ -40,5 +40,7 @@ public interface BudgetCompteBudgitaireService {
 
     public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetProjetBudgetFaculteAnneeLessThan(Integer anneeMin, Integer anneeMax);
 
+    public BudgetCompteBudgitaire removebudgetCompteBudgitaire(String codeCompteBudgitaire, String referenceSousProjet, int annee);
+
     public BudgetCompteBudgitaire findByReference(String reference);
 }

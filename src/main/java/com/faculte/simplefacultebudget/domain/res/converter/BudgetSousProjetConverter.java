@@ -28,6 +28,7 @@ public class BudgetSousProjetConverter extends AbstractConverter<BudgetSousProje
             item.setReferenceSousProjet(vo.getReferenceSousProjet());
             item.setBudgetProjet(new BudgetProjetConverter().toItem(vo.getBudgetProjetVo()));
             item.setDetaillesBudget(new DetaillesBudgetConverter().toItem(vo.getDetaillesBudgetVo()));
+            item.setBudgetCompteBudgitaires(new BudgetCompteBudgitaireConverter().toItem(vo.getBudgetCompteBudgitaireVos()));
             //item.setBudgetFaculte(new BudgetFaculteConverter().toItem(vo.getBudgetFaculteVo()));
             return item;
         }

@@ -16,6 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CompteBudgitaireDao extends JpaRepository<CompteBudgitaire, Long> {
 
-    public CompteBudgitaire findByCodeAndAnnee(String code,int annee);
+    public CompteBudgitaire findByCode(String code);
     
 }

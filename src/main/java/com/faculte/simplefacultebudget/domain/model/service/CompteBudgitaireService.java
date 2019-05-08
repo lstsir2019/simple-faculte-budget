@@ -13,9 +13,9 @@ import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
  */
 public interface CompteBudgitaireService {
 
-    public CompteBudgitaire findByCodeAndAnnee(String code,int annee);
+    public CompteBudgitaire findByCode(String code);
 
-    public int compteBudgitaireSave(CompteBudgitaire compteBudgitaire);
+    public CompteBudgitaire compteBudgitaireSave(CompteBudgitaire compteBudgitaire);
 
     public int payerCB(String code,int annee);
 

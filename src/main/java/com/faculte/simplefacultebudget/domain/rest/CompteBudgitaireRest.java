@@ -26,9 +26,9 @@ public class CompteBudgitaireRest {
     @Autowired
     private CompteBudgitaireService compteBudgitaireService;
 
-    @GetMapping("/code/{code}/annee/{annee}")
-    public CompteBudgitaire findByCode(@PathVariable String code, @PathVariable int annee) {
-        return compteBudgitaireService.findByCodeAndAnnee(code,annee);
+    @GetMapping("/code/{code}")
+    public CompteBudgitaire findByCode(@PathVariable String code) {
+        return compteBudgitaireService.findByCode(code);
     }
 
     @PostMapping("/")

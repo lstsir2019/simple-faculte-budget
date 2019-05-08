@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,14 +32,13 @@ public class BudgetProjet implements Serializable {
     private String libelle;
     @OneToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
-    
-    @OneToMany(mappedBy = "budgetProjet")
+
+    @OneToMany(mappedBy = "budgetProjet", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<BudgetSousProjet> budgetSousProjets;
-    
-   
+
     @ManyToOne
     private BudgetFaculte budgetFaculte;
-    
+
     public BudgetProjet() {
     }
 
@@ -73,7 +73,6 @@ public class BudgetProjet implements Serializable {
     public void setBudgetFaculte(BudgetFaculte budgetFaculte) {
         this.budgetFaculte = budgetFaculte;
     }
-
 
     public DetaillesBudget getDetaillesBudget() {
         return detaillesBudget;

@@ -5,7 +5,6 @@
  */
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
-import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.model.dao.CompteBudgitaireDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
@@ -31,28 +30,28 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
     BudgetCompteBudgitaireService budgetCompteBudgitaireService;
 
     @Override
-    public CompteBudgitaire findByCodeAndAnnee(String code, int anneee) {
-        return compteBudgitaireDao.findByCodeAndAnnee(code, anneee);
+    public CompteBudgitaire findByCode(String code) {
+        return compteBudgitaireDao.findByCode(code);
     }
 
     @Override
-    public int compteBudgitaireSave(CompteBudgitaire compteBudgitaire) {
+    public CompteBudgitaire compteBudgitaireSave(CompteBudgitaire compteBudgitaire) {
         if (null == compteBudgitaire) {
-            return -1;
+            return null;
         } else {
-            CompteBudgitaire cb = findByCodeAndAnnee(compteBudgitaire.getCode(), compteBudgitaire.getAnnee());
+            CompteBudgitaire cb = findByCode(compteBudgitaire.getCode());
             if (cb != null) {
-                return -2;
+                return cb;
             } else {
-                compteBudgitaireDao.save(compteBudgitaire);
-                return 1;
+                cb = compteBudgitaireDao.save(compteBudgitaire);
+                return cb;
             }
         }
     }
 
     @Override
     public int payerCB(String code, int annee) {
-        CompteBudgitaire cb = findByCodeAndAnnee(code, annee);
+        CompteBudgitaire cb = findByCode(code);
         if (cb == null) {
             return -1;
         } else {

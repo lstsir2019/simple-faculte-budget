@@ -7,6 +7,7 @@ package com.faculte.simplefacultebudget.domain.res.converter;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
+import com.faculte.simplefacultebudget.domain.rest.vo.BudgetFaculteVo;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetProjetVo;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class BudgetProjetConverter extends AbstractConverter<BudgetProjet, BudgetProjetVo> {
-
+    
     @Override
     public BudgetProjet toItem(BudgetProjetVo vo) {
         if (vo == null) {
@@ -32,7 +33,7 @@ public class BudgetProjetConverter extends AbstractConverter<BudgetProjet, Budge
             return item;
         }
     }
-
+    
     @Override
     public BudgetProjetVo toVo(BudgetProjet item) {
         if (item == null) {
@@ -42,9 +43,10 @@ public class BudgetProjetConverter extends AbstractConverter<BudgetProjet, Budge
             vo.setId(item.getId());
             vo.setReferenceProjet(item.getReferenceProjet());
             vo.setDetaillesBudgetVo(new DetaillesBudgetConverter().toVo(item.getDetaillesBudget()));
-            vo.setBudgetSousProjetVos(new BudgetSousProjetConverter().toVo(item.getBudgetSousProjets()));
+            vo.setBudgetFaculteVo(new BudgetFaculteConverter().toVo(item.getBudgetFaculte()));
+            //  vo.setBudgetSousProjetVos(new BudgetSousProjetConverter().toVo(item.getBudgetSousProjets()));
             return vo;
         }
     }
-
+    
 }
