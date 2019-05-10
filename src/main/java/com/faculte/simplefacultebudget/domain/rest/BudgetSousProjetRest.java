@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author AMINE
  */
-@RequestMapping("/budget_api/budget_sous_projet")
+@RequestMapping("/budget-api/budget-sous-projet")
 @CrossOrigin(origins = "http://localhost:4200")
 
 @RestController()
@@ -41,22 +41,6 @@ public class BudgetSousProjetRest {
     @Autowired
     private SousProjetService sousProjetService;
 
-    public BudgetSousProjetService getBudgetSousProjetService() {
-        return budgetSousProjetService;
-    }
-
-    public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
-        this.budgetSousProjetService = budgetSousProjetService;
-    }
-
-    public AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> getBudgetSousProjetConverter() {
-        return budgetSousProjetConverter;
-    }
-
-    public void setBudgetSousProjetConverter(AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> budgetSousProjetConverter) {
-        this.budgetSousProjetConverter = budgetSousProjetConverter;
-    }
-
     @GetMapping("/reference/{reference}/annee/{annee}")
     public BudgetSousProjetVo findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
         BudgetSousProjet myBsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
@@ -67,6 +51,11 @@ public class BudgetSousProjetRest {
     public List<BudgetSousProjetVo> findBybudgetProjetBudgetFaculteAnnee(@PathVariable int annee) {
         List<BudgetSousProjet> bsps = budgetSousProjetService.findBybudgetProjetBudgetFaculteAnnee(annee);
         return budgetSousProjetConverter.toVo(bsps);
+    }
+
+    @GetMapping("/referenceprojet/{referenceSousProjet}/annee/{annee}")
+    public List<BudgetSousProjetVo> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(@PathVariable("referenceSousProjet") String referenceProjet, @PathVariable("annee") int annee) {
+        return budgetSousProjetConverter.toVo(budgetSousProjetService.findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(referenceProjet, annee));
     }
 
     @DeleteMapping("/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
@@ -82,5 +71,21 @@ public class BudgetSousProjetRest {
     @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
     public List<BudgetSousProjetVo> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(@PathVariable("anneeMin") Integer anneeMin, @PathVariable("anneeMax") Integer anneeMax) {
         return budgetSousProjetConverter.toVo(budgetSousProjetService.findByBudgetFaculteAnneeOrBudgetFaculteAnnee(anneeMin, anneeMax));
+    }
+
+    public BudgetSousProjetService getBudgetSousProjetService() {
+        return budgetSousProjetService;
+    }
+
+    public void setBudgetSousProjetService(BudgetSousProjetService budgetSousProjetService) {
+        this.budgetSousProjetService = budgetSousProjetService;
+    }
+
+    public AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> getBudgetSousProjetConverter() {
+        return budgetSousProjetConverter;
+    }
+
+    public void setBudgetSousProjetConverter(AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> budgetSousProjetConverter) {
+        this.budgetSousProjetConverter = budgetSousProjetConverter;
     }
 }

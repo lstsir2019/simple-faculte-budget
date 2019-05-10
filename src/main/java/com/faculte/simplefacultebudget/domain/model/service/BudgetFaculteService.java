@@ -27,10 +27,12 @@ public interface BudgetFaculteService {
     public void removeBf(int annee);
 
     public int updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte);
-    
+
     public double getAnticident(BudgetFaculte budgetFaculte);
-    
+
     public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax);
-    
+
     public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte);
+
+    public List<BudgetFaculte> findByAnneeMinAndAnneeMax(int anneeMin, int anneeMax);
 }

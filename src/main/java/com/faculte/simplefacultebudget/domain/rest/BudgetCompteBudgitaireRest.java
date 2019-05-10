@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author AMINE
  */
-@RequestMapping("/budget_api/budget_compte_budgitaires")
+@RequestMapping("/budget-api/budget-compte-budgitaires")
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController()
 public class BudgetCompteBudgitaireRest {
@@ -35,27 +35,30 @@ public class BudgetCompteBudgitaireRest {
     @Qualifier("budgetCompteBudgitaireConverter")
     private AbstractConverter<BudgetCompteBudgitaire, BudgetCompteBudgitaireVo> budgetCompteBudgitaireConverter;
 
-   
     @GetMapping("/annee/{annee}")
     public List<BudgetCompteBudgitaireVo> findDistinctByBudgetSousProjetBudgetProjetBudgetFaculteAnnee(@PathVariable("annee") int annee) {
         List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findDistinctByBudgetSousProjetBudgetProjetBudgetFaculteAnnee(annee);
         return budgetCompteBudgitaireConverter.toVo(bcbs);
     }
 
+    @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
+    public List<BudgetCompteBudgitaireVo> findByBudgetSousProjetBudgetProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetProjetBudgetFaculteAnneeLessThan(@PathVariable("anneeMin") Integer anneeMin, @PathVariable("anneeMax") Integer anneeMax) {
+        return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax));
+    }
+
+    @GetMapping("/referenceCompteBudgitaire/{referenceCompteBudgitaire}")
+    public BudgetCompteBudgitaireVo findByReferenceCompteBudgitaire(@PathVariable("referenceCompteBudgitaire") String reference) {
+        return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByReference(reference));
+    }
+
+    @GetMapping("/budgetprojet/{referenceProjet}/budgetsousprojet/[referenceSousProjet}/annee/{annee}")
+    public List<BudgetCompteBudgitaireVo> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(@PathVariable String referenceProjet, @PathVariable String referenceSousProjet, @PathVariable int annee) {
+        return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee));
+    }
 
     @DeleteMapping("/referenceCompteBudgitaire/{referenceCompteBudgitaire}")
     public void removeBcb(@PathVariable("referenceCompteBudgitaire") String referenceCompteBudgitaire) {
         budgetCompteBudgitaireService.removeBcb(referenceCompteBudgitaire);
-    }
-
-    @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
-    public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetProjetBudgetFaculteAnneeLessThan(@PathVariable("anneeMin") Integer anneeMin, @PathVariable("anneeMax") Integer anneeMax) {
-        return budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetBudgetFaculteAnneeGreaterThanOrBudgetSousProjetBudgetProjetBudgetFaculteAnneeLessThan(anneeMin, anneeMax);
-    }
-
-    @GetMapping("/referenceCompteBudgitaire/{referenceCompteBudgitaire}")
-    public BudgetCompteBudgitaire findByReferenceCompteBudgitaire(@PathVariable("referenceCompteBudgitaire") String reference) {
-        return budgetCompteBudgitaireService.findByReference(reference);
     }
 
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {

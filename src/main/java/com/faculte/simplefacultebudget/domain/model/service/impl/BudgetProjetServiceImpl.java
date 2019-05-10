@@ -7,8 +7,6 @@ package com.faculte.simplefacultebudget.domain.model.service.impl;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
-import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
-import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

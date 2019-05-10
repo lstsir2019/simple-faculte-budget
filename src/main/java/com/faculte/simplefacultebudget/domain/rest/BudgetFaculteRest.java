@@ -64,16 +64,16 @@ public class BudgetFaculteRest {
     public void removeBf(@PathVariable int annee) {
         budgetFaculteService.removeBf(annee);
     }
-    
+
 //    @PutMapping("/annee/{annee}")
 //    public int updateBudgetFaculte(@PathVariable int annee, @RequestBody BudgetFaculteVo budgetFaculte) {
 //        return budgetFaculteService.updateBudgetFaculte(annee, budgetFaculteConverter.toItem(budgetFaculte));
 //    }
 //    
 
-    @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
-    public List<BudgetFaculteVo> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(@PathVariable("anneeMin") int anneeMin, @PathVariable("anneeMax") int anneeMax) {
-        return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeGreaterThanEqualOrAnneeLessThanEqual(anneeMin, anneeMax));
+    @GetMapping("/anneemin/{anneeMin}/anneemax/{anneeMax}")
+    public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(@PathVariable("anneeMin") int anneeMin, @PathVariable("anneeMax") int anneeMax) {
+        return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeMinAndAnneeMax(anneeMin, anneeMax));
     }
 
 }

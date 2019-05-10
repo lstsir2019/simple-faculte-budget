@@ -25,7 +25,7 @@ import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
  *
  * @author AMINE
  */
-@RequestMapping("/budget_api/budget_entite_admin")
+@RequestMapping("/budget-api/budget-projet")
 @CrossOrigin(origins = "http://localhost:4200")
 
 @RestController()
@@ -38,16 +38,14 @@ public class BudgetProjetRest {
     @Qualifier("budgetProjetConverter")
     private AbstractConverter<BudgetProjet, BudgetProjetVo> budgetProjetConverter;
 
-   
-
     @GetMapping("/referenceprojet/{referenceProjet}/annee/{annee}")
-     public BudgetProjet findByReferenceProjetAndBudgetFaculteAnnee(@PathVariable String referenceProjet,@PathVariable int annee) {
-        return budgetProjetService.findByReferenceProjetAndBudgetFaculteAnnee(referenceProjet, annee);
+    public BudgetProjetVo findByReferenceProjetAndBudgetFaculteAnnee(@PathVariable String referenceProjet, @PathVariable int annee) {
+        return budgetProjetConverter.toVo(budgetProjetService.findByReferenceProjetAndBudgetFaculteAnnee(referenceProjet, annee));
     }
 
     @GetMapping("/annee/{annee}")
-    public List<BudgetProjet> findByBudgetFaculteAnnee(int annee) {
-        return budgetProjetService.findByBudgetFaculteAnnee(annee);
+    public List<BudgetProjetVo> findByBudgetFaculteAnnee(@PathVariable int annee) {
+        return budgetProjetConverter.toVo(budgetProjetService.findByBudgetFaculteAnnee(annee));
     }
 
     public AbstractConverter<BudgetProjet, BudgetProjetVo> getBudgetProjetConverter() {
@@ -57,9 +55,6 @@ public class BudgetProjetRest {
     public void setBudgetProjetConverter(AbstractConverter<BudgetProjet, BudgetProjetVo> budgetProjetConverter) {
         this.budgetProjetConverter = budgetProjetConverter;
     }
-
-
-   
 
     public BudgetProjetService getBudgetProjetService() {
         return budgetProjetService;
