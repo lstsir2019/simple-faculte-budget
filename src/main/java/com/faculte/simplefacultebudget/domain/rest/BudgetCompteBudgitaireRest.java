@@ -51,7 +51,7 @@ public class BudgetCompteBudgitaireRest {
         return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByReference(reference));
     }
 
-    @GetMapping("/budgetprojet/{referenceProjet}/budgetsousprojet/[referenceSousProjet}/annee/{annee}")
+    @GetMapping("/referenceprojet/{referenceProjet}/referencesousprojet/[referenceSousProjet}/annee/{annee}")
     public List<BudgetCompteBudgitaireVo> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(@PathVariable String referenceProjet, @PathVariable String referenceSousProjet, @PathVariable int annee) {
         return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee));
     }

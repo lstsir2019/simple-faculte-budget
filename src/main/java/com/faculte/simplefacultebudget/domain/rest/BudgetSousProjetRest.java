@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author AMINE
  */
-@RequestMapping("/budget-api/budget-sous-projet")
+@RequestMapping("/budget-api/budget-sous-projets")
 @CrossOrigin(origins = "http://localhost:4200")
 
 @RestController()

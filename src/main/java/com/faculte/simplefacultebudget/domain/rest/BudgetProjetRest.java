@@ -25,7 +25,7 @@ import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
  *
  * @author AMINE
  */
-@RequestMapping("/budget-api/budget-projet")
+@RequestMapping("/budget-api/budget-projets")
 @CrossOrigin(origins = "http://localhost:4200")
 
 @RestController()
