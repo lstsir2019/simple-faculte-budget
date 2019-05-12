@@ -34,5 +34,5 @@ public interface BudgetFaculteService {
 
     public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte);
 
-    public List<BudgetFaculte> findByAnneeMinAndAnneeMax(int anneeMin, int anneeMax);
+    public List<BudgetFaculte> findByAnneeMinAndAnneeMax(Integer anneeMin, Integer anneeMax);
 }

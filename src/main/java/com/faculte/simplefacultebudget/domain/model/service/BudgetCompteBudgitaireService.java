@@ -6,7 +6,6 @@
 package com.faculte.simplefacultebudget.domain.model.service;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
-import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
 

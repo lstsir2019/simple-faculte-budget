@@ -153,12 +153,12 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
-    public List<BudgetFaculte> findByAnneeMinAndAnneeMax(int anneeMin, int anneeMax) {
+    public List<BudgetFaculte> findByAnneeMinAndAnneeMax(Integer anneeMin, Integer anneeMax) {
         return entityManager.createQuery(constructQuery(anneeMin, anneeMax)).getResultList();
 
     }
 
-    private String constructQuery(int anneeMin, int anneeMax) {
+    private String constructQuery(Integer anneeMin, Integer anneeMax) {
         String query = "SELECT pf FROM BudgetFaculte pf WHERE 1=1";
         query += SearchUtil.addConstraintMinMax("pf", "annee", anneeMin, anneeMax);
         return query;

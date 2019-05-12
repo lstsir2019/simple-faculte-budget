@@ -70,8 +70,8 @@ public class BudgetFaculteRest {
 //    }
 //    
 
-    @GetMapping("/anneemin/{anneeMin}/anneemax/{anneeMax}")
-    public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(@PathVariable("anneeMin") int anneeMin, @PathVariable("anneeMax") int anneeMax) {
+    @PostMapping("/anneemin/anneemax/")
+    public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(Integer anneeMin,Integer anneeMax) {
         return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeMinAndAnneeMax(anneeMin, anneeMax));
     }
 
