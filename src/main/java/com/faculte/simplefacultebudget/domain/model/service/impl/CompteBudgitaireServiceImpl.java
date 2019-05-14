@@ -10,6 +10,7 @@ import com.faculte.simplefacultebudget.domain.model.dao.CompteBudgitaireDao;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
 import com.faculte.simplefacultebudget.domain.model.service.CompteBudgitaireService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +50,12 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
         }
     }
 
+    @Override
+    public List<CompteBudgitaire> findAll() {
+        return compteBudgitaireDao.findAll();
+    }
+
+    
     @Override
     public int payerCB(String code, int annee) {
         CompteBudgitaire cb = findByCode(code);

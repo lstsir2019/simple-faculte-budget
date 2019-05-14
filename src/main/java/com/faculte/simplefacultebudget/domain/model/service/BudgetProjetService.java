@@ -34,4 +34,6 @@ public interface BudgetProjetService {
      
      public boolean isEqual(BudgetProjet bp, BudgetProjet projet);
 
+    public void calculeDetaillesBudgetProjet(BudgetFaculte budgetFaculte);
+
 }

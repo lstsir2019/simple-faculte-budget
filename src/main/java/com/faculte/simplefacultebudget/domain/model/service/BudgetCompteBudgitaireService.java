@@ -42,4 +42,6 @@ public interface BudgetCompteBudgitaireService {
     public BudgetCompteBudgitaire removebudgetCompteBudgitaire(String codeCompteBudgitaire, String referenceSousProjet, int annee);
 
     public BudgetCompteBudgitaire findByReference(String reference);
+
+    public void calculeDetaillesbudgetCompteBudgitaire(BudgetSousProjet bsp);
 }

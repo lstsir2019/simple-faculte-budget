@@ -106,7 +106,18 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         }
         budgetProjetService.createBudgetProjet(budgetFaculte, budgetFaculte.getBudgetProjets());
         budgetFaculteDao.save(budgetFaculte);
+        calculeDetaillesBudgetFaculte(budgetFaculte);
+        budgetFaculteDao.save(budgetFaculte);
         return 1;
+    }
+
+    public int calculeDetaillesBudgetFaculte(BudgetFaculte budgetFaculte) {
+        if (budgetFaculte == null) {
+            return -1;
+        } else {
+            this.budgetProjetService.calculeDetaillesBudgetProjet(budgetFaculte);
+            return 1;
+        }
     }
 
     @Override

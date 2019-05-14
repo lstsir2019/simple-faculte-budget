@@ -6,6 +6,7 @@
 package com.faculte.simplefacultebudget.domain.model.service;
 
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
+import java.util.List;
 
 /**
  *
@@ -18,5 +19,7 @@ public interface CompteBudgitaireService {
     public CompteBudgitaire compteBudgitaireSave(CompteBudgitaire compteBudgitaire);
 
     public int payerCB(String code,int annee);
+
+    public List<CompteBudgitaire> findAll();
 
 }

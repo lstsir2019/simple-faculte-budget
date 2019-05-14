@@ -21,6 +21,7 @@ public interface BudgetSousProjetService {
 
     public int createBudgetSousProjet(BudgetProjet budgetProjet, List<BudgetSousProjet> BudgetSousProjets);
 
+//    public int calculeDetaillesBudgetSousProjet(BudgetSousProjet budgetSousProjet);
     public List<BudgetSousProjet> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(String referenceProjet, int annee);
 
     public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix);
@@ -38,4 +39,6 @@ public interface BudgetSousProjetService {
     public List<BudgetSousProjet> findBybudgetProjetBudgetFaculteAnnee(int annee);
 
     List<BudgetSousProjet> findByBudgetFaculteAnneeOrBudgetFaculteAnnee(Integer anneeMin, Integer anneeMax);
+
+    public void calculeDetaillesBudgetSousProjet(BudgetProjet bp);
 }
