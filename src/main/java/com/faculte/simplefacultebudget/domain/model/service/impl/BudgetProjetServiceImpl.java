@@ -78,6 +78,18 @@ public class BudgetProjetServiceImpl implements BudgetProjetService {
         return bpsToRemove;
     }
 
+    public List<BudgetProjet> removeBudgetProjets(List<BudgetProjet> budgetProjets) {
+//       List<BudgetProjet> list = findByBudgetFaculteAnnee(budgetFaculte.getAnnee());
+//        List<BudgetProjet> bpsToRemove = new ArrayList<>();
+//        for (BudgetProjet budgetProjet : budgetProjets) {
+//            if (list.contains(budgetProjet)) {
+//                bpsToRemove.add(budgetProjet);
+//            }
+//        }
+        budgetProjetDao.deleteAll(budgetProjets);
+        return budgetProjets;
+    }
+
 //    public int calculeDetaillesBudgetProjet(BudgetProjet budgetProjet) {
 //        if (budgetProjet == null) {
 //            return -1;
@@ -111,6 +123,7 @@ public class BudgetProjetServiceImpl implements BudgetProjetService {
             reliquatEstimatif += budgetProjet.getDetaillesBudget().getCreditOuvertEstimatif();
             reliquatReel += budgetProjet.getDetaillesBudget().getCreditOuvertReel();
         }
+        budgetFaculte.setBudgetProjets(budgetProjets);
         budgetFaculte.getDetaillesBudget().setReliquatReel(reliquatReel);
         budgetFaculte.getDetaillesBudget().setReliquatEstimatif(reliquatEstimatif);
     }

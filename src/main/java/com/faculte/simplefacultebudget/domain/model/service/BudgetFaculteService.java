@@ -24,7 +24,7 @@ public interface BudgetFaculteService {
 
     public int payerBudgetFaculte(int annee, double prix);
 
-    public void removeBf(int annee);
+    public void remove(int annee);
 
     public int updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte);
 

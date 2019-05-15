@@ -131,7 +131,7 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
-    public void removeBf(int annee) {
+    public void remove(int annee) {
         BudgetFaculte bf = findByAnnee(annee);
         budgetFaculteDao.delete(bf);
     }

@@ -98,6 +98,13 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
     }
 
     @Override
+    public List<BudgetSousProjet> removeBudgetSousProjets(List<BudgetSousProjet> budgetSousProjets) {
+
+        budgetSousProjetDao.deleteAll(budgetSousProjets);
+        return budgetSousProjets;
+    }
+
+    @Override
     public List<BudgetSousProjet> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(String referenceProjet, int annee) {
         return budgetSousProjetDao.findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(referenceProjet, annee);
     }
@@ -152,6 +159,7 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
             reliquatEstimatif += budgetSousProjet.getDetaillesBudget().getCreditOuvertEstimatif();
             reliquatReel += budgetSousProjet.getDetaillesBudget().getCreditOuvertReel();
         }
+        budgetProjet.setBudgetSousProjets(budgetSousProjets);
         budgetProjet.getDetaillesBudget().setReliquatReel(reliquatReel);
         budgetProjet.getDetaillesBudget().setReliquatEstimatif(reliquatEstimatif);
 

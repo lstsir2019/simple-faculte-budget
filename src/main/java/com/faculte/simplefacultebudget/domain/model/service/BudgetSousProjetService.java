@@ -21,6 +21,8 @@ public interface BudgetSousProjetService {
 
     public int createBudgetSousProjet(BudgetProjet budgetProjet, List<BudgetSousProjet> BudgetSousProjets);
 
+    public List<BudgetSousProjet> removeBudgetSousProjets(List<BudgetSousProjet> budgetSousProjets);
+
 //    public int calculeDetaillesBudgetSousProjet(BudgetSousProjet budgetSousProjet);
     public List<BudgetSousProjet> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(String referenceProjet, int annee);
 

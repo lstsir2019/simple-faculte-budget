@@ -16,23 +16,25 @@ import java.util.List;
  */
 public interface BudgetProjetService {
 
-     public BudgetProjet findByReferenceProjetAndBudgetFaculteAnnee(String referenceProjet, int annee);
+    public BudgetProjet findByReferenceProjetAndBudgetFaculteAnnee(String referenceProjet, int annee);
 
     public List<BudgetProjet> findByBudgetFaculteAnnee(int annee);
-   
+
     public void save(BudgetProjet budgetProjet);
-    
+
+    public List<BudgetProjet> removeBudgetProjets(List<BudgetProjet> budgetProjets);
+
     public int createBudgetProjet(BudgetFaculte budgetFacultet, List<BudgetProjet> budgetProjets);
-    
+
     public int payerSousProjet(BudgetProjet budgetProjet, double prix);
-    
-     public void removeBp(int annee, String referenceProjet);
-     
-     public double getAnticident(String reference, int annee);
-     
-     public int updateBudgetProjet(BudgetProjet bpOld, BudgetProjet projet, double reliquatReelBudgetFaculte, double reliquatEstimatifBudgetFaculte);
-     
-     public boolean isEqual(BudgetProjet bp, BudgetProjet projet);
+
+    public void removeBp(int annee, String referenceProjet);
+
+    public double getAnticident(String reference, int annee);
+
+    public int updateBudgetProjet(BudgetProjet bpOld, BudgetProjet projet, double reliquatReelBudgetFaculte, double reliquatEstimatifBudgetFaculte);
+
+    public boolean isEqual(BudgetProjet bp, BudgetProjet projet);
 
     public void calculeDetaillesBudgetProjet(BudgetFaculte budgetFaculte);
 
