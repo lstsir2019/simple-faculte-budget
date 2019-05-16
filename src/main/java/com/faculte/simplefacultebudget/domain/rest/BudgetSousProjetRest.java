@@ -53,14 +53,14 @@ public class BudgetSousProjetRest {
         return budgetSousProjetConverter.toVo(bsps);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        budgetSousProjetService.deleteById(id);
+    }
+
     @GetMapping("/referenceprojet/{referenceSousProjet}/annee/{annee}")
     public List<BudgetSousProjetVo> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(@PathVariable("referenceSousProjet") String referenceProjet, @PathVariable("annee") int annee) {
         return budgetSousProjetConverter.toVo(budgetSousProjetService.findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(referenceProjet, annee));
-    }
-
-    @DeleteMapping("/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
-    public void removeBsp(@PathVariable int annee, @PathVariable String referenceSousProjet) {
-        budgetSousProjetService.removeBsp(annee, referenceSousProjet);
     }
 
     @GetMapping("/all/sousprojet")

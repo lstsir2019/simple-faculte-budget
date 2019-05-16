@@ -7,7 +7,6 @@ package com.faculte.simplefacultebudget.domain.model.service;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
-import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
 
 /**
@@ -20,21 +19,11 @@ public interface BudgetProjetService {
 
     public List<BudgetProjet> findByBudgetFaculteAnnee(int annee);
 
+    public void deleteById(Long id);
+
     public void save(BudgetProjet budgetProjet);
 
-    public List<BudgetProjet> removeBudgetProjets(List<BudgetProjet> budgetProjets);
-
     public int createBudgetProjet(BudgetFaculte budgetFacultet, List<BudgetProjet> budgetProjets);
-
-    public int payerSousProjet(BudgetProjet budgetProjet, double prix);
-
-    public void removeBp(int annee, String referenceProjet);
-
-    public double getAnticident(String reference, int annee);
-
-    public int updateBudgetProjet(BudgetProjet bpOld, BudgetProjet projet, double reliquatReelBudgetFaculte, double reliquatEstimatifBudgetFaculte);
-
-    public boolean isEqual(BudgetProjet bp, BudgetProjet projet);
 
     public void calculeDetaillesBudgetProjet(BudgetFaculte budgetFaculte);
 

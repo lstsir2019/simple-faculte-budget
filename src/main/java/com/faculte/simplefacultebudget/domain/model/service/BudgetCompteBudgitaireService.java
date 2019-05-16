@@ -21,6 +21,8 @@ public interface BudgetCompteBudgitaireService {
 
     public void removeBcb(String referenceCompteBudgitaire);
 
+    public void deleteById(Long id);
+
     public double getAnticident(String code, String refEa, String refBsp, int annee);
 
     public int updateBudgetCompteBudgitaire(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire budgetCompteBudgitaire, double nvReliquatReelBudgetEntiteAdministratif, double nvReliquatEstimatifBudgetEntiteAdministratif);

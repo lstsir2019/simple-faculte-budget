@@ -23,18 +23,9 @@ public interface BudgetSousProjetService {
 
     public List<BudgetSousProjet> removeBudgetSousProjets(List<BudgetSousProjet> budgetSousProjets);
 
-//    public int calculeDetaillesBudgetSousProjet(BudgetSousProjet budgetSousProjet);
+    public void deleteById(Long id);
+
     public List<BudgetSousProjet> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(String referenceProjet, int annee);
-
-    public int payerSousProjet(BudgetSousProjet budgetSousProjet, double prix);
-
-    public void removeBsp(int annee, String referenceSousProjet);
-
-    public double getAnticident(String reference, int annee);
-
-    public int updateBudgetSouSprojet(BudgetSousProjet bspOld, BudgetSousProjet sousProjet, double reliquatReelBudgetFaculte, double reliquatEstimatifBudgetFaculte);
-
-    public boolean isEqual(BudgetSousProjet bsp, BudgetSousProjet sousProjet);
 
     public BudgetSousProjet findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(String referenceSousProjet, int annee);
 

@@ -48,6 +48,13 @@ public class BudgetProjetRest {
         return budgetProjetConverter.toVo(budgetProjetService.findByBudgetFaculteAnnee(annee));
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        budgetProjetService.deleteById(id);
+    }
+
+    
+    
     public AbstractConverter<BudgetProjet, BudgetProjetVo> getBudgetProjetConverter() {
         return budgetProjetConverter;
     }

@@ -30,7 +30,6 @@ public class BudgetProjet implements Serializable {
     private Long id;
     private String referenceProjet;
     
-    private String libelle;
     @OneToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
 
@@ -57,14 +56,6 @@ public class BudgetProjet implements Serializable {
 
     public void setReferenceProjet(String referenceProjet) {
         this.referenceProjet = referenceProjet;
-    }
-
-    public String getLibelle() {
-        return libelle;
-    }
-
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
     }
 
     public BudgetFaculte getBudgetFaculte() {

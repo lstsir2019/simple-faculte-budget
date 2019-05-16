@@ -22,17 +22,9 @@ public interface BudgetFaculteService {
 
     public BudgetFaculte findById(Long id);
 
-    public int payerBudgetFaculte(int annee, double prix);
-
     public void remove(int annee);
 
-    public int updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte);
-
-    public double getAnticident(BudgetFaculte budgetFaculte);
-
     public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax);
-
-    public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte);
 
     public List<BudgetFaculte> findByAnneeMinAndAnneeMax(Integer anneeMin, Integer anneeMax);
 }

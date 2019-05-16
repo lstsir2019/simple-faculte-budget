@@ -15,7 +15,6 @@ public class BudgetProjetVo {
 
     private Long id;
     private String referenceProjet;
-    private String libelle;
     private DetaillesBudgetVo detaillesBudgetVo;
     private BudgetFaculteVo budgetFaculteVo;
     private List<BudgetSousProjetVo> budgetSousProjetVos;
@@ -36,14 +35,6 @@ public class BudgetProjetVo {
         this.referenceProjet = referenceProjet;
     }
 
-    public String getLibelle() {
-        return libelle;
-    }
-
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
-
     public List<BudgetSousProjetVo> getBudgetSousProjetVos() {
         return budgetSousProjetVos;
     }
@@ -52,7 +43,6 @@ public class BudgetProjetVo {
         this.budgetSousProjetVos = budgetSousProjetVos;
     }
 
-    
     public DetaillesBudgetVo getDetaillesBudgetVo() {
         return detaillesBudgetVo;
     }

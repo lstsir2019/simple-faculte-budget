@@ -197,6 +197,13 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
+    public void deleteById(Long id) {
+        budgetCompteBudgitaireDao.deleteById(id);
+    }
+
+    
+    
+    @Override
     public void removeBcb(String referenceCompteBudgitaire) {
         /*   BudgetCompteBudgitaire bcb = findByReference(referenceCompteBudgitaire);
         BudgetProjet bea = budgetSousProjetService.findByReferenceEntiteAdministratifAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetFaculteAnnee(bcb.getBudgetEntiteAdministratif().getReferenceEntiteAdministratif(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getReferenceSousProjet(), bcb.getBudgetEntiteAdministratif().getBudgetSousProjet().getBudgetFaculte().getAnnee());

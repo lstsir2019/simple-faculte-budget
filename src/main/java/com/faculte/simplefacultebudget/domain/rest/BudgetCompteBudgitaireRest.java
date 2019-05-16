@@ -51,7 +51,7 @@ public class BudgetCompteBudgitaireRest {
         return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByReference(reference));
     }
 
-    @GetMapping("/referenceprojet/{referenceProjet}/referencesousprojet/[referenceSousProjet}/annee/{annee}")
+    @GetMapping("/referenceprojet/{referenceProjet}/referencesousprojet/{referenceSousProjet}/annee/{annee}")
     public List<BudgetCompteBudgitaireVo> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(@PathVariable String referenceProjet, @PathVariable String referenceSousProjet, @PathVariable int annee) {
         return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee));
     }
@@ -61,6 +61,11 @@ public class BudgetCompteBudgitaireRest {
         budgetCompteBudgitaireService.removeBcb(referenceCompteBudgitaire);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        budgetCompteBudgitaireService.deleteById(id);
+    }
+
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
         return budgetCompteBudgitaireService;
     }
@@ -68,4 +73,5 @@ public class BudgetCompteBudgitaireRest {
     public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
         this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
     }
+
 }

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/budget-api/budget-facultes")
 @CrossOrigin(origins = "http://localhost:4200")
-@RestController()
+@RestController
 public class BudgetFaculteRest {
 
     @Autowired
@@ -53,6 +53,7 @@ public class BudgetFaculteRest {
         return new BudgetFaculteConverter().toVo(myBf);
     }
 
+    
     @PostMapping("/")
     public int creerBudgetFaculte(@RequestBody BudgetFaculteVo budgetFaculteVo) {
         BudgetFaculte myBudgetFaculte = budgetFaculteConverter.toItem(budgetFaculteVo);
@@ -68,8 +69,7 @@ public class BudgetFaculteRest {
 //    public int updateBudgetFaculte(@PathVariable int annee, @RequestBody BudgetFaculteVo budgetFaculte) {
 //        return budgetFaculteService.updateBudgetFaculte(annee, budgetFaculteConverter.toItem(budgetFaculte));
 //    }
-//    
-
+    
     @PostMapping("/anneemin/anneemax/")
     public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(Integer anneeMin,Integer anneeMax) {
         return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeMinAndAnneeMax(anneeMin, anneeMax));

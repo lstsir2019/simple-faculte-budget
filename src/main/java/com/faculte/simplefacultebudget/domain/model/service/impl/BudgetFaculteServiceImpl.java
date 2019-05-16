@@ -46,59 +46,10 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
-    public int payerBudgetFaculte(int annee, double prix) {
-        BudgetFaculte bf = findByAnnee(annee);
-        if (bf == null) {
-            return -1;
-        } else {
-            double nvnonpaye = bf.getDetaillesBudget().getEngageNonPaye() - prix;
-            double nvpaye = bf.getDetaillesBudget().getEngagePaye() + prix;
-
-            double nvRelPayEst = bf.getDetaillesBudget().getCreditOuvertEstimatif() - nvpaye;
-            double nvRelPayRel = bf.getDetaillesBudget().getCreditOuvertReel() - nvpaye;
-            double nvRelNPyEst = bf.getDetaillesBudget().getCreditOuvertEstimatif() - nvnonpaye;
-            double nvRelNPyRel = bf.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
-
-            bf.getDetaillesBudget().setEngagePaye(nvpaye);
-
-            bf.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
-
-            bf.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
-
-            bf.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
-
-            bf.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
-
-            bf.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
-
-            budgetFaculteDao.save(bf);
-
-            return 1;
-        }
-    }
-
-    @Override
-    public int updateBudgetFaculte(BudgetFaculte bfFound, BudgetFaculte budgetFaculte) {
-        double ReelConsomer = bfFound.getDetaillesBudget().getCreditOuvertReel() - bfFound.getDetaillesBudget().getReliquatReel();
-        double EstimatifConsomer = bfFound.getDetaillesBudget().getCreditOuvertEstimatif() - bfFound.getDetaillesBudget().getReliquatEstimatif();
-        if (budgetFaculte.getDetaillesBudget().getCreditOuvertReel() < ReelConsomer
-                || budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif() < EstimatifConsomer) {
-
-            return -1;
-        } else {
-            bfFound.getDetaillesBudget().setCreditOuvertEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif());
-            bfFound.getDetaillesBudget().setCreditOuvertReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel());
-            bfFound.getDetaillesBudget().setEngagePaye(budgetFaculte.getDetaillesBudget().getEngagePaye());
-            bfFound.getDetaillesBudget().setEngageNonPaye(budgetFaculte.getDetaillesBudget().getEngageNonPaye());
-            bfFound.getDetaillesBudget().setReliquatReel(budgetFaculte.getDetaillesBudget().getCreditOuvertReel() - EstimatifConsomer);
-            bfFound.getDetaillesBudget().setReliquatEstimatif(budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif() - ReelConsomer);
-            budgetFaculteDao.save(bfFound);
-            return 1;
-        }
-    }
-
-    @Override
     public int creerBudgetFaculte(BudgetFaculte budgetFaculte) {
+        if (Integer.toString(budgetFaculte.getAnnee()).length() <= 3) {
+            return -1;
+        }
         BudgetFaculte bf = findByAnnee(budgetFaculte.getAnnee());
         if (bf != null) {
             budgetFaculte.setId(bf.getId());
@@ -148,15 +99,6 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         this.budgetFaculteDao = budgetFaculteDao;
     }
 
-    @Override
-    public double getAnticident(BudgetFaculte budgetFaculte) {
-        BudgetFaculte bfOld = findByAnnee(budgetFaculte.getAnnee() - 1);
-        if (bfOld != null) {
-            return bfOld.getDetaillesBudget().getReliquatReel();
-        } else {
-            return 0D;
-        }
-    }
 
     @Override
     public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax) {
@@ -175,11 +117,4 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
         return query;
     }
 
-    @Override
-    public boolean isEqual(BudgetFaculte bf, BudgetFaculte budgetFaculte) {
-        return bf.getDetaillesBudget().getCreditOuvertEstimatif() == budgetFaculte.getDetaillesBudget().getCreditOuvertEstimatif()
-                && bf.getDetaillesBudget().getCreditOuvertReel() == budgetFaculte.getDetaillesBudget().getCreditOuvertReel()
-                && bf.getDetaillesBudget().getEngagePaye() == budgetFaculte.getDetaillesBudget().getEngagePaye()
-                && bf.getDetaillesBudget().getEngageNonPaye() == budgetFaculte.getDetaillesBudget().getEngageNonPaye();
-    }
 }
