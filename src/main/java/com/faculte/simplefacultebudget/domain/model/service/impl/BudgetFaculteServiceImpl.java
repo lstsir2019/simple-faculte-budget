@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -72,6 +73,11 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     }
 
     @Override
+    public List<BudgetFaculte> findAll() {
+        return budgetFaculteDao.findAll(new Sort(Sort.Direction.DESC, "annee"));
+    }
+
+    @Override
     public void save(BudgetFaculte budgetFaculte) {
         budgetFaculteDao.save(budgetFaculte);
     }
@@ -98,7 +104,6 @@ public class BudgetFaculteServiceImpl implements BudgetFaculteService {
     public void setBudgetFaculteDao(BudgetFaculteDao budgetFaculteDao) {
         this.budgetFaculteDao = budgetFaculteDao;
     }
-
 
     @Override
     public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax) {

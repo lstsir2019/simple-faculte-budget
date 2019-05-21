@@ -47,13 +47,17 @@ public class BudgetFaculteRest {
         this.budgetFaculteService = budgetFaculteService;
     }
 
+    @GetMapping("/")
+    public List<BudgetFaculteVo> findAll() {
+        return budgetFaculteConverter.toVo(budgetFaculteService.findAll());
+    }
+
     @GetMapping("/annee/{annee}")
     public BudgetFaculteVo findByAnnee(@PathVariable int annee) {
         BudgetFaculte myBf = budgetFaculteService.findByAnnee(annee);
         return new BudgetFaculteConverter().toVo(myBf);
     }
 
-    
     @PostMapping("/")
     public int creerBudgetFaculte(@RequestBody BudgetFaculteVo budgetFaculteVo) {
         BudgetFaculte myBudgetFaculte = budgetFaculteConverter.toItem(budgetFaculteVo);
@@ -69,9 +73,8 @@ public class BudgetFaculteRest {
 //    public int updateBudgetFaculte(@PathVariable int annee, @RequestBody BudgetFaculteVo budgetFaculte) {
 //        return budgetFaculteService.updateBudgetFaculte(annee, budgetFaculteConverter.toItem(budgetFaculte));
 //    }
-    
     @PostMapping("/anneemin/anneemax/")
-    public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(Integer anneeMin,Integer anneeMax) {
+    public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(Integer anneeMin, Integer anneeMax) {
         return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeMinAndAnneeMax(anneeMin, anneeMax));
     }
 

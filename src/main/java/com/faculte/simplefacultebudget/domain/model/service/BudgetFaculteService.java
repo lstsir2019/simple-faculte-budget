@@ -22,6 +22,8 @@ public interface BudgetFaculteService {
 
     public BudgetFaculte findById(Long id);
 
+    public List<BudgetFaculte> findAll();
+
     public void remove(int annee);
 
     public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax);
