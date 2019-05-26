@@ -56,11 +56,6 @@ public class BudgetCompteBudgitaireRest {
         return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee));
     }
 
-    @DeleteMapping("/referenceCompteBudgitaire/{referenceCompteBudgitaire}")
-    public void removeBcb(@PathVariable("referenceCompteBudgitaire") String referenceCompteBudgitaire) {
-        budgetCompteBudgitaireService.removeBcb(referenceCompteBudgitaire);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         budgetCompteBudgitaireService.deleteById(id);

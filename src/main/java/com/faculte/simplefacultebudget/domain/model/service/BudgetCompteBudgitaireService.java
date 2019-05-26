@@ -19,15 +19,7 @@ public interface BudgetCompteBudgitaireService {
 
     public int payerBCB(String code);
 
-    public void removeBcb(String referenceCompteBudgitaire);
-
     public void deleteById(Long id);
-
-    public double getAnticident(String code, String refEa, String refBsp, int annee);
-
-    public int updateBudgetCompteBudgitaire(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire budgetCompteBudgitaire, double nvReliquatReelBudgetEntiteAdministratif, double nvReliquatEstimatifBudgetEntiteAdministratif);
-
-    public boolean isEqual(BudgetCompteBudgitaire bcb, BudgetCompteBudgitaire compteBudgitaire);
 
     public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceProjet, String referenceSousProjet, int annee);
 

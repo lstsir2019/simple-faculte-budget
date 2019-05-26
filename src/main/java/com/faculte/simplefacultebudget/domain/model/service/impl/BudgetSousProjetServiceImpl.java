@@ -127,13 +127,19 @@ public class BudgetSousProjetServiceImpl implements BudgetSousProjetService {
         });
         double reliquatEstimatif = 0D;
         double reliquatReel = 0D;
+        double engageNonPaye = 0D;
+        double engagePaye = 0D;
         for (BudgetSousProjet budgetSousProjet : budgetSousProjets) {
             reliquatEstimatif += budgetSousProjet.getDetaillesBudget().getCreditOuvertEstimatif();
             reliquatReel += budgetSousProjet.getDetaillesBudget().getCreditOuvertReel();
+            engageNonPaye += budgetSousProjet.getDetaillesBudget().getEngageNonPaye();
+            engagePaye += budgetSousProjet.getDetaillesBudget().getEngagePaye();
         }
         budgetProjet.setBudgetSousProjets(budgetSousProjets);
         budgetProjet.getDetaillesBudget().setReliquatReel(reliquatReel);
         budgetProjet.getDetaillesBudget().setReliquatEstimatif(reliquatEstimatif);
+        budgetProjet.getDetaillesBudget().setEngageNonPaye(engageNonPaye);
+        budgetProjet.getDetaillesBudget().setEngagePaye(engagePaye);
 
     }
 

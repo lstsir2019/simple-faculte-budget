@@ -91,13 +91,19 @@ public class BudgetProjetServiceImpl implements BudgetProjetService {
         });
         double reliquatEstimatif = 0D;
         double reliquatReel = 0D;
+        double engageNonPaye = 0D;
+        double engagePaye = 0D;
         for (BudgetProjet budgetProjet : budgetProjets) {
             reliquatEstimatif += budgetProjet.getDetaillesBudget().getCreditOuvertEstimatif();
             reliquatReel += budgetProjet.getDetaillesBudget().getCreditOuvertReel();
+            engageNonPaye += budgetProjet.getDetaillesBudget().getEngageNonPaye();
+            engagePaye += budgetProjet.getDetaillesBudget().getEngagePaye();
         }
         budgetFaculte.setBudgetProjets(budgetProjets);
         budgetFaculte.getDetaillesBudget().setReliquatReel(reliquatReel);
         budgetFaculte.getDetaillesBudget().setReliquatEstimatif(reliquatEstimatif);
+        budgetFaculte.getDetaillesBudget().setEngageNonPaye(engageNonPaye);
+        budgetFaculte.getDetaillesBudget().setEngagePaye(engagePaye);
     }
 
     public BudgetProjetService getBudgetProjetService() {
