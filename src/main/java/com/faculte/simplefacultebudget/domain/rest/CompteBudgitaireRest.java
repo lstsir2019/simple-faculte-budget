@@ -42,8 +42,8 @@ public class CompteBudgitaireRest {
     }
 
     @PostMapping("/")
-    public void creerCompteBudgitaire(@RequestBody CompteBudgitaire compteBudgitaire) {
-        compteBudgitaireService.compteBudgitaireSave(compteBudgitaire);
+    public CompteBudgitaireVo creerCompteBudgitaire(@RequestBody CompteBudgitaire compteBudgitaire) {
+        return compteBudgitaireConverter.toVo(compteBudgitaireService.compteBudgitaireSave(compteBudgitaire));
     }
 
     @DeleteMapping("/code/{code}")
