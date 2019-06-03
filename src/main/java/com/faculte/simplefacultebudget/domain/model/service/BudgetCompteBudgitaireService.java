@@ -17,8 +17,6 @@ public interface BudgetCompteBudgitaireService {
 
     public int createBudgetCompteBudgitaire(BudgetSousProjet budgetSousProjet, List<BudgetCompteBudgitaire> budgetCompteBudgitaires);
 
-    public int payerBCB(String code);
-
     public void deleteById(Long id);
 
     public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceProjet, String referenceSousProjet, int annee);
@@ -36,6 +34,8 @@ public interface BudgetCompteBudgitaireService {
     public BudgetCompteBudgitaire removebudgetCompteBudgitaire(String codeCompteBudgitaire, String referenceSousProjet, int annee);
 
     public BudgetCompteBudgitaire findByReference(String reference);
+
+    public Long countByCompteBudgitaireCode(String code);
 
     public void calculeDetaillesbudgetCompteBudgitaire(BudgetSousProjet bsp);
 }

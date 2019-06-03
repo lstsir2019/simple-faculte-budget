@@ -18,7 +18,7 @@ public interface CompteBudgitaireService {
 
     public CompteBudgitaire compteBudgitaireSave(CompteBudgitaire compteBudgitaire);
 
-    public int payerCB(String code,int annee);
+    public int removeByCode(String code);
 
     public List<CompteBudgitaire> findAll();
 

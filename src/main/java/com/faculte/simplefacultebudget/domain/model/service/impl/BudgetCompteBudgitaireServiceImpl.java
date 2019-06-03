@@ -6,8 +6,6 @@
 package com.faculte.simplefacultebudget.domain.model.service.impl;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
-import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
-import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.bean.CompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.model.dao.BudgetCompteBudgitaireDao;
@@ -21,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetProjetService;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import java.util.ArrayList;
 
 /**
@@ -49,35 +48,6 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     private BudgetSousProjetService budgetSousProjetService;
 
     private static final Logger log = LoggerFactory.getLogger(BudgetCompteBudgitaireServiceImpl.class);
-
-    @Override
-    public int payerBCB(String code) {
-        BudgetCompteBudgitaire bcb = findByCompteBudgitaireCode(code);
-        if (bcb == null) {
-            return -1;
-        } else if (bcb.getDetaillesBudget().getEngageNonPaye() == 0) {
-            return -2;
-        } else {
-            double nvpaye = bcb.getDetaillesBudget().getEngageNonPaye();
-            double nvnonpaye = bcb.getDetaillesBudget().getEngagePaye();
-
-            double nvRelPayEst = bcb.getDetaillesBudget().getCreditOuvertEstimatif() - nvpaye;
-            double nvRelPayRel = bcb.getDetaillesBudget().getCreditOuvertReel() - nvpaye;
-            double nvRelNPyEst = bcb.getDetaillesBudget().getCreditOuvertEstimatif() - nvnonpaye;
-            double nvRelNPyRel = bcb.getDetaillesBudget().getCreditOuvertReel() - nvnonpaye;
-
-            bcb.getDetaillesBudget().setEngagePaye(nvpaye);
-            bcb.getDetaillesBudget().setEngageNonPaye(nvnonpaye);
-            bcb.getDetaillesBudget().setReliquatPayeEstimatif(nvRelPayEst);
-            bcb.getDetaillesBudget().setReliquatPayereel(nvRelPayRel);
-            bcb.getDetaillesBudget().setReliquatNonPayeEstimatif(nvRelNPyEst);
-            bcb.getDetaillesBudget().setReliquatNonPayReel(nvRelNPyRel);
-
-            budgetCompteBudgitaireDao.save(bcb);
-            //    budgetSousProjetService.payerBudgetEA(bcb.getBudgetSousProjet(), nvpaye);
-            return 1;
-        }
-    }
 
     @Override
     public int createBudgetCompteBudgitaire(BudgetSousProjet budgetSousProjet, List<BudgetCompteBudgitaire> budgetCompteBudgitaires) {
@@ -178,7 +148,10 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
         budgetCompteBudgitaireDao.deleteById(id);
     }
 
-  
+    @Override
+    public Long countByCompteBudgitaireCode(String code) {
+        return budgetCompteBudgitaireDao.countByCompteBudgitaireCode(code);
+    }
 
     @Override
     public List<BudgetCompteBudgitaire> findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String referenceProjet, String referenceSousProjet, int annee) {

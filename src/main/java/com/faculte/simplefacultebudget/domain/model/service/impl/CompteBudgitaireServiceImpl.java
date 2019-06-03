@@ -55,15 +55,19 @@ public class CompteBudgitaireServiceImpl implements CompteBudgitaireService {
         return compteBudgitaireDao.findAll();
     }
 
-    
     @Override
-    public int payerCB(String code, int annee) {
-        CompteBudgitaire cb = findByCode(code);
-        if (cb == null) {
+    public int removeByCode(String code) {
+        CompteBudgitaire compteBudgitaire = findByCode(code);
+        if (compteBudgitaire == null) {
             return -1;
         } else {
-            budgetCompteBudgitaireService.payerBCB(code);
-            return 1;
+            Long number = budgetCompteBudgitaireService.countByCompteBudgitaireCode(code);
+            if (number != null && number > 0) {
+                return -2;
+            } else {
+                compteBudgitaireDao.delete(compteBudgitaire);
+                return 1;
+            }
         }
     }
 
