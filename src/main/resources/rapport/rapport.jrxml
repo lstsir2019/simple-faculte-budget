@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="058e518c-464e-4666-a1bc-b681372e3fe3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="annee" class="java.lang.String"/>
+	<parameter name="parameter2" class="java.lang.String"/>
+	<parameter name="parameter3" class="java.lang.String"/>
+	<field name="creditOuvertEstimatif" class="java.lang.String"/>
+	<field name="creditOuvertReel" class="java.lang.String"/>
+	<field name="engagePaye" class="java.lang.String"/>
+	<field name="engageNonPaye" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="libelle" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="116" splitType="Stretch">
+			<image>
+				<reportElement x="119" y="0" width="316" height="116" uuid="79dade05-a70f-4a07-aac4-42148cbf6504"/>
+				<imageExpression><![CDATA["C:\\Users\\gouss\\Desktop\\Dessin12.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="192" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="35" y="101" width="84" height="43" backcolor="#FFCC99" uuid="0729602b-3350-4d26-894d-29ed30507fc6"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Annee:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="16" width="267" height="35" backcolor="#CCCCCC" uuid="09d153ef-51fd-4dec-a038-540b818a45c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ RAPPORT]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="-22" y="16" width="162" height="35" isRemoveLineWhenBlank="true" forecolor="#F0F0F0" backcolor="#FF9900" uuid="13e2655f-85a7-4f16-a253-61ce7f6a0946"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="407" y="16" width="167" height="35" isRemoveLineWhenBlank="true" forecolor="#F0F0F0" backcolor="#FF9900" uuid="579f83c5-095d-4514-b59a-a2fa32767c3f"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="71" y="0" width="155" height="32" backcolor="#CCCCCC" uuid="5520f5c4-8224-4706-96ef-17b8c7963e26"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Libelle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="484" y="0" width="86" height="32" backcolor="#CCCCCC" uuid="ea4897ae-7f9d-453a-b4c7-6f34e849a90e"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="398" y="0" width="86" height="32" backcolor="#CCCCCC" uuid="c9e8fd15-2c59-4758-956a-c58e725a53a8"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="312" y="0" width="86" height="32" backcolor="#CCCCCC" uuid="4263af14-63e7-4c02-990e-ae93527dadca"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="226" y="0" width="86" height="32" backcolor="#CCCCCC" uuid="8ca0a07c-631f-4559-9a62-26fdd5f0e309"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="-11" y="0" width="82" height="32" backcolor="#CCCCCC" uuid="0c83f243-f717-4ed0-a9ce-b2c169404ee7"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[code]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="-11" y="0" width="82" height="20" uuid="b330e64d-711c-482b-b2ce-5fd28260d637"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="0" width="155" height="20" uuid="5a864d79-d4d4-42c9-90d9-d45dfde264bb"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{libelle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="0" width="86" height="20" uuid="bb2456a0-f5f6-44b0-8a9e-84aff0b19a2e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{creditOuvertEstimatif}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="0" width="86" height="20" uuid="f980917b-a663-437b-a696-0df98af65706"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{creditOuvertReel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="0" width="86" height="20" uuid="b518f286-2633-486e-8151-8b8ad7aac42e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{engagePaye}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="484" y="0" width="86" height="20" uuid="9f15c2bb-9b2d-438a-9697-42976613759f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{engageNonPaye}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement x="407" y="17" width="100" height="20" uuid="e384f630-0c1c-4f9b-b710-953942539e67"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Signature:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="83" width="574" height="6" isRemoveLineWhenBlank="true" forecolor="#F0F0F0" backcolor="#FF9900" uuid="0c37c6cf-48b0-441e-a941-eddfe084f516"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-22" y="83" width="22" height="6" forecolor="#F0F0F0" backcolor="#666666" uuid="3b5d27bf-810b-4bb9-85e7-2680472f9f2b"/>
+			</rectangle>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="caebb853-55b9-4442-a4b7-3f0a40bd750f"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Faculté des Sciences et Techniques]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="45" uuid="26ec4654-a465-42ec-8584-25db3391beed"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[ B.P 549, Av.Abdelkarim Elkhattabi, Guéliz Marrakech
+  Tél : (+212) 524 43 34 04  Fax: (+212) 524 43 31 70 ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch"/>
+	</summary>
+</jasperReport>
