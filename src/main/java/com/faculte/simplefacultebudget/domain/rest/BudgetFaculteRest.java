@@ -5,14 +5,22 @@
  */
 package com.faculte.simplefacultebudget.domain.rest;
 
+import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.bean.BudgetFaculte;
+import com.faculte.simplefacultebudget.domain.common.pdf.GeneratePdf;
+import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetFaculteService;
 import com.faculte.simplefacultebudget.domain.res.converter.AbstractConverter;
 import com.faculte.simplefacultebudget.domain.res.converter.BudgetFaculteConverter;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetFaculteVo;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,10 +42,22 @@ public class BudgetFaculteRest {
 
     @Autowired
     private BudgetFaculteService budgetFaculteService;
+    @Autowired
+    private BudgetCompteBudgitaireService budgetCompteBudgitaireService;
 
     @Autowired
     @Qualifier("budgetFaculteConverter")
     private AbstractConverter<BudgetFaculte, BudgetFaculteVo> budgetFaculteConverter;
+
+    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
+        return budgetCompteBudgitaireService;
+    }
+
+    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
+        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
+    }
+    
+    
 
     public BudgetFaculteService getBudgetFaculteService() {
         return budgetFaculteService;
@@ -76,6 +96,26 @@ public class BudgetFaculteRest {
     @PostMapping("/anneemin/anneemax/")
     public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(Integer anneeMin, Integer anneeMax) {
         return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeMinAndAnneeMax(anneeMin, anneeMax));
+    }
+    
+         @GetMapping("/pdf/faculte/annee/{annee}")
+    public ResponseEntity<Object> reportFaculte(@PathVariable int annee)throws JRException, IOException{
+        Map<String,Object> params=new HashMap<>();
+         
+     BudgetFaculte bf=budgetFaculteService.findByAnnee(annee);
+      List<BudgetCompteBudgitaire> bcbs=budgetCompteBudgitaireService.findDetaillesBudgetByAnne(annee);
+     
+        
+        params.put("annee", bf.getAnnee());
+        params.put("coe",bf.getDetaillesBudget().getCreditOuvertEstimatif());
+      
+        params.put("cor",bf.getDetaillesBudget().getCreditOuvertReel());
+        params.put("ep", bf.getDetaillesBudget().getEngagePaye());
+        params.put("enp",bf.getDetaillesBudget().getEngageNonPaye());
+        params.put("type", "");
+        params.put("name", "");
+        
+        return GeneratePdf.generate("raport", params,bcbs, "/rapport/rapport.jasper");
     }
 
 }

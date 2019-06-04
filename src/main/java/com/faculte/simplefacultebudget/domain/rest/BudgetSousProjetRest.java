@@ -5,13 +5,22 @@
  */
 package com.faculte.simplefacultebudget.domain.rest;
 
+import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
+import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
+import com.faculte.simplefacultebudget.domain.common.pdf.GeneratePdf;
+import com.faculte.simplefacultebudget.domain.model.service.BudgetCompteBudgitaireService;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import com.faculte.simplefacultebudget.domain.res.converter.AbstractConverter;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetSousProjetVo;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +40,8 @@ public class BudgetSousProjetRest {
 
     @Autowired
     private BudgetSousProjetService budgetSousProjetService;
+    @Autowired
+    private BudgetCompteBudgitaireService budgetCompteBudgitaireService;
 
     @Autowired
     @Qualifier("budgetSousProjetConverter")
@@ -63,6 +74,26 @@ public class BudgetSousProjetRest {
         return budgetSousProjetConverter.toVo(budgetSousProjetService.findByBudgetFaculteAnneeOrBudgetFaculteAnnee(anneeMin, anneeMax));
     }
 
+    @GetMapping("/pdf/sous-projet/referenceProjet/{referenceProjet}/referenceSousProjet/{referenceSousProjet}/annee/{annee}")
+    public ResponseEntity<Object> reportFaculte(@PathVariable String referenceProjet, @PathVariable String referenceSousProjet, @PathVariable int annee) throws JRException, IOException {
+        Map<String, Object> params = new HashMap<>();
+
+        BudgetSousProjet budgetSousProjet = budgetSousProjetService.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
+
+        List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee);
+
+        params.put("annee", budgetSousProjet.getBudgetProjet().getBudgetFaculte().getAnnee());
+        params.put("coe", budgetSousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
+
+        params.put("cor", budgetSousProjet.getDetaillesBudget().getCreditOuvertReel());
+        params.put("ep", budgetSousProjet.getDetaillesBudget().getEngagePaye());
+        params.put("enp", budgetSousProjet.getDetaillesBudget().getEngageNonPaye());
+        params.put("type", "Reference-Sous-Projet:");
+        params.put("name", budgetSousProjet.getReferenceSousProjet());
+
+        return GeneratePdf.generate("raport", params, bcbs, "/rapport/rapport.jasper");
+    }
+
     public BudgetSousProjetService getBudgetSousProjetService() {
         return budgetSousProjetService;
     }
@@ -78,4 +109,13 @@ public class BudgetSousProjetRest {
     public void setBudgetSousProjetConverter(AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> budgetSousProjetConverter) {
         this.budgetSousProjetConverter = budgetSousProjetConverter;
     }
+
+    public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
+        return budgetCompteBudgitaireService;
+    }
+
+    public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
+        this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
+    }
+
 }

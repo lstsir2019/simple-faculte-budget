@@ -20,6 +20,8 @@ public interface BudgetProjetService {
     public List<BudgetProjet> findByBudgetFaculteAnnee(int annee);
 
     public void deleteById(Long id);
+    
+    public BudgetProjet findById(Long id);
 
     public void save(BudgetProjet budgetProjet);
 

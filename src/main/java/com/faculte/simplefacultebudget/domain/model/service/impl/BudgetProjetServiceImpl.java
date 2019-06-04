@@ -106,6 +106,11 @@ public class BudgetProjetServiceImpl implements BudgetProjetService {
         budgetFaculte.getDetaillesBudget().setEngagePaye(engagePaye);
     }
 
+    @Override
+    public BudgetProjet findById(Long id) {
+        return budgetProjetDao.getOne(id);
+    }
+
     public BudgetProjetService getBudgetProjetService() {
         return budgetProjetService;
     }
