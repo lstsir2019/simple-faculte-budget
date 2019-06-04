@@ -61,6 +61,16 @@ public class BudgetCompteBudgitaireRest {
         budgetCompteBudgitaireService.deleteById(id);
     }
 
+    @GetMapping("/detailles/annee/{annee}")
+    public List<BudgetCompteBudgitaireVo> findDetaillesBudgetByAnne(@PathVariable int annee) {
+        return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findDetaillesBudgetByAnne(annee));
+    }
+
+    @GetMapping("/detailles/budgetprojet/{id}")
+    public List<BudgetCompteBudgitaireVo> findDetaillesBudgetByProjet(@PathVariable Long id) {
+        return budgetCompteBudgitaireConverter.toVo(budgetCompteBudgitaireService.findDetaillesBudgetByProjet(id));
+    }
+
     public BudgetCompteBudgitaireService getBudgetCompteBudgitaireService() {
         return budgetCompteBudgitaireService;
     }

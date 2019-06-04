@@ -33,9 +33,15 @@ public interface BudgetCompteBudgitaireDao extends JpaRepository<BudgetCompteBud
 
     public BudgetCompteBudgitaire findByReference(String reference);
 
-    @Query("SELECT new com.faculte.simplefacultebudget.domain.bean.DetaillesBudget(SUM(bcb.detaillesBudget.creditOuvertEstimatif), SUM(bcb.detaillesBudget.creditOuvertReel), SUM(bcb.detaillesBudget.reliquatEstimatif), SUM(bcb.detaillesBudget.reliquatReel), SUM(bcb.detaillesBudget.engageNonPaye), SUM( bcb.detaillesBudget.engagePaye), SUM( bcb.detaillesBudget.reliquatPayeEstimatif), SUM( bcb.detaillesBudget.reliquatPayereel), SUM( bcb.detaillesBudget.reliquatNonPayeEstimatif), SUM(bcb.detaillesBudget.reliquatNonPayReel)) From BudgetCompteBudgitaire bcb Where bcb.compteBudgitaire.code=?1 and budgetSousProjet.budgetProjet.budgetFaculte.annee=?2")
-    public DetaillesBudget findDetaillesBudgetByCompteBudgitaireAndAnne(String code, int annee);
+    @Query("SELECT new BudgetCompteBudgitaire(bcb.compteBudgitaire,SUM(bcb.detaillesBudget.creditOuvertReel), SUM( bcb.detaillesBudget.creditOuvertEstimatif),SUM(bcb.detaillesBudget.engagePaye),SUM(bcb.detaillesBudget.engageNonPaye)) From BudgetCompteBudgitaire bcb Where bcb.budgetSousProjet.budgetProjet.budgetFaculte.annee=?1 GROUP BY bcb.compteBudgitaire.code")
+    public List<BudgetCompteBudgitaire> findDetaillesBudgetByAnne(int annee);
 
+    @Query("SELECT new BudgetCompteBudgitaire(bcb.compteBudgitaire,SUM(bcb.detaillesBudget.creditOuvertReel), SUM( bcb.detaillesBudget.creditOuvertEstimatif),SUM(bcb.detaillesBudget.engagePaye),SUM(bcb.detaillesBudget.engageNonPaye)) From BudgetCompteBudgitaire bcb Where bcb.budgetSousProjet.budgetProjet.id=?1 GROUP BY bcb.compteBudgitaire.code")
+    public List<BudgetCompteBudgitaire> findDetaillesBudgetByProjet(Long id);
+
+    // @Query("SELECT new com.faculte.simplefacultebudget.domain.bean.DetaillesBudget(SUM(bcb.detaillesBudget.creditOuvertEstimatif), SUM(bcb.detaillesBudget.creditOuvertReel), SUM(bcb.detaillesBudget.reliquatEstimatif), SUM(bcb.detaillesBudget.reliquatReel), SUM(bcb.detaillesBudget.engageNonPaye), SUM( bcb.detaillesBudget.engagePaye), SUM( bcb.detaillesBudget.reliquatPayeEstimatif), SUM( bcb.detaillesBudget.reliquatPayereel), SUM( bcb.detaillesBudget.reliquatNonPayeEstimatif), SUM(bcb.detaillesBudget.reliquatNonPayReel)) From BudgetCompteBudgitaire bcb Where bcb.compteBudgitaire.code=?1 and budgetSousProjet.budgetProjet.budgetFaculte.annee=?2")
+    //   @Query("SELECT new DetaillesBudget(SUM(bcb.detaillesBudget.creditOuvertEstimatif), SUM(bcb.detaillesBudget.creditOuvertReel), SUM(bcb.detaillesBudget.reliquatEstimatif), SUM(bcb.detaillesBudget.reliquatReel), SUM(bcb.detaillesBudget.engageNonPaye), SUM( bcb.detaillesBudget.engagePaye), SUM( bcb.detaillesBudget.reliquatPayeEstimatif), SUM( bcb.detaillesBudget.reliquatPayereel), SUM( bcb.detaillesBudget.reliquatNonPayeEstimatif), SUM(bcb.detaillesBudget.reliquatNonPayReel)) From BudgetCompteBudgitaire bcb Where bcb.compteBudgitaire.code=?1 and budgetSousProjet.budgetProjet.budgetFaculte.annee=?2")
+    //  public List<BudgetCompteBudgitaire> findDetaillesByProjet(String code, int annee);
     public Long countByCompteBudgitaireCode(String code);
 //    public BudgetCompteBudgitaire findByCompteBudgitaireCodeAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(String codeCompteBudgitaire,String referenceSousProjet, int annee);
 

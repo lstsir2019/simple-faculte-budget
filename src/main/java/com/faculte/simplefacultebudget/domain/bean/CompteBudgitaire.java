@@ -34,7 +34,7 @@ public class CompteBudgitaire implements Serializable {
     private List<BudgetCompteBudgitaire> budgetCompteBudgitaires;
     
     
-
+    
     public Long getId() {
         return id;
     }

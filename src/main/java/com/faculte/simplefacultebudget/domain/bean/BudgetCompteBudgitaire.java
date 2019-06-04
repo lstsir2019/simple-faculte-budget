@@ -27,15 +27,23 @@ public class BudgetCompteBudgitaire implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String reference;
-   
+
     @ManyToOne(cascade = {CascadeType.ALL})
     private DetaillesBudget detaillesBudget;
 
     @ManyToOne
     private CompteBudgitaire compteBudgitaire;
-   
+
     @ManyToOne
     private BudgetSousProjet budgetSousProjet;
+
+    public BudgetCompteBudgitaire() {
+    }
+
+    public BudgetCompteBudgitaire(CompteBudgitaire compteBudgitaire, double creditOuvertReel, double creditOuvertEstimatif, double engagePaye, double engageNonPaye) {
+        this.detaillesBudget = new DetaillesBudget(creditOuvertReel, creditOuvertEstimatif, engagePaye, engageNonPaye);
+        this.compteBudgitaire = compteBudgitaire;
+    }
 
     public Long getId() {
         return id;
@@ -52,8 +60,6 @@ public class BudgetCompteBudgitaire implements Serializable {
     public void setReference(String reference) {
         this.reference = reference;
     }
-
-   
 
     public DetaillesBudget getDetaillesBudget() {
         return detaillesBudget;
@@ -78,8 +84,5 @@ public class BudgetCompteBudgitaire implements Serializable {
     public void setBudgetSousProjet(BudgetSousProjet budgetSousProjet) {
         this.budgetSousProjet = budgetSousProjet;
     }
-
-
-
 
 }

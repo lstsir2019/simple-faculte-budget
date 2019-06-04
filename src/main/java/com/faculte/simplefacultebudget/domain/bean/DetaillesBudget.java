@@ -13,7 +13,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author AMINE
+ * @author Anas 
  */
 @Entity
 public class DetaillesBudget implements Serializable {
@@ -34,6 +34,13 @@ public class DetaillesBudget implements Serializable {
     private double reliquatNonPayReel;
 
     public DetaillesBudget() {
+    }
+
+    public DetaillesBudget(double creditOuvertReel, double creditOuvertEstimatif, double engagePaye, double engageNonPaye) {
+        this.creditOuvertEstimatif = creditOuvertEstimatif;
+        this.creditOuvertReel = creditOuvertReel;
+        this.engageNonPaye = engageNonPaye;
+        this.engagePaye = engagePaye;
     }
 
     public DetaillesBudget(double creditOuvertEstimatif, double creditOuvertReel, double reliquatEstimatif, double reliquatReel, double engageNonPaye, double engagePaye, double reliquatPayeEstimatif, double reliquatPayereel, double reliquatNonPayeEstimatif, double reliquatNonPayReel) {

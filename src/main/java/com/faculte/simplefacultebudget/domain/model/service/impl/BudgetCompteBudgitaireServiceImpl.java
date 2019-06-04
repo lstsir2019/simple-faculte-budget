@@ -184,6 +184,16 @@ public class BudgetCompteBudgitaireServiceImpl implements BudgetCompteBudgitaire
     }
 
     @Override
+    public List<BudgetCompteBudgitaire> findDetaillesBudgetByAnne(int annee) {
+        return budgetCompteBudgitaireDao.findDetaillesBudgetByAnne(annee);
+    }
+
+    @Override
+    public List<BudgetCompteBudgitaire> findDetaillesBudgetByProjet(Long id) {
+        return budgetCompteBudgitaireDao.findDetaillesBudgetByProjet(id);
+    }
+
+    @Override
     public BudgetCompteBudgitaire findByReference(String reference) {
         return budgetCompteBudgitaireDao.findByReference(reference);
     }

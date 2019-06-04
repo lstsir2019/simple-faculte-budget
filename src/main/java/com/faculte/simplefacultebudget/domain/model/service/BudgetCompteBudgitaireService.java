@@ -8,6 +8,7 @@ package com.faculte.simplefacultebudget.domain.model.service;
 import com.faculte.simplefacultebudget.domain.bean.BudgetCompteBudgitaire;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -36,6 +37,10 @@ public interface BudgetCompteBudgitaireService {
     public BudgetCompteBudgitaire findByReference(String reference);
 
     public Long countByCompteBudgitaireCode(String code);
+
+    public List<BudgetCompteBudgitaire> findDetaillesBudgetByAnne(int annee);
+
+    public List<BudgetCompteBudgitaire> findDetaillesBudgetByProjet(Long id);
 
     public void calculeDetaillesbudgetCompteBudgitaire(BudgetSousProjet bsp);
 }
