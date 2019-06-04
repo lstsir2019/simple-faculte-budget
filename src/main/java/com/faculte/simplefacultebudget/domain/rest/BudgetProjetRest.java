@@ -7,9 +7,7 @@ package com.faculte.simplefacultebudget.domain.rest;
 
 import com.faculte.simplefacultebudget.domain.bean.BudgetProjet;
 import com.faculte.simplefacultebudget.domain.res.converter.AbstractConverter;
-import com.faculte.simplefacultebudget.domain.rest.proxy.EntiteAdministratifService;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetProjetVo;
-import com.faculte.simplefacultebudget.domain.rest.vo.exchange.EntiteAdministratifVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -8,9 +8,7 @@ package com.faculte.simplefacultebudget.domain.rest;
 import com.faculte.simplefacultebudget.domain.bean.BudgetSousProjet;
 import com.faculte.simplefacultebudget.domain.model.service.BudgetSousProjetService;
 import com.faculte.simplefacultebudget.domain.res.converter.AbstractConverter;
-import com.faculte.simplefacultebudget.domain.rest.proxy.SousProjetService;
 import com.faculte.simplefacultebudget.domain.rest.vo.BudgetSousProjetVo;
-import com.faculte.simplefacultebudget.domain.rest.vo.exchange.SousProjetVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,9 +36,6 @@ public class BudgetSousProjetRest {
     @Qualifier("budgetSousProjetConverter")
     private AbstractConverter<BudgetSousProjet, BudgetSousProjetVo> budgetSousProjetConverter;
 
-    @Autowired
-    private SousProjetService sousProjetService;
-
     @GetMapping("/reference/{reference}/annee/{annee}")
     public BudgetSousProjetVo findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(@PathVariable("reference") String referenceSousProjet, @PathVariable("annee") int annee) {
         BudgetSousProjet myBsp = budgetSousProjetService.findByReferenceSousProjetAndBudgetProjetBudgetFaculteAnnee(referenceSousProjet, annee);
@@ -61,11 +56,6 @@ public class BudgetSousProjetRest {
     @GetMapping("/referenceprojet/{referenceSousProjet}/annee/{annee}")
     public List<BudgetSousProjetVo> findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(@PathVariable("referenceSousProjet") String referenceProjet, @PathVariable("annee") int annee) {
         return budgetSousProjetConverter.toVo(budgetSousProjetService.findByBudgetProjetReferenceProjetAndBudgetProjetBudgetFaculteAnnee(referenceProjet, annee));
-    }
-
-    @GetMapping("/all/sousprojet")
-    public List<SousProjetVo> findAllSousProjet() {
-        return sousProjetService.findAllSousProjet();
     }
 
     @GetMapping("/anneeMin/{anneeMin}/anneeMax/{anneeMax}")
