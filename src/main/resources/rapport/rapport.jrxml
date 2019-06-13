@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="058e518c-464e-4666-a1bc-b681372e3fe3">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="213"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="annee" class="java.lang.Integer"/>
 	<parameter name="type" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -23,7 +23,7 @@
 		<band height="116" splitType="Stretch">
 			<image>
 				<reportElement x="114" y="0" width="316" height="116" uuid="79dade05-a70f-4a07-aac4-42148cbf6504"/>
-				<imageExpression><![CDATA["C:\\Users\\gouss\\Desktop\\Dessin12.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\simple-faculte\\budget\\assets\\image\\fstg.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -83,12 +83,10 @@ public class BudgetSousProjetRest {
         List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findByBudgetSousProjetBudgetProjetReferenceProjetAndBudgetSousProjetReferenceSousProjetAndBudgetSousProjetBudgetProjetBudgetFaculteAnnee(referenceProjet, referenceSousProjet, annee);
 
         params.put("annee", budgetSousProjet.getBudgetProjet().getBudgetFaculte().getAnnee());
-        params.put("coe", budgetSousProjet.getDetaillesBudget().getCreditOuvertEstimatif());
-
-        params.put("cor", budgetSousProjet.getDetaillesBudget().getCreditOuvertReel());
+        params.put("coe", budgetSousProjet.getDetaillesBudget().getReliquatEstimatif());
+        params.put("cor", budgetSousProjet.getDetaillesBudget().getReliquatReel());
         params.put("ep", budgetSousProjet.getDetaillesBudget().getEngagePaye());
         params.put("enp", budgetSousProjet.getDetaillesBudget().getEngageNonPaye());
-        params.put("type", "Reference-Sous-Projet:");
         params.put("name", budgetSousProjet.getReferenceSousProjet());
 
         return GeneratePdf.generate("raport", params, bcbs, "/rapport/rapport.jasper");
