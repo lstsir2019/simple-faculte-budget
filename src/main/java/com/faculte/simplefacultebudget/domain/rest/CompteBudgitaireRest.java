@@ -42,8 +42,10 @@ public class CompteBudgitaireRest {
     }
 
     @PostMapping("/")
-    public CompteBudgitaireVo creerCompteBudgitaire(@RequestBody CompteBudgitaire compteBudgitaire) {
-        return compteBudgitaireConverter.toVo(compteBudgitaireService.compteBudgitaireSave(compteBudgitaire));
+    public CompteBudgitaireVo creerCompteBudgitaire(@RequestBody CompteBudgitaireVo compteBudgitaireVo) {
+        CompteBudgitaire compteBudgitaire = compteBudgitaireConverter.toItem(compteBudgitaireVo);
+        compteBudgitaire = compteBudgitaireService.compteBudgitaireSave(compteBudgitaire);
+        return compteBudgitaireConverter.toVo(compteBudgitaire);
     }
 
     @DeleteMapping("/code/{code}")
@@ -63,5 +65,15 @@ public class CompteBudgitaireRest {
     public void setCompteBudgitaireService(CompteBudgitaireService compteBudgitaireService) {
         this.compteBudgitaireService = compteBudgitaireService;
     }
+
+    public AbstractConverter<CompteBudgitaire, CompteBudgitaireVo> getCompteBudgitaireConverter() {
+        return compteBudgitaireConverter;
+    }
+
+    public void setCompteBudgitaireConverter(AbstractConverter<CompteBudgitaire, CompteBudgitaireVo> compteBudgitaireConverter) {
+        this.compteBudgitaireConverter = compteBudgitaireConverter;
+    }
+
+
 
 }
