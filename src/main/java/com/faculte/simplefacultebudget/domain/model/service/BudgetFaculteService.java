@@ -29,4 +29,6 @@ public interface BudgetFaculteService {
     public List<BudgetFaculte> findByAnneeGreaterThanEqualOrAnneeLessThanEqual(int anneeMin, int anneeMax);
 
     public List<BudgetFaculte> findByAnneeMinAndAnneeMax(Integer anneeMin, Integer anneeMax);
+    
+    
 }

@@ -71,12 +71,12 @@ public class BudgetProjetRest {
         List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findDetaillesBudgetByProjet(id);
 
         params.put("annee", budgetProjet.getBudgetFaculte().getAnnee());
-        params.put("coe", budgetProjet.getDetaillesBudget().getCreditOuvertEstimatif());
+        params.put("coe", budgetProjet.getDetaillesBudget().getReliquatEstimatif());
 
-        params.put("cor", budgetProjet.getDetaillesBudget().getCreditOuvertReel());
+        params.put("cor", budgetProjet.getDetaillesBudget().getReliquatReel());
         params.put("ep", budgetProjet.getDetaillesBudget().getEngagePaye());
         params.put("enp", budgetProjet.getDetaillesBudget().getEngageNonPaye());
-        params.put("type", "Reference-Projet:");
+      
         params.put("name", budgetProjet.getReferenceProjet());
 
         return GeneratePdf.generate("raport", params, bcbs, "/rapport/rapport.jasper");

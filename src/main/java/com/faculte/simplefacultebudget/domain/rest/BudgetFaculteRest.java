@@ -56,8 +56,6 @@ public class BudgetFaculteRest {
     public void setBudgetCompteBudgitaireService(BudgetCompteBudgitaireService budgetCompteBudgitaireService) {
         this.budgetCompteBudgitaireService = budgetCompteBudgitaireService;
     }
-    
-    
 
     public BudgetFaculteService getBudgetFaculteService() {
         return budgetFaculteService;
@@ -97,25 +95,23 @@ public class BudgetFaculteRest {
     public List<BudgetFaculteVo> findByAnneeMinAndAnneeMax(Integer anneeMin, Integer anneeMax) {
         return budgetFaculteConverter.toVo(budgetFaculteService.findByAnneeMinAndAnneeMax(anneeMin, anneeMax));
     }
-    
-         @GetMapping("/pdf/faculte/annee/{annee}")
-    public ResponseEntity<Object> reportFaculte(@PathVariable int annee)throws JRException, IOException{
-        Map<String,Object> params=new HashMap<>();
-         
-     BudgetFaculte bf=budgetFaculteService.findByAnnee(annee);
-      List<BudgetCompteBudgitaire> bcbs=budgetCompteBudgitaireService.findDetaillesBudgetByAnne(annee);
-     
-        
+
+    @GetMapping("/pdf/faculte/annee/{annee}")
+    public ResponseEntity<Object> reportFaculte(@PathVariable int annee) throws JRException, IOException {
+        Map<String, Object> params = new HashMap<>();
+
+        BudgetFaculte bf = budgetFaculteService.findByAnnee(annee);
+        List<BudgetCompteBudgitaire> bcbs = budgetCompteBudgitaireService.findDetaillesBudgetByAnne(annee);
+
         params.put("annee", bf.getAnnee());
-        params.put("coe",bf.getDetaillesBudget().getCreditOuvertEstimatif());
-      
-        params.put("cor",bf.getDetaillesBudget().getCreditOuvertReel());
+        params.put("coe", bf.getDetaillesBudget().getReliquatEstimatif());
+        params.put("cor", bf.getDetaillesBudget().getReliquatReel());
         params.put("ep", bf.getDetaillesBudget().getEngagePaye());
-        params.put("enp",bf.getDetaillesBudget().getEngageNonPaye());
-        params.put("type", "");
-        params.put("name", "");
-        
-        return GeneratePdf.generate("raport", params,bcbs, "/rapport/rapport.jasper");
+        params.put("enp", bf.getDetaillesBudget().getEngageNonPaye());
+
+        params.put("name", "Situation Global");
+
+        return GeneratePdf.generate("raport", params, bcbs, "/rapport/rapport.jasper");
     }
 
 }
